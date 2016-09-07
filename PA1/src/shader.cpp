@@ -1,8 +1,14 @@
 #include "shader.h"
 
-Shader::Shader()
+#include <iostream>
+
+using namespace std;
+
+Shader::Shader( std::string fileNames[] )
 {
   m_shaderProg = 0;
+  shaderFiles[ 0 ] = fileNames[ 0 ];
+  shaderFiles[ 1 ] = fileNames[ 1 ];
 }
 
 Shader::~Shader()

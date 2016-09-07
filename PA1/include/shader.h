@@ -8,7 +8,7 @@
 class Shader
 {
   public:
-    Shader();
+    Shader( std::string fileNames[] );
     ~Shader();
     bool Initialize();
     void Enable();
@@ -19,6 +19,7 @@ class Shader
   private:
     GLuint m_shaderProg;    
     std::vector<GLuint> m_shaderObjList;
+    std::string shaderFiles[ 2 ];
 };
 
 #endif  /* SHADER_H */

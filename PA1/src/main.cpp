@@ -20,14 +20,14 @@ bool checkEndsWith( const string& testString, const string& endStr );
 int main(int argc, char **argv)
 {
     // Initialize program/variables
-    string inputInfo[ 3 ];
+    string inputInfo[ 2 ];
   
     // Check if shaders were specified correctly
     if( validateInput( argc, argv, inputInfo ) )
     {
         // Start an engine and run it then cleanup after
         Engine *engine = new Engine("Tutorial Window Name", 800, 600);
-        if(!engine->Initialize())
+        if(!engine->Initialize( inputInfo ))
         {
           printf("The engine failed to start.\n");
           delete engine;
@@ -142,12 +142,10 @@ bool validateInput( int numArgs, char **inputStrings, string inputData[] )
         // Load vertex shader filename into first element of output array
         tempIterator = find( inputArgs.begin(), inputArgs.end(), "-v" );
         inputData[ 0 ] = *( next(tempIterator ) );
-        cout << inputData[ 0 ] << endl;
         
         // Load fragment shader filename into second element of output array
         tempIterator = find( inputArgs.begin(), inputArgs.end(), "-f" );
         inputData[ 1 ] = *( next(tempIterator ) );
-        cout << inputData[ 1 ] << endl;
         
         result = true;
     }

@@ -10,7 +10,7 @@ Graphics::~Graphics()
 
 }
 
-bool Graphics::Initialize(int width, int height)
+bool Graphics::Initialize(int width, int height, std::string shaders[] )
 {
   // Used for the linux OS
   #if !defined(__APPLE__) && !defined(MACOSX)
@@ -48,7 +48,7 @@ bool Graphics::Initialize(int width, int height)
   m_cube = new Object();
 
   // Set up the shaders
-  m_shader = new Shader();
+  m_shader = new Shader( shaders );
   if(!m_shader->Initialize())
   {
     printf("Shader Failed to Initialize\n");
