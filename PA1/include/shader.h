@@ -19,6 +19,10 @@ class Shader
   private:
     GLuint m_shaderProg;    
     std::vector<GLuint> m_shaderObjList;
+    
+    // Holds filenames for vertex and fragment shaders
+    // Vertex shader filename in first element
+    // Fragment shader filename in second element
     std::string shaderFiles[ 2 ];
 };
 

@@ -1,13 +1,22 @@
+#include <fstream>
+#include <sstream>
+       #include <sys/types.h>
+       #include <unistd.h>
+
+
 #include "shader.h"
 
-#include <iostream>
 
 using namespace std;
 
 Shader::Shader( std::string fileNames[] )
 {
   m_shaderProg = 0;
+  
+  // Load vertex shader filename
   shaderFiles[ 0 ] = fileNames[ 0 ];
+  
+  // Load fragment shader filename
   shaderFiles[ 1 ] = fileNames[ 1 ];
 }
 
@@ -41,42 +50,37 @@ bool Shader::Initialize()
 // Use this method to add shaders to the program. When finished - call finalize()
 bool Shader::AddShader(GLenum ShaderType)
 {
-  std::string s;
-
+  // initialize function/variables
+  string s;
+  stringstream stream;
+  ifstream fin;
+  
   if(ShaderType == GL_VERTEX_SHADER)
   {
-    s = "#version 330\n \
-          \
-          layout (location = 0) in vec3 v_position; \
-          layout (location = 1) in vec3 v_color; \
-          \
-          smooth out vec3 color; \
-          \
-          uniform mat4 projectionMatrix; \
-          uniform mat4 viewMatrix; \
-          uniform mat4 modelMatrix; \
-          \
-          void main(void) \
-          { \
-            vec4 v = vec4(v_position, 1.0); \
-            gl_Position = (projectionMatrix * viewMatrix * modelMatrix) * v; \
-            color = v_color; \
-          } \
-          ";
+    // Clear flags and open the input file
+    fin.clear();
+    fin.open( shaderFiles[ 0 ].c_str() );
+    
+    if( fin.good() )
+       {
+        // Read file into stream, set string equal to contents of stream
+        stream << fin.rdbuf();
+        s = stream.str();
+       }
+          
   }
   else if(ShaderType == GL_FRAGMENT_SHADER)
   {
-    s = "#version 330\n \
-          \
-          smooth in vec3 color; \
-          \
-          out vec4 frag_color; \
-          \
-          void main(void) \
-          { \
-             frag_color = vec4(color.rgb, 1.0); \
-          } \
-          ";
+    // Clear flags and open the input file
+    fin.clear();
+    fin.open( shaderFiles[ 1 ].c_str() );
+
+    if( fin.good() )
+       {
+        // Read file into stream, set string equal to contents of stream
+        stream << fin.rdbuf();
+        s = stream.str();
+       }
   }
 
   GLuint ShaderObj = glCreateShader(ShaderType);
