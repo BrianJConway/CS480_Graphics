@@ -10,8 +10,6 @@ fragment shader filename is 'fragment.glsl'.
 
 ```bash
 mkdir build
-cp shader/vertex.glsl build
-cp shader/fragment.glsl build
 cd build
 cmake ..
 make

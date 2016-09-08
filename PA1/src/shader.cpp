@@ -14,10 +14,10 @@ Shader::Shader( std::string fileNames[] )
   m_shaderProg = 0;
   
   // Load vertex shader filename
-  shaderFiles[ 0 ] = fileNames[ 0 ];
+  shaderFiles[ 0 ] = "shaders/" + fileNames[ 0 ];
   
   // Load fragment shader filename
-  shaderFiles[ 1 ] = fileNames[ 1 ];
+  shaderFiles[ 1 ] = "shaders/" + fileNames[ 1 ];
 }
 
 Shader::~Shader()
