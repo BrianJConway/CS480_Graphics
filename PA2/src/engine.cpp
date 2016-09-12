@@ -185,7 +185,7 @@ void Engine::Keyboard()
            {
             // Check if either rotation or orbit is enabled
             if( motionSettings[ 0 ] == "START" || 
-                motionsettings[ 1 ] == "START" )
+                motionSettings[ 1 ] == "START" )
                {
                 // Disable rotation and orbit
                 motionSettings[ 0 ] = "PAUSE";
