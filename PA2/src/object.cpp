@@ -84,7 +84,11 @@ void Object::Update(unsigned int dt, vector<string> motionSettings)
   // Create separate translation and rotation matrices based on model
   glm::mat4 trans = model;
   glm::mat4 rotate = model;
-
+  float tempX = xPos;
+  float tempY = yPos;
+  float tempOrbit = orbitAngle;
+  float tempRotate = rotateAngle;
+  
   // Set angles for rotation and orbit
   orbitAngle += dt * M_PI/3000;
   rotateAngle += dt * M_PI/1000;
@@ -93,12 +97,42 @@ void Object::Update(unsigned int dt, vector<string> motionSettings)
   xPos = 0.0 + 8.0 * glm::cos( orbitAngle );
   yPos = 0.0 + 8.0 * glm::sin( orbitAngle );
 
-  // Translate and rotate separately
-  rotate = glm::rotate(glm::mat4(1.0f), (rotateAngle), glm::vec3(0.0, 1.0, 0.0));
-  trans = glm::translate(glm::mat4(1.0f), glm::vec3(xPos, 0.0, yPos));
-
-  // Combine transformation and rotation, apply to model matrix
-  model = rotate * trans;
+  // No orbit or rotation
+  if( motionSettings[ 0 ] == "PAUSE" && motionSettings[ 1 ] == "PAUSE" )
+     {
+      xPos = tempX;
+      yPos = tempY;
+      rotateAngle = tempRotate;
+      orbitAngle = tempOrbit;
+     }
+   
+  // No rotation, just orbit
+  else if( motionSettings[ 0 ] == "START" && motionSettings[ 1 ] == "PAUSE" )
+     {
+      rotateAngle = tempRotate;
+      rotate = glm::rotate(glm::mat4(1.0f), (rotateAngle), glm::vec3(0.0, 1.0, 0.0));
+      trans = glm::translate(glm::mat4(1.0f), glm::vec3(xPos, 0.0, yPos));
+      model = trans * rotate;
+     }
+   
+  // No orbit, just rotate 
+  else if( motionSettings[ 0 ] == "PAUSE" && motionSettings[ 1 ] == "START" )
+     {
+      xPos = tempX;
+      yPos = tempY;
+      orbitAngle = tempOrbit;
+      rotate = glm::rotate(glm::mat4(1.0f), (rotateAngle), glm::vec3(0.0, 1.0, 0.0));
+      trans = glm::translate(glm::mat4(1.0f), glm::vec3(xPos, 0.0, yPos));
+      model = trans * rotate;
+     }
+  // Both orbit and rotate   
+  else
+     {
+      // Translate and rotate separately
+      rotate = glm::rotate(glm::mat4(1.0f), (rotateAngle), glm::vec3(0.0, 1.0, 0.0));
+      trans = glm::translate(glm::mat4(1.0f), glm::vec3(xPos, 0.0, yPos));
+      model = trans * rotate;
+     }
 }
 
 glm::mat4 Object::GetModel()
