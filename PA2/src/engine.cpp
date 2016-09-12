@@ -103,28 +103,104 @@ void Engine::Mouse()
 }
 
 void Engine::Keyboard()
-{
-  if(m_event.type == SDL_QUIT)
-  {
-    m_running = false;
-  }
-  else if (m_event.type == SDL_KEYDOWN)
-  {
-    // handle key down events here
-    if (m_event.key.keysym.sym == SDLK_ESCAPE)
-    {
-      m_running = false;
-    }
-    if (m_event.key.keysym.sym == SDLK_ESCAPE)
-    {
-      m_running = false;
-    }
-    if (m_event.key.keysym.sym == SDLK_ESCAPE)
-    {
-      m_running = false;
-    }
-  }
-}
+   {
+    if(m_event.type == SDL_QUIT)
+       {
+        m_running = false;
+       }
+    else if (m_event.type == SDL_KEYDOWN)
+       {
+        // handle key down events here
+        if (m_event.key.keysym.sym == SDLK_ESCAPE)
+           {
+            m_running = false;
+           }
+        // Toggle rotation direction key
+        else if(m_event.key.keysym.sym == SDLK_q)
+           {
+            // Check if rotation is normal
+            if( motionSettings[ 2 ] == "NORMAL" )
+               {
+                // reverse rotation
+                motionSettings[ 2 ] = "REVERSE";
+               }
+            // Otherwise, assume rotation is reversed   
+            else
+               {
+                // set normal rotation
+                motionSettings[ 2 ] = "NORMAL";
+               }
+           }
+        // Toggle rotation on/off key
+        else if(m_event.key.keysym.sym == SDLK_w)
+           {
+            // Check if rotation is enabled
+            if( motionSettings[ 0 ] == "START" )
+               {
+                // Disable rotation
+                motionSettings[ 0 ] = "PAUSE";
+               }
+            // Otherwise, assume rotation is disabled   
+            else
+               {
+                // Enable rotation
+                motionSettings[ 0 ] = "START";
+               }
+           }
+        // Toggle orbit direction key
+        else if(m_event.key.keysym.sym == SDLK_a)
+           {
+            // Check if orbit is normal direction
+            if( motionSettings[ 3 ] == "NORMAL" )
+               {
+                // reverse orbit
+                motionSettings[ 3 ] = "REVERSE";
+               }
+            // Otherwise, assume orbit is reversed   
+            else
+               {
+                // reverse orbit
+                motionSettings[ 3 ] = "NORMAL";
+               }
+           }
+        // Toggle orbit on/off key
+        else if(m_event.key.keysym.sym == SDLK_s)
+           {
+            // Check if rotation is enabled
+            if( motionSettings[ 1 ] == "START" )
+               {
+                // Disable rotation
+                motionSettings[ 1 ] = "PAUSE";
+               }
+            // Otherwise, assume rotation is disabled   
+            else
+               {
+                // Enable rotation
+                motionSettings[ 1 ] = "START";
+               }
+           }
+
+        // Toggle all movement key
+        else if(m_event.key.keysym.sym == SDLK_p)
+           {
+            // Check if either rotation or orbit is enabled
+            if( motionSettings[ 0 ] == "START" || 
+                motionsettings[ 1 ] == "START" )
+               {
+                // Disable rotation and orbit
+                motionSettings[ 0 ] = "PAUSE";
+                motionSettings[ 1 ] = "PAUSE";
+               }
+            // Otherwise, assume both rotation and orbit is disabled   
+            else
+               {
+                // Enable rotation and orbit
+                motionSettings[ 0 ] = "START";
+                motionSettings[ 1 ] = "START";
+               }
+           }
+       }
+   }
 
 unsigned int Engine::getDT()
 {
