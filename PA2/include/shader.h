@@ -2,6 +2,7 @@
 #define SHADER_H
 
 #include <vector>
+using namespace std;
 
 #include "graphics_headers.h"
 
@@ -23,7 +24,7 @@ class Shader
     // Holds filenames for vertex and fragment shaders
     // Vertex shader filename in first element
     // Fragment shader filename in second element
-    std::string shaderFiles[ 2 ];
+    string shaderFiles[ 2 ];
 };
 
 #endif  /* SHADER_H */

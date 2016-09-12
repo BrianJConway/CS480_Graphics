@@ -107,10 +107,10 @@ bool Graphics::Initialize(int width, int height, std::string shaders[] )
   return true;
 }
 
-void Graphics::Update(unsigned int dt)
+void Graphics::Update(unsigned int dt, vector<string> flags)
 {
   // Update the object
-  m_cube->Update(dt);
+  m_cube->Update(dt, flags);
 }
 
 void Graphics::Render()

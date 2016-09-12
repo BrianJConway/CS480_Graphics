@@ -3,6 +3,9 @@
 
 #include <sys/time.h>
 #include <assert.h>
+#include <cstdlib>
+#include <vector>
+using namespace std;
 
 #include "window.h"
 #include "graphics.h"
@@ -16,6 +19,7 @@ class Engine
     bool Initialize( std::string shaders[] );
     void Run();
     void Keyboard();
+    void Mouse();
     unsigned int getDT();
     long long GetCurrentTimeMillis();
   
@@ -32,6 +36,14 @@ class Engine
     unsigned int m_DT;
     long long m_currentTimeMillis;
     bool m_running;
+    
+    
+    // Holds movement settings for objects
+    // First element controls rotation pausing and unpausing
+    // Second element controls orbit pausing and unpausing
+    // Third element controls rotation direction
+    // Fourth element controls orbit direction
+    vector<string> motionSettings;
 };
 
 #endif // ENGINE_H

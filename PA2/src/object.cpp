@@ -79,7 +79,7 @@ Object::~Object()
   Indices.clear();
 }
 
-void Object::Update(unsigned int dt)
+void Object::Update(unsigned int dt, vector<string> motionSettings)
 {
   // Create separate translation and rotation matrices based on model
   glm::mat4 trans = model;

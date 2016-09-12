@@ -7,6 +7,15 @@ Engine::Engine(string name, int width, int height)
   m_WINDOW_WIDTH = width;
   m_WINDOW_HEIGHT = height;
   m_FULLSCREEN = false;
+  
+/*
+  // Set default values for object motion
+  motionSettings[ 0 ] = "START";
+  motionSettings[ 1 ] = "START";
+  motionSettings[ 2 ] = "NORMAL";
+  motionSettings[ 3 ] = "NORMAL";
+*/
+
 }
 
 Engine::Engine(string name)
@@ -46,12 +55,24 @@ bool Engine::Initialize( std::string shaders[] )
   // Set the time
   m_currentTimeMillis = GetCurrentTimeMillis();
 
+  // Set default values for motion settings  
+  // First element controls rotation pausing and unpausing
+  // Second element controls orbit pausing and unpausing
+  // Third element controls rotation direction
+  // Fourth element controls orbit direction
+  motionSettings.push_back("START");
+  motionSettings.push_back("START");
+  motionSettings.push_back("NORMAL");
+  motionSettings.push_back("NORMAL");
+  
   // No errors
   return true;
 }
 
 void Engine::Run()
 {
+  // initialize function/variables
+  
   m_running = true;
 
   while(m_running)
@@ -63,15 +84,22 @@ void Engine::Run()
     while(SDL_PollEvent(&m_event) != 0)
     {
       Keyboard();
+      Mouse();
     }
 
     // Update and render the graphics
-    m_graphics->Update(m_DT);
+    m_graphics->Update(m_DT, motionSettings);
     m_graphics->Render();
 
     // Swap to the Window
     m_window->Swap();
   }
+}
+
+// Handles mouse click events
+void Engine::Mouse()
+{
+
 }
 
 void Engine::Keyboard()
@@ -83,6 +111,14 @@ void Engine::Keyboard()
   else if (m_event.type == SDL_KEYDOWN)
   {
     // handle key down events here
+    if (m_event.key.keysym.sym == SDLK_ESCAPE)
+    {
+      m_running = false;
+    }
+    if (m_event.key.keysym.sym == SDLK_ESCAPE)
+    {
+      m_running = false;
+    }
     if (m_event.key.keysym.sym == SDLK_ESCAPE)
     {
       m_running = false;

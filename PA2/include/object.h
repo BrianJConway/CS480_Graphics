@@ -2,6 +2,8 @@
 #define OBJECT_H
 
 #include <vector>
+using namespace std;
+
 #include "graphics_headers.h"
 
 class Object
@@ -9,7 +11,7 @@ class Object
   public:
     Object();
     ~Object();
-    void Update(unsigned int dt);
+    void Update(unsigned int dt, vector<string> motionSettings);
     void Render();
 
     glm::mat4 GetModel();

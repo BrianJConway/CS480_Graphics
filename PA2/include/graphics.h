@@ -2,6 +2,8 @@
 #define GRAPHICS_H
 
 #include <iostream>
+#include <cstdlib>
+#include <vector>
 using namespace std;
 
 #include "graphics_headers.h"
@@ -15,7 +17,7 @@ class Graphics
     Graphics();
     ~Graphics();
     bool Initialize(int width, int height, std::string shaders[] );
-    void Update(unsigned int dt);
+    void Update(unsigned int dt, vector<string> flags);
     void Render();
 
   private:
