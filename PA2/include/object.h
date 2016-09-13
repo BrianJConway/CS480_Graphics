@@ -26,7 +26,7 @@ class Object
     float orbitAngle;
     float rotateAngle;
     float xPos;
-    float yPos;
+    float zPos;
 };
 
 #endif /* OBJECT_H */
