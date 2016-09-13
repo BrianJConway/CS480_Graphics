@@ -1,4 +1,11 @@
-# PA1: Spinning and Orbiting Cube
+# PA2: Controllable Spinning and Orbiting Cube
+
+# Keyboard Controls
+Q - Toggles direction of rotation
+A - Toggles direction of orbit
+W - Toggles rotation on/off
+S - Toggles orbit on/off
+P - Toggles all motion on/off
 
 # Building and Running
 
