@@ -98,9 +98,44 @@ void Engine::Run()
 
 // Handles mouse click events
 void Engine::Mouse()
-{
-
-}
+   {
+    // Checks for mouse button event
+    if(m_event.type == SDL_MOUSEBUTTONDOWN )
+       {
+        // Left mouse button toggles orbit direction
+        if( m_event.button.button == SDL_BUTTON_LEFT )
+           {
+            // Check if orbit is normal direction
+            if( motionSettings[ 3 ] == "NORMAL" )
+               {
+                // reverse orbit
+                motionSettings[ 3 ] = "REVERSE";
+               }
+            // Otherwise, assume orbit is reversed   
+            else
+               {
+                // reverse orbit
+                motionSettings[ 3 ] = "NORMAL";
+               }
+           }
+        // Right mouse button toggles orbit on/off
+        else if( m_event.button.button == SDL_BUTTON_RIGHT )
+           {
+            // Check if rotation is enabled
+            if( motionSettings[ 1 ] == "START" )
+               {
+                // Disable rotation
+                motionSettings[ 1 ] = "PAUSE";
+               }
+            // Otherwise, assume rotation is disabled   
+            else
+               {
+                // Enable rotation
+                motionSettings[ 1 ] = "START";
+               }
+           }
+       }
+   }
 
 void Engine::Keyboard()
    {
@@ -110,7 +145,6 @@ void Engine::Keyboard()
        }
     else if (m_event.type == SDL_KEYDOWN)
        {
-        // handle key down events here
         if (m_event.key.keysym.sym == SDLK_ESCAPE)
            {
             m_running = false;
@@ -147,39 +181,6 @@ void Engine::Keyboard()
                 motionSettings[ 0 ] = "START";
                }
            }
-        // Toggle orbit direction key
-        else if(m_event.key.keysym.sym == SDLK_a)
-           {
-            // Check if orbit is normal direction
-            if( motionSettings[ 3 ] == "NORMAL" )
-               {
-                // reverse orbit
-                motionSettings[ 3 ] = "REVERSE";
-               }
-            // Otherwise, assume orbit is reversed   
-            else
-               {
-                // reverse orbit
-                motionSettings[ 3 ] = "NORMAL";
-               }
-           }
-        // Toggle orbit on/off key
-        else if(m_event.key.keysym.sym == SDLK_s)
-           {
-            // Check if rotation is enabled
-            if( motionSettings[ 1 ] == "START" )
-               {
-                // Disable rotation
-                motionSettings[ 1 ] = "PAUSE";
-               }
-            // Otherwise, assume rotation is disabled   
-            else
-               {
-                // Enable rotation
-                motionSettings[ 1 ] = "START";
-               }
-           }
-
         // Toggle all movement key
         else if(m_event.key.keysym.sym == SDLK_p)
            {
