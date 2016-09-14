@@ -4,9 +4,11 @@
 
 ```bash
 Q - Toggles direction of rotation
-A - Toggles direction of orbit
 W - Toggles rotation on/off
-S - Toggles orbit on/off
+
+LEFT MOUSE CLICK - Toggles direction of orbit
+RIGHT MOUSE CLICK - Toggles orbit on/off
+
 P - Toggles all motion on/off
 ```
 
