@@ -9,7 +9,11 @@ Read through the Wiki on this repository to understand how each class works. Thi
 ## PA0: Triangle
 This is a simple colored triangle on the screen. To run this project ```cd PA0``` then follow the instructions in the README.md.
 
-## PA1: Spinning Cube
-This is a cube that rotates in place on the screen. To run this project ```cd PA1``` then follow the instructions in the README.md.
+## PA1: Orbiting and Spinning Cube
+This is a cube that rotates around its y-axis and orbits the center of the screen. To run this project ```cd PA1``` then follow the instructions in the README.md.
+
+## PA2: Controllable Spinning Cube
+This is a cube that rotates around its y-axis and orbits the center of the screen. You can control the rotation with the keyboard and the orbit with the mouse. To run this project ```cd PA2``` then follow the instructions in the README.md.
+
 
 
