@@ -46,6 +46,7 @@ bool Graphics::Initialize(int width, int height, std::string shaders[] )
 
   // Create the object
   m_cube = new Object();
+  m_moon = new Object();
 
   // Set up the shaders
   m_shader = new Shader( shaders );
@@ -111,6 +112,7 @@ void Graphics::Update(unsigned int dt, vector<string> flags)
 {
   // Update the object
   m_cube->Update(dt, flags);
+  m_moon->Update(dt, flags);
 }
 
 void Graphics::Render()
@@ -128,7 +130,9 @@ void Graphics::Render()
 
   // Render the object
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cube->GetModel()));
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_moon->GetModel()));
   m_cube->Render();
+  m_moon->Render();
 
   // Get any errors from OpenGL
   auto error = glGetError();
