@@ -1,4 +1,4 @@
-# PA2: Controllable Spinning and Orbiting Cube
+# PA3: Controllable Spinning and Orbiting Cube with Moon
 
 # Keyboard Controls
 
