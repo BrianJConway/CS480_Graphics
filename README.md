@@ -15,5 +15,9 @@ This is a cube that rotates around its y-axis and orbits the center of the scree
 ## PA2: Controllable Spinning Cube
 This is a cube that rotates around its y-axis and orbits the center of the screen. You can control the rotation with the keyboard and the orbit with the mouse. To run this project ```cd PA2``` then follow the instructions in the README.md.
 
+## PA3: Controllable Spinning Cube with Moon
+This is a cube with a cubed moon that rotates around its y-axis and orbits the center of the screen. You can control the rotation of either or both with the keyboard and the orbits with the mouse. To run this project ```cd PA3``` then follow the instructions in the README.md.
+
+
 
 
