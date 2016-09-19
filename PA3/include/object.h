@@ -11,12 +11,12 @@ class Object
   public:
     Object();
     ~Object();
-    void Update(unsigned int dt, vector<string> motionSettings);
+    virtual void Update(unsigned int dt, vector<string> motionSettings) = 0;
     void Render();
 
     glm::mat4 GetModel();
 
-  private:
+  protected:
     glm::mat4 model;
     std::vector<Vertex> Vertices;
     std::vector<unsigned int> Indices;

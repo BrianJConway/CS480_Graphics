@@ -10,6 +10,8 @@ using namespace std;
 #include "camera.h"
 #include "shader.h"
 #include "object.h"
+#include "planet.h"
+#include "moon.h"
 
 class Graphics
 {
@@ -30,7 +32,8 @@ class Graphics
     GLint m_viewMatrix;
     GLint m_modelMatrix;
 
-    Object *m_cube;
+    Object *m_planet;
+    Object *m_moon;
 };
 
 #endif /* GRAPHICS_H */
