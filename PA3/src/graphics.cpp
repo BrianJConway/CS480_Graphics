@@ -101,14 +101,6 @@ bool Graphics::Initialize(int width, int height, std::string shaders[] )
     return false;
   }
 
-  // Locate the moon matrix in the shader
-  m_moonMatrix = m_shader->GetUniformLocation("modelMatrix");
-  if (m_moonMatrix == INVALID_UNIFORM_LOCATION) 
-  {
-    printf("m_moonMatrix not found\n");
-    return false;
-  }
-
   //enable depth testing
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
@@ -138,7 +130,7 @@ void Graphics::Render()
 
   // Render the object
   glUniformMatrix4fv(m_planetMatrix, 1, GL_FALSE, glm::value_ptr(m_planet->GetModel()));
-  glUniformMatrix4fv(m_moonMatrix, 1, GL_FALSE, glm::value_ptr(m_moon->GetModel()));
+  glUniformMatrix4fv(m_planetMatrix, 1, GL_FALSE, glm::value_ptr(m_moon->GetModel()));
 
   m_planet->Render();
   m_moon->Render();
