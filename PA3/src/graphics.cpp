@@ -44,7 +44,7 @@ bool Graphics::Initialize(int width, int height, std::string shaders[] )
     return false;
   }
 
-  // Create the object
+  // Create the objects
   m_planet = new Planet();
   m_moon = new Moon( (Planet*) m_planet );
 
@@ -93,11 +93,19 @@ bool Graphics::Initialize(int width, int height, std::string shaders[] )
     return false;
   }
 
-  // Locate the model matrix in the shader
-  m_modelMatrix = m_shader->GetUniformLocation("modelMatrix");
-  if (m_modelMatrix == INVALID_UNIFORM_LOCATION) 
+  // Locate the planet matrix in the shader
+  m_planetMatrix = m_shader->GetUniformLocation("modelMatrix");
+  if (m_planetMatrix == INVALID_UNIFORM_LOCATION) 
   {
-    printf("m_modelMatrix not found\n");
+    printf("m_planetMatrix not found\n");
+    return false;
+  }
+
+  // Locate the moon matrix in the shader
+  m_moonMatrix = m_shader->GetUniformLocation("modelMatrix");
+  if (m_moonMatrix == INVALID_UNIFORM_LOCATION) 
+  {
+    printf("m_moonMatrix not found\n");
     return false;
   }
 
@@ -129,8 +137,9 @@ void Graphics::Render()
   glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView())); 
 
   // Render the object
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_planet->GetModel()));
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_moon->GetModel()));
+  glUniformMatrix4fv(m_planetMatrix, 1, GL_FALSE, glm::value_ptr(m_planet->GetModel()));
+  glUniformMatrix4fv(m_moonMatrix, 1, GL_FALSE, glm::value_ptr(m_moon->GetModel()));
+
   m_planet->Render();
   m_moon->Render();
 
