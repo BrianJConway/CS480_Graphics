@@ -5,8 +5,9 @@
 ```bash
 Q - Toggles planet direction of rotation
 W - Toggles planet rotation on/off
-E - Toggles moon orbit direction
+E - Toggles moon rotation direction
 R - Toggles moon rotation on/off
+T - Toggles moon orbit direction
 Y - Toggles moon orbit on/off
 
 LEFT MOUSE CLICK - Toggles direction of orbit

@@ -192,7 +192,7 @@ void Engine::Keyboard()
                }
            }
         // Toggle moon orbit direction key
-        else if(m_event.key.keysym.sym == SDLK_e)
+        else if(m_event.key.keysym.sym == SDLK_t)
            {
             // Check if orbit is normal direction
             if( motionSettings[ 7 ] == "NORMAL" )
@@ -207,7 +207,7 @@ void Engine::Keyboard()
                 motionSettings[ 7 ] = "NORMAL";
                }
            }
-        // Toggle moon orbit on/off 
+        // Toggle moon rotationrere on/off 
         else if(m_event.key.keysym.sym == SDLK_r)
            {
             // Check if orbit is enabled
@@ -224,7 +224,7 @@ void Engine::Keyboard()
                }
            }
         // Toggle moon rotation direction key
-        else if(m_event.key.keysym.sym == SDLK_t)
+        else if(m_event.key.keysym.sym == SDLK_e)
            {
             // Check if rotation is normal
             if( motionSettings[ 6 ] == "NORMAL" )
