@@ -31,8 +31,7 @@ class Graphics
     GLint m_projectionMatrix;
     GLint m_viewMatrix;
     
-    GLint m_planetMatrix;
-    GLint m_moonMatrix;
+    GLint m_modelMatrix;
 
     Object *m_planet;
     Object *m_moon;

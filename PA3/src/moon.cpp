@@ -85,13 +85,14 @@ void Moon::Update(unsigned int dt, vector<string> motionSettings)
   // Create separate translation and rotation matrices based on model
   glm::mat4 trans = model;
   glm::mat4 rotate = model;
+  glm::mat4 scale = model;
   
   // Save original values for position and angles
   float tempX = xPos;
   float tempZ = zPos;
   float tempOrbit = orbitAngle;
   float tempRotate = rotateAngle;
-  
+
   // Set rotation angle based on toggle
   if( motionSettings[ 2 ] == "NORMAL" )
      {
@@ -117,11 +118,11 @@ void Moon::Update(unsigned int dt, vector<string> motionSettings)
      }
   
   // Caclulate coordinates based on parametric equation for a circle
-  xPos = 0.0 + 8.0 * glm::cos( orbitAngle );
-  zPos = 0.0 + 8.0 * glm::sin( orbitAngle );
+  xPos = planet->xPos + 3.0 * glm::cos( orbitAngle );
+  zPos = planet->zPos + 3.0 * glm::sin( orbitAngle );
   
   // No orbit or rotation
-  if( motionSettings[ 0 ] == "PAUSE" && motionSettings[ 1 ] == "PAUSE" )
+  if( motionSettings[ 4 ] == "PAUSE" && motionSettings[ 5 ] == "PAUSE" )
      {
       xPos = tempX;
       zPos = tempZ;
@@ -131,25 +132,25 @@ void Moon::Update(unsigned int dt, vector<string> motionSettings)
      }
    
   // No rotation, just orbit
-  else if( motionSettings[ 0 ] == "PAUSE" && motionSettings[ 1 ] == "START" )
+  else if( motionSettings[ 4 ] == "PAUSE" && motionSettings[ 5 ] == "START" )
      {
       rotateAngle = tempRotate;
      }
    
   // No orbit, just rotate 
-  else if( motionSettings[ 0 ] == "START" && motionSettings[ 1 ] == "PAUSE" )
+  else if( motionSettings[ 4 ] == "START" && motionSettings[ 5 ] == "PAUSE" )
      {
       xPos = tempX;
       zPos = tempZ;
       orbitAngle = tempOrbit;
      }
-     
   // Translate and rotate separately
   rotate = glm::rotate(glm::mat4(1.0f), (rotateAngle), glm::vec3(0.0,1.0, 0.0));
   trans = glm::translate(glm::mat4(1.0f), glm::vec3(xPos, 0.0, zPos));
 
-  // Apply translation and rotation to the model
+  // Apply translation, rotation, and scaling to the model
   model = trans * rotate;
+  
 }
 
 

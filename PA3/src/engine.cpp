@@ -55,11 +55,21 @@ bool Engine::Initialize( std::string shaders[] )
   // Set the time
   m_currentTimeMillis = GetCurrentTimeMillis();
 
-  // Set default values for motion settings  
+  // Set default values for planet motion settings  
   // First element controls rotation pausing and unpausing
   // Second element controls orbit pausing and unpausing
   // Third element controls rotation direction
   // Fourth element controls orbit direction
+  motionSettings.push_back("START");
+  motionSettings.push_back("START");
+  motionSettings.push_back("NORMAL");
+  motionSettings.push_back("NORMAL");
+
+  // Set default values for moon motion settings  
+  // Fifth element controls rotation pausing and unpausing
+  // Sixth element controls orbit pausing and unpausing
+  // Seventh element controls rotation direction
+  // Eighth element controls orbit direction
   motionSettings.push_back("START");
   motionSettings.push_back("START");
   motionSettings.push_back("NORMAL");
@@ -186,11 +196,15 @@ void Engine::Keyboard()
            {
             // Check if either rotation or orbit is enabled
             if( motionSettings[ 0 ] == "START" || 
-                motionSettings[ 1 ] == "START" )
+                motionSettings[ 1 ] == "START" ||
+                motionSettings[ 4 ] == "START" ||               
+                motionSettings[ 5 ] == "START"  )
                {
                 // Disable rotation and orbit
                 motionSettings[ 0 ] = "PAUSE";
                 motionSettings[ 1 ] = "PAUSE";
+                motionSettings[ 4 ] = "PAUSE";
+                motionSettings[ 5 ] = "PAUSE";
                }
             // Otherwise, assume both rotation and orbit is disabled   
             else
@@ -198,6 +212,8 @@ void Engine::Keyboard()
                 // Enable rotation and orbit
                 motionSettings[ 0 ] = "START";
                 motionSettings[ 1 ] = "START";
+                motionSettings[ 4 ] = "START";
+                motionSettings[ 5 ] = "START";
                }
            }
        }
