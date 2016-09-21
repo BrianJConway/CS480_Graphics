@@ -94,7 +94,7 @@ void Moon::Update(unsigned int dt, vector<string> motionSettings)
   float tempRotate = rotateAngle;
 
   // Set rotation angle based on toggle
-  if( motionSettings[ 2 ] == "NORMAL" )
+  if( motionSettings[ 6 ] == "NORMAL" )
      {
       // Forward
       rotateAngle += dt * M_PI/1000;
@@ -106,7 +106,7 @@ void Moon::Update(unsigned int dt, vector<string> motionSettings)
      }
 
   // Set orbit angle based on toggle
-  if( motionSettings[ 3 ] == "NORMAL" )
+  if( motionSettings[ 7 ] == "NORMAL" )
      {
       // Forward
       orbitAngle += dt * M_PI/3000;
@@ -117,7 +117,8 @@ void Moon::Update(unsigned int dt, vector<string> motionSettings)
       orbitAngle -= dt * M_PI/3000;  
      }
   
-  // Caclulate coordinates based on parametric equation for a circle
+  // Caclulate coordinates based on parametric equation for a circle and set the
+  // origin as the location of the planet
   xPos = planet->xPos + 3.0 * glm::cos( orbitAngle );
   zPos = planet->zPos + 3.0 * glm::sin( orbitAngle );
   
@@ -132,19 +133,19 @@ void Moon::Update(unsigned int dt, vector<string> motionSettings)
      }
    
   // No rotation, just orbit
-  else if( motionSettings[ 4 ] == "PAUSE" && motionSettings[ 5 ] == "START" )
+  else if( motionSettings[ 5 ] == "PAUSE" && motionSettings[ 4 ] == "START" )
      {
       rotateAngle = tempRotate;
      }
    
   // No orbit, just rotate 
-  else if( motionSettings[ 4 ] == "START" && motionSettings[ 5 ] == "PAUSE" )
+  else if( motionSettings[ 5 ] == "START" && motionSettings[ 4 ] == "PAUSE" )
      {
       xPos = tempX;
       zPos = tempZ;
       orbitAngle = tempOrbit;
      }
-  // Translate and rotate separately
+  // Translate, rotate, and scale separately
   rotate = glm::rotate(glm::mat4(1.0f), (rotateAngle), glm::vec3(0.0,1.0, 0.0));
   trans = glm::translate(glm::mat4(1.0f), glm::vec3(xPos, 0.0, zPos));
   scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.27f));

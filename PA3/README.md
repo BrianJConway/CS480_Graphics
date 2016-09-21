@@ -3,8 +3,11 @@
 # Keyboard Controls
 
 ```bash
-Q - Toggles direction of rotation
-W - Toggles rotation on/off
+Q - Toggles planet direction of rotation
+W - Toggles planet rotation on/off
+E - Toggles moon orbit direction
+R - Toggles moon rotation on/off
+Y - Toggles moon orbit on/off
 
 LEFT MOUSE CLICK - Toggles direction of orbit
 RIGHT MOUSE CLICK - Toggles orbit on/off

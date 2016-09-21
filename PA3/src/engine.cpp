@@ -131,16 +131,16 @@ void Engine::Mouse()
         // Right mouse button toggles orbit on/off
         else if( m_event.button.button == SDL_BUTTON_RIGHT )
            {
-            // Check if rotation is enabled
+            // Check if orbit is enabled
             if( motionSettings[ 1 ] == "START" )
                {
-                // Disable rotation
+                // Disable orbit
                 motionSettings[ 1 ] = "PAUSE";
                }
-            // Otherwise, assume rotation is disabled   
+            // Otherwise, assume orbit is disabled   
             else
                {
-                // Enable rotation
+                // Enable orbit
                 motionSettings[ 1 ] = "START";
                }
            }
@@ -189,6 +189,67 @@ void Engine::Keyboard()
                {
                 // Enable rotation
                 motionSettings[ 0 ] = "START";
+               }
+           }
+        // Toggle moon orbit direction key
+        else if(m_event.key.keysym.sym == SDLK_e)
+           {
+            // Check if orbit is normal direction
+            if( motionSettings[ 7 ] == "NORMAL" )
+               {
+                // reverse orbit direction
+                motionSettings[ 7 ] = "REVERSE";
+               }
+            // Otherwise, assume orbit is reversed   
+            else
+               {
+                // set normal orbit direction
+                motionSettings[ 7 ] = "NORMAL";
+               }
+           }
+        // Toggle moon orbit on/off 
+        else if(m_event.key.keysym.sym == SDLK_r)
+           {
+            // Check if orbit is enabled
+            if( motionSettings[ 5 ] == "START" )
+               {
+                // disable orbit
+                motionSettings[ 5 ] = "PAUSE";
+               }
+            // Otherwise, assume orbit is reversed   
+            else
+               {
+                // enable orbit
+                motionSettings[ 5 ] = "START";
+               }
+           }
+        // Toggle moon rotation direction key
+        else if(m_event.key.keysym.sym == SDLK_t)
+           {
+            // Check if rotation is normal
+            if( motionSettings[ 6 ] == "NORMAL" )
+               {
+                // reverse rotation
+                motionSettings[ 6 ] = "REVERSE";
+               }
+            // Otherwise, assume rotation is reversed   
+            else
+               {
+                // set normal rotation
+                motionSettings[ 6 ] = "NORMAL";
+               }
+           }
+        // Toggle moon orbit on/off key
+        else if(m_event.key.keysym.sym == SDLK_y)
+           {
+            // Check if orbit is enabled
+            if( motionSettings[ 4 ] == "START" )
+               {
+                motionSettings[ 4 ] = "PAUSE";
+               }
+            else
+               {
+                motionSettings[ 4 ] = "START";
                }
            }
         // Toggle all movement key
