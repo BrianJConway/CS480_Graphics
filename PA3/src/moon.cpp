@@ -147,9 +147,10 @@ void Moon::Update(unsigned int dt, vector<string> motionSettings)
   // Translate and rotate separately
   rotate = glm::rotate(glm::mat4(1.0f), (rotateAngle), glm::vec3(0.0,1.0, 0.0));
   trans = glm::translate(glm::mat4(1.0f), glm::vec3(xPos, 0.0, zPos));
+  scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.27f));
 
   // Apply translation, rotation, and scaling to the model
-  model = trans * rotate;
+  model = trans * rotate * scale;
   
 }
 
