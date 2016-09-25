@@ -1,6 +1,7 @@
 #include "graphics.h"
 #include <vector>
 #include <fstream>
+#include <time.h>
 
 using namespace std;
 
@@ -62,7 +63,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
       printf("Object failed to Initialize\n");
       return false;
      }
-     
+
   // Create the object   
   m_cube = new Object( vertices, indices );
 
@@ -158,19 +159,22 @@ void Graphics::Render()
   }
 }
 
-bool Graphics::loadObj(string fileName, vector<Vertex> Vertices, 
-                                                 vector<unsigned int> Indices )
+bool Graphics::loadObj(string fileName, vector<Vertex> &Vertices, 
+                                                 vector<unsigned int> &Indices )
    {
     // Initialize function/variables
     int index;
     float tempI;
     char dummy;
     glm::vec3 tempV;
-    glm::vec3 color = glm::vec3( 1.0, 1.0, 1.0 );
+    glm::vec3 color;
 
     bool result = false;
     ifstream fin;
     string label;
+    
+    srand(time(NULL));
+    
     
     // Clear and open input file
     fin.clear();
@@ -196,12 +200,20 @@ bool Graphics::loadObj(string fileName, vector<Vertex> Vertices,
                 fin >> tempV.y;
                 fin >> tempV.z;
                 
+                // Get random color
+                float vcolor1 = (float) rand() / (float) RAND_MAX;
+                float vcolor2 = (float) rand() / (float) RAND_MAX;
+                float vcolor3 = (float) rand() / (float) RAND_MAX;
+                
+                color.x = vcolor1;
+                color.y = vcolor2;
+                color.z = vcolor3;
+                
                 // Set Vertex values
                 Vertex tempVertex( tempV, color );
-                    
+               
                 // Add to vertex vector
                 Vertices.push_back( tempVertex );
-                   
                }
             // Check beginning of line face
             else if( label == "f" )

@@ -65,6 +65,7 @@ Object::Object( vector<Vertex> vertices, vector<unsigned int> indices )
   for(unsigned int i = 0; i < Indices.size(); i++)
   {
     Indices[i] = Indices[i] - 1;
+
   }
 
   glGenBuffers(1, &VB);
