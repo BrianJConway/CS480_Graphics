@@ -3,6 +3,9 @@
 
 #include <vector>
 #include "graphics_headers.h"
+#include <string>
+
+using namespace std;
 
 class Object
 {
@@ -20,11 +23,6 @@ class Object
     std::vector<unsigned int> Indices;
     GLuint VB;
     GLuint IB;
-
-    float orbitAngle;
-    float rotateAngle;
-    float xPos;
-    float yPos;
 };
 
 #endif /* OBJECT_H */

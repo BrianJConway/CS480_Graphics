@@ -61,9 +61,6 @@ Object::Object()
     Indices[i] = Indices[i] - 1;
   }
 
-  rotateAngle = 0.0f;
-  orbitAngle = 0.0f;
-
   glGenBuffers(1, &VB);
   glBindBuffer(GL_ARRAY_BUFFER, VB);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * Vertices.size(), &Vertices[0], GL_STATIC_DRAW);
@@ -81,24 +78,7 @@ Object::~Object()
 
 void Object::Update(unsigned int dt)
 {
-  // Create separate translation and rotation matrices based on model
-  glm::mat4 trans = model;
-  glm::mat4 rotate = model;
 
-  // Set angles for rotation and orbit
-  orbitAngle += dt * M_PI/3000;
-  rotateAngle += dt * M_PI/1000;
-
-  // Caclulate coordinates based on parametric equation for a circle
-  xPos = 0.0 + 8.0 * glm::cos( orbitAngle );
-  yPos = 0.0 + 8.0 * glm::sin( orbitAngle );
-
-  // Translate and rotate separately
-  rotate = glm::rotate(glm::mat4(1.0f), (rotateAngle), glm::vec3(0.0, 1.0, 0.0));
-  trans = glm::translate(glm::mat4(1.0f), glm::vec3(xPos, 0.0, yPos));
-
-  // Combine transformation and rotation, apply to model matrix
-  model = rotate * trans;
 }
 
 glm::mat4 Object::GetModel()

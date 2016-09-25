@@ -1,4 +1,8 @@
 #include "graphics.h"
+#include <vector>
+#include <fstream>
+
+using namespace std;
 
 Graphics::Graphics()
 {
@@ -10,8 +14,13 @@ Graphics::~Graphics()
 
 }
 
-bool Graphics::Initialize(int width, int height, std::string shaders[] )
+bool Graphics::Initialize(int width, int height, std::string fNames[] )
 {
+  // Initialize function/variables
+  bool validObj;
+  vector<Vertex> vertices;
+  vector<unsigned int> indices;
+  
   // Used for the linux OS
   #if !defined(__APPLE__) && !defined(MACOSX)
     // cout << glewGetString(GLEW_VERSION) << endl;
@@ -45,10 +54,11 @@ bool Graphics::Initialize(int width, int height, std::string shaders[] )
   }
 
   // Create the object
+  validObj = loadObj( fNames[ 2 ], vertices, indices );
   m_cube = new Object();
 
   // Set up the shaders
-  m_shader = new Shader( shaders );
+  m_shader = new Shader( fNames );
   if(!m_shader->Initialize())
   {
     printf("Shader Failed to Initialize\n");
@@ -138,6 +148,84 @@ void Graphics::Render()
     std::cout<< "Error initializing OpenGL! " << error << ", " << val << std::endl;
   }
 }
+
+bool Graphics::loadObj(string fileName, vector<Vertex> Vertices, 
+                                                 vector<unsigned int> Indices )
+   {
+    // Initialize function/variables
+    int index;
+    float tempI;
+    char dummy;
+    glm::vec3 tempV;
+    glm::vec3 color = glm::vec3( 1.0, 1.0, 1.0 );
+
+    bool result = false;
+    ifstream fin;
+    string label;
+    
+    // Clear and open input file
+    fin.clear();
+    fin.open( "objects/" + fileName );
+    
+    // Check if input file opened correctly
+    if( fin.good() )
+       {
+        // Indicate valid object input so far
+        result = true;
+        
+        // Loop through input file
+        while( fin.good() )
+           {
+            // Get beginning word of line
+            fin >> label;
+            
+            // Check beginning of line for vertex
+            if( label == "v" )
+               {
+                // Read in vertex coordinates
+                fin >> tempV.x;
+                fin >> tempV.y;
+                fin >> tempV.z;
+                
+                // Set Vertex values
+                Vertex tempVertex( tempV, color );
+                    
+                // Add to vertex vector
+                Vertices.push_back( tempVertex );
+                   
+               }
+            // Check beginning of line face
+            else if( label == "f" )
+               {
+                // Read in indices
+                for( index = 0; index < 3; index++ )
+                   {
+                    // Read current index
+                    fin >> tempI;
+                    
+                    // Read in-between characters
+                    fin >> dummy >> dummy >> dummy;
+                    
+                    // Add to index vector
+                    Indices.push_back( tempI );
+                   }
+               }
+            // Otherwise, assume not vertex or face
+            else
+               {
+                // Ignore line
+                fin.ignore( 30, '\n' );
+               }
+           }
+        // end loop
+        
+        // Close input file
+        fin.close();
+       }
+
+    // Return whether object loaded correctly
+    return result;
+   }
 
 std::string Graphics::ErrorString(GLenum error)
 {
