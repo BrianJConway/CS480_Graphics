@@ -1,7 +1,7 @@
 #include "object.h"
 #include <iostream>
 
-Object::Object()
+Object::Object( vector<Vertex> vertices, vector<unsigned int> indices )
 {  
   /*
     # Blender File for a Cube
@@ -27,7 +27,7 @@ Object::Object()
     f 3 2 7
     f 3 7 4
     f 5 1 8
-  */
+  
 
   Vertices = {
     {{1.0f, -1.0f, -1.0f}, {0.0f, 0.0f, 0.0f}},
@@ -54,7 +54,13 @@ Object::Object()
     3, 7, 4,
     5, 1, 8
   };
-
+  
+  */
+  
+  // Set vertex and index data 
+  Vertices = vertices;
+  Indices = indices;
+  
   // The index works at a 0th index
   for(unsigned int i = 0; i < Indices.size(); i++)
   {

@@ -10,7 +10,7 @@ using namespace std;
 class Object
 {
   public:
-    Object();
+    Object( vector<Vertex> vertices, vector<unsigned int> indices );
     ~Object();
     void Update(unsigned int dt);
     void Render();

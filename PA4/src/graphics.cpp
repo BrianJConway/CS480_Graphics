@@ -64,7 +64,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
      }
      
   // Create the object   
-  m_cube = new Object();
+  m_cube = new Object( vertices, indices );
 
   // Set up the shaders
   m_shader = new Shader( fNames );
