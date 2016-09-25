@@ -53,8 +53,17 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
     return false;
   }
 
-  // Create the object
+  // Load the object data from a file
   validObj = loadObj( fNames[ 2 ], vertices, indices );
+  
+  // Check if invalid object data or filename
+  if( !validObj )
+     {
+      printf("Object failed to Initialize\n");
+      return false;
+     }
+     
+  // Create the object   
   m_cube = new Object();
 
   // Set up the shaders
