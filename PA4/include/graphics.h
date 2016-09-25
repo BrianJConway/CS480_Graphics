@@ -2,16 +2,12 @@
 #define GRAPHICS_H
 
 #include <iostream>
-#include <cstdlib>
-#include <vector>
 using namespace std;
 
 #include "graphics_headers.h"
 #include "camera.h"
 #include "shader.h"
 #include "object.h"
-#include "planet.h"
-#include "moon.h"
 
 class Graphics
 {
@@ -19,7 +15,7 @@ class Graphics
     Graphics();
     ~Graphics();
     bool Initialize(int width, int height, std::string shaders[] );
-    void Update(unsigned int dt, vector<string> flags);
+    void Update(unsigned int dt);
     void Render();
 
   private:
@@ -30,11 +26,9 @@ class Graphics
 
     GLint m_projectionMatrix;
     GLint m_viewMatrix;
-    
     GLint m_modelMatrix;
 
-    Object *m_planet;
-    Object *m_moon;
+    Object *m_cube;
 };
 
 #endif /* GRAPHICS_H */

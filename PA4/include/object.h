@@ -2,8 +2,6 @@
 #define OBJECT_H
 
 #include <vector>
-using namespace std;
-
 #include "graphics_headers.h"
 
 class Object
@@ -11,13 +9,12 @@ class Object
   public:
     Object();
     ~Object();
-    
-    virtual void Update(unsigned int dt, vector<string> motionSettings) = 0;
-    
+    void Update(unsigned int dt);
     void Render();
 
     glm::mat4 GetModel();
 
+  private:
     glm::mat4 model;
     std::vector<Vertex> Vertices;
     std::vector<unsigned int> Indices;
@@ -27,7 +24,7 @@ class Object
     float orbitAngle;
     float rotateAngle;
     float xPos;
-    float zPos;
+    float yPos;
 };
 
 #endif /* OBJECT_H */

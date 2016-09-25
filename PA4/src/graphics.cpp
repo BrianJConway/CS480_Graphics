@@ -44,9 +44,8 @@ bool Graphics::Initialize(int width, int height, std::string shaders[] )
     return false;
   }
 
-  // Create the objects
-  m_planet = new Planet();
-  m_moon = new Moon( (Planet*) m_planet );
+  // Create the object
+  m_cube = new Object();
 
   // Set up the shaders
   m_shader = new Shader( shaders );
@@ -93,14 +92,14 @@ bool Graphics::Initialize(int width, int height, std::string shaders[] )
     return false;
   }
 
-  // Locate the planet matrix in the shader
+  // Locate the model matrix in the shader
   m_modelMatrix = m_shader->GetUniformLocation("modelMatrix");
   if (m_modelMatrix == INVALID_UNIFORM_LOCATION) 
   {
     printf("m_modelMatrix not found\n");
     return false;
   }
-  
+
   //enable depth testing
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
@@ -108,11 +107,10 @@ bool Graphics::Initialize(int width, int height, std::string shaders[] )
   return true;
 }
 
-void Graphics::Update(unsigned int dt, vector<string> flags)
+void Graphics::Update(unsigned int dt)
 {
-  // Update the objects
-  m_planet->Update(dt, flags);
-  m_moon->Update(dt, flags);
+  // Update the object
+  m_cube->Update(dt);
 }
 
 void Graphics::Render()
@@ -128,12 +126,9 @@ void Graphics::Render()
   glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection())); 
   glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView())); 
 
-  // Render the objects
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_planet->GetModel()));
-  m_planet->Render();
-  
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_moon->GetModel()));
-  m_moon->Render();
+  // Render the object
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cube->GetModel()));
+  m_cube->Render();
 
   // Get any errors from OpenGL
   auto error = glGetError();
