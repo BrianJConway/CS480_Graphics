@@ -163,85 +163,76 @@ bool Graphics::loadObj(string fileName, vector<Vertex> &Vertices,
                                                  vector<unsigned int> &Indices )
    {
     // Initialize function/variables
-    int index;
+    int index, checkEnd;
     float tempI;
     char dummy;
+    char label[3];
+    char ignore[ 100 ];
+    
     glm::vec3 tempV;
     glm::vec3 color;
 
     bool result = false;
-    ifstream fin;
-    string label;
-    
+   
+    fileName = "models/" + fileName;
+   
     srand(time(NULL));
     
+    FILE * fin = fopen( fileName.c_str(), "r" );
     
-    // Clear and open input file
-    fin.clear();
-    fin.open( "objects/" + fileName );
-    
-    // Check if input file opened correctly
-    if( fin.good() )
+    if( fin != NULL )
        {
-        // Indicate valid object input so far
         result = true;
         
-        // Loop through input file
-        while( fin.good() )
+        checkEnd = fscanf( fin, "%s", label);
+        
+        while( checkEnd != EOF )
            {
-            // Get beginning word of line
-            fin >> label;
-            
-            // Check beginning of line for vertex
-            if( label == "v" )
+            if( label[ 0 ] == 'v' )
                {
-                // Read in vertex coordinates
-                fin >> tempV.x;
-                fin >> tempV.y;
-                fin >> tempV.z;
-                
-                // Get random color
-                float vcolor1 = (float) rand() / (float) RAND_MAX;
-                float vcolor2 = (float) rand() / (float) RAND_MAX;
-                float vcolor3 = (float) rand() / (float) RAND_MAX;
-                
-                color.x = vcolor1;
-                color.y = vcolor2;
-                color.z = vcolor3;
-                
-                // Set Vertex values
-                Vertex tempVertex( tempV, color );
-               
-                // Add to vertex vector
-                Vertices.push_back( tempVertex );
-               }
-            // Check beginning of line face
-            else if( label == "f" )
-               {
-                // Read in indices
-                for( index = 0; index < 3; index++ )
+                if( label[ 1 ] == 'n' )
                    {
-                    // Read current index
-                    fin >> tempI;
-                    
-                    // Read in-between characters
-                    fin >> dummy >> dummy >> dummy;
-                    
-                    // Add to index vector
-                    Indices.push_back( tempI );
+                    fgets( ignore, 100, fin );
                    }
+                else
+                   {
+                    fscanf( fin, "%f %f %f\n", &tempV.x, &tempV.y, &tempV.z );
+
+
+                    // Get random color
+                    float vcolor1 = (float) rand() / (float) RAND_MAX;
+                    float vcolor2 = (float) rand() / (float) RAND_MAX;
+                    float vcolor3 = (float) rand() / (float) RAND_MAX;
+                    
+                    color.x = vcolor1;
+                    color.y = vcolor2;
+                    color.z = vcolor3;
+                    
+                    // Set Vertex values
+                    Vertex tempVertex( tempV, color );
+                   
+                    // Add to vertex vector
+                    Vertices.push_back( tempVertex );
+                   } 
                }
-            // Otherwise, assume not vertex or face
+            else if( label[ 0 ] == 'f' )
+               {
+                fscanf( fin, "%d%s ", &index, ignore );
+                Indices.push_back( index );
+                fscanf( fin, "%d%s ", &index, ignore );
+                Indices.push_back( index );
+                fscanf( fin, "%d%s\n", &index, ignore );
+                Indices.push_back( index );
+               }
             else
                {
-                // Ignore line
-                fin.ignore( 30, '\n' );
+                fgets( ignore, 100, fin );
                }
+               
+            checkEnd = fscanf( fin, "%s", label );
            }
-        // end loop
         
-        // Close input file
-        fin.close();
+        fclose( fin );
        }
 
     // Return whether object loaded correctly
