@@ -19,7 +19,7 @@ This is a cube that rotates around its y-axis and orbits the center of the scree
 This is a cube with a cubed moon that rotates around its y-axis and orbits the center of the screen. You can control the rotation of either or both with the keyboard and the orbits with the mouse. To run this project ```cd PA3``` then follow the instructions in the README.md.
 
 ## PA4: Model Loader
-This is a cube with a cubed moon that rotates around its y-axis and orbits the center of the screen. You can control the rotation of either or both with the keyboard and the orbits with the mouse. To run this project ```cd PA3``` then follow the instructions in the README.md.
+This is a model loader that works with .obj files. It loads the model data from a file, randomizes the colors of each vertex, then slowly rotates the model. To run this project ```cd PA4``` then follow the instructions in the README.md.
 
 
 
