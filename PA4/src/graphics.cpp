@@ -164,8 +164,6 @@ bool Graphics::loadObj(string fileName, vector<Vertex> &Vertices,
    {
     // Initialize function/variables
     int index, checkEnd;
-    float tempI;
-    char dummy;
     char label[3];
     char ignore[ 100 ];
     
@@ -175,63 +173,83 @@ bool Graphics::loadObj(string fileName, vector<Vertex> &Vertices,
     bool result = false;
    
     fileName = "models/" + fileName;
-   
+    
+    // Seed random number generator
     srand(time(NULL));
     
+    // Open the input file
     FILE * fin = fopen( fileName.c_str(), "r" );
     
+    // Check if input file opened successfully
     if( fin != NULL )
        {
+        // Set return result
         result = true;
         
+        // Get first label and check for end of file
         checkEnd = fscanf( fin, "%s", label);
         
+        // Loop while object data remains in file
         while( checkEnd != EOF )
            {
+            // Check for vertex or vertex normal line
             if( label[ 0 ] == 'v' )
                {
+                // Check if vertex normal line
                 if( label[ 1 ] == 'n' )
                    {
+                    // Ignore line data
                     fgets( ignore, 100, fin );
                    }
+                // Otherwise, assume vertex data in line   
                 else
                    {
+                    // Load vertices into temporary floats
                     fscanf( fin, "%f %f %f\n", &tempV.x, &tempV.y, &tempV.z );
 
 
-                    // Get random color
+                    // Get random rgb values for color of vertex
                     float vcolor1 = (float) rand() / (float) RAND_MAX;
                     float vcolor2 = (float) rand() / (float) RAND_MAX;
                     float vcolor3 = (float) rand() / (float) RAND_MAX;
                     
+                    // Set color rgb to random colors
                     color.x = vcolor1;
                     color.y = vcolor2;
                     color.z = vcolor3;
                     
-                    // Set Vertex values
+                    // Set Vertex coordinates and color
                     Vertex tempVertex( tempV, color );
                    
                     // Add to vertex vector
                     Vertices.push_back( tempVertex );
                    } 
                }
+            // Check if line specifices face indices   
             else if( label[ 0 ] == 'f' )
                {
+                // Get first index, ignore slashes and other numbers, push to vector
                 fscanf( fin, "%d%s ", &index, ignore );
                 Indices.push_back( index );
+
+                // Get second index, ignore slashes and other numbers, push to vector
                 fscanf( fin, "%d%s ", &index, ignore );
                 Indices.push_back( index );
+
+                // Get third index, ignore slashes and other numbers, push to vector
                 fscanf( fin, "%d%s\n", &index, ignore );
                 Indices.push_back( index );
                }
             else
                {
+                // Ignore line if not vertex or face
                 fgets( ignore, 100, fin );
                }
                
+            // Get next label   
             checkEnd = fscanf( fin, "%s", label );
            }
-        
+        // Close input file
         fclose( fin );
        }
 
