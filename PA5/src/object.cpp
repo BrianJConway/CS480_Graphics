@@ -1,5 +1,4 @@
 #include "object.h"
-#include <iostream>
 
 Object::Object( vector<Vertex> vertices, vector<unsigned int> indices )
 {  

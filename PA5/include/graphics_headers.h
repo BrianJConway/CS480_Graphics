@@ -20,6 +20,17 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 
+// Headers for Assimp
+#include <SOIL.h>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
+// Headers for file IO
+#include <fstream>
+#include <sstream>
+using namespace std;
+
 #define INVALID_UNIFORM_LOCATION 0x7fffffff
 
 struct Vertex

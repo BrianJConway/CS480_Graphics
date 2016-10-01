@@ -1,0 +1,22 @@
+#include "graphics_headers.h"
+#include "Mesh.h"
+
+class Model 
+{
+    public:
+        /*  Functions   */
+        Model(GLchar* path);
+        void Draw();	
+
+    private:
+        /*  Model Data  */
+        vector<Mesh> meshes;
+        string directory;
+		glm::mat4 model;
+        /*  Functions   */
+        void loadModel(string path);
+        void processNode(aiNode* node, const aiScene* scene);
+        Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+        vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, 
+                                             string typeName);
+};
