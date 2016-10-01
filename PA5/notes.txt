@@ -1,0 +1,25 @@
+In tutorial, shader use() function is same as our shader enable() function.
+
+
+
+
+
+
+Model Class needs:
+
+glm::mat4 model   to store model matrix of object
+
+Update function:
+Much like the object update function
+
+GetModel function:
+returns the glm::mat4 model
+
+Since we said we don't want to implement textures for this week, edit the 
+prototype of the Draw() function to not have a shader parameter.
+
+
+Mesh Class needs:
+
+Since we said we don't want to implement textures for this week, edit the 
+prototype of the Draw() function to not have a shader parameter.

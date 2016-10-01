@@ -10,7 +10,7 @@ using namespace std;
 #include "graphics_headers.h"
 #include "camera.h"
 #include "shader.h"
-#include "object.h"
+#include "model.h"
 
 class Graphics
 {
@@ -33,7 +33,7 @@ class Graphics
     GLint m_viewMatrix;
     GLint m_modelMatrix;
 
-    Object *m_cube;
+    Model *m_object;
 };
 
 #endif /* GRAPHICS_H */
