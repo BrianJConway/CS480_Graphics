@@ -21,7 +21,7 @@
 #include <glm/gtx/rotate_vector.hpp>
 
 // Headers for Assimp
-#include <SOIL.h>
+//#include <SOIL.h>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
