@@ -21,6 +21,6 @@ This is a cube with a cubed moon that rotates around its y-axis and orbits the c
 ## PA4: Model Loader
 This is a model loader that works with .obj files. It loads the model data from a file, randomizes the colors of each vertex, then slowly rotates the model. To run this project ```cd PA4``` then follow the instructions in the README.md.
 
-
-
+## PA5: Assimp Model Loader
+This is a model loader that uses Assimp to load in .obj files. It loads the model data from a file, randomizes the colors of each vertex, then slowly rotates the model. To run this project ```cd PA5``` then follow the instructions in the README.md.
 

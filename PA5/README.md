@@ -1,9 +1,9 @@
-# PA4: Model Loader for OBJ files
+# PA5: Assimp Model Loader
 
 # Building and Running
 
 ## CMake Instructions
-Navigate to the PA4 directory. Running the executable correctly involves specifying
+Navigate to the PA5 directory. Running the executable correctly involves specifying
 the vertex shader filename with '-v [NAME].glsl' and the fragment shader
 filename with '-f [NAME].glsl'. Vertex shader filename is 'vertex.glsl' and 
 fragment shader filename is 'fragment.glsl'. You also have to specify the filename
