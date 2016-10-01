@@ -1,5 +1,5 @@
 #include "graphics_headers.h"
-#include "Mesh.h"
+#include "mesh.h"
 
 class Model 
 {
