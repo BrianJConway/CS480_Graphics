@@ -7,12 +7,14 @@ class Model
         /*  Functions   */
         Model(GLchar* path);
         void Draw();	
+		void Update(unsigned int dt);
 
     private:
         /*  Model Data  */
         vector<Mesh> meshes;
         string directory;
 		glm::mat4 model;
+
         /*  Functions   */
         void loadModel(string path);
         void processNode(aiNode* node, const aiScene* scene);

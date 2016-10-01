@@ -154,7 +154,17 @@
     }
 };
 
+    void Model::Update(unsigned int dt)
+    {
+      rotateAngle += dt * M_PI/9000;
 
+      model = glm::rotate(glm::mat4(1.0f), (rotateAngle), glm::vec3(0.0, 1.0, 0.0));
+    }
+
+    glm::mat4 Object::GetModel()
+    {
+      return model;
+    }
 
 /*
 GLint TextureFromFile(const char* path, string directory)
