@@ -21,6 +21,10 @@ Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices/*, vector<Texture> te
     // Vertex Positions
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*) 0);
+    
+    // Vertex Colors
+    glEnableVertexAttribArray(1);	
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex,color));
 
     /* Vertex Normals
     glEnableVertexAttribArray(1);	

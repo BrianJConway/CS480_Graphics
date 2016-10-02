@@ -1,9 +1,10 @@
 #include "model.h"
+#include <time.h>
 
 //GLint TextureFromFile(const char* path, string directory);
 
     // Constructor, expects a filepath to a 3D model.
-    Model::Model(GLchar* path)
+    Model::Model(string path)
     {
         this->loadModel(path);
     }
@@ -19,6 +20,7 @@
     void Model::loadModel(string path)
     {
         // Read file via ASSIMP
+        path = "models/" + path;
         Assimp::Importer importer;
         const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
         // Check for errors
@@ -29,6 +31,8 @@
         }
         // Retrieve the directory path of the filepath
         this->directory = path.substr(0, path.find_last_of('/'));
+        cout << this->directory << endl;
+
 
         // Process ASSIMP's root node recursively
         this->processNode(scene->mRootNode, scene);
@@ -58,7 +62,9 @@
         // Data to fill
         vector<Vertex> vertices;
         vector<GLuint> indices;
-        vector<Texture> textures;
+        //vector<Texture> textures;
+        
+        srand(time(NULL));
 
         // Walk through each of the mesh's vertices
         for(GLuint i = 0; i < mesh->mNumVertices; i++)
@@ -69,12 +75,20 @@
             vector.x = mesh->mVertices[i].x;
             vector.y = mesh->mVertices[i].y;
             vector.z = mesh->mVertices[i].z;
-            vertex.Position = vector;
+            vertex.vertex = vector;
             // Normals
             vector.x = mesh->mNormals[i].x;
             vector.y = mesh->mNormals[i].y;
             vector.z = mesh->mNormals[i].z;
-            vertex.Normal = vector;
+            //vertex.Normal = vector;
+            
+            // Set random color for each vertex
+            vector.x = (float) rand() / (float) RAND_MAX;
+            vector.y = (float) rand() / (float) RAND_MAX;
+            vector.z = (float) rand() / (float) RAND_MAX;
+            vertex.color = vector;
+            
+/*
             // Texture Coordinates
             if(mesh->mTextureCoords[0]) // Does the mesh contain texture coordinates?
             {
@@ -83,10 +97,11 @@
                 // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
                 vec.x = mesh->mTextureCoords[0][i].x; 
                 vec.y = mesh->mTextureCoords[0][i].y;
-                vertex.TexCoords = vec;
+                //vertex.TexCoords = vec;
             }
             else
-                vertex.TexCoords = glm::vec2(0.0f, 0.0f);
+                //vertex.TexCoords = glm::vec2(0.0f, 0.0f);
+*/
             vertices.push_back(vertex);
         }
         // Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
@@ -107,7 +122,7 @@
             // Diffuse: texture_diffuseN
             // Specular: texture_specularN
             // Normal: texture_normalN
-
+/*
             // 1. Diffuse maps
             vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
             textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
@@ -116,10 +131,12 @@
             textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
         }
         
+*/
         // Return a mesh object created from the extracted mesh data
-        return Mesh(vertices, indices, textures);
+        return Mesh(vertices, indices );
     }
 
+/*
     // Checks all material textures of a given type and loads the textures if they're not loaded yet.
     // The required info is returned as a Texture struct.
     vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
@@ -152,19 +169,23 @@
         }
         return textures;
     }
-};
+    
+*/
+}
 
     void Model::Update(unsigned int dt)
     {
       rotateAngle += dt * M_PI/9000;
 
       model = glm::rotate(glm::mat4(1.0f), (rotateAngle), glm::vec3(0.0, 1.0, 0.0));
-    }
+    } 
+    
 
-    glm::mat4 Object::GetModel()
+    glm::mat4 Model::getModel()
     {
       return model;
     }
+
 
 /*
 GLint TextureFromFile(const char* path, string directory)
