@@ -31,8 +31,6 @@
         }
         // Retrieve the directory path of the filepath
         this->directory = path.substr(0, path.find_last_of('/'));
-        cout << this->directory << endl;
-
 
         // Process ASSIMP's root node recursively
         this->processNode(scene->mRootNode, scene);

@@ -19,7 +19,7 @@ class Mesh
         vector<Vertex> vertices;
         vector<GLuint> indices;
         //vector<Texture> textures;
-        GLuint VAO, VBO, EBO;
+        GLuint VAO, VBO, IBO;
 };
 
 #endif /* MESH_H */
