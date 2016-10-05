@@ -1,10 +1,9 @@
 #include "mesh.h"
 
-Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices/*, vector<Texture> textures*/)
+Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices)
 {
     this->vertices = vertices;
     this->indices = indices;
-    //this->textures = textures;
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -25,15 +24,6 @@ Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices/*, vector<Texture> te
     // Vertex Colors
     glEnableVertexAttribArray(1);	
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex,color));
-
-    /* Vertex Normals
-    glEnableVertexAttribArray(1);	
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Normal));
-    
-    // Vertex Texture Coords
-    glEnableVertexAttribArray(2);	
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TexCoords));*/
-
 
     glBindVertexArray(0);
 }
