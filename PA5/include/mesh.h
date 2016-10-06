@@ -7,19 +7,18 @@
 using namespace std;
 
 class Mesh
-{
+   {
     public:
         // Constructor
-        Mesh(vector<Vertex> vertices, vector<GLuint> indices/*, vector<Texture> textures*/);
+        Mesh(vector<Vertex> vertices, vector<GLuint> indices);
 
-        void Draw(/* Shader shader*/);
+        void Draw();
         
     private:
         // Data
         vector<Vertex> vertices;
         vector<GLuint> indices;
-        //vector<Texture> textures;
-        GLuint VAO, VBO, EBO;
-};
+        GLuint VAO, VBO, IBO;
+   };
 
-#endif /* MESH_H */
+#endif 
