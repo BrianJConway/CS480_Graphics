@@ -103,9 +103,7 @@ bool validateInput( int numArgs, char **inputStrings, string inputData[] )
         
         // Check if object specified but bad or missing filename 
         // Returns false if '-o' at end of input or missing .obj extension 
-        noOName = !(noObj) &&                    
-                  ( next( tempIterator ) == inputArgs.end() || 
-                    !checkEndsWith( *( next( tempIterator ) ), ".obj" ) ); 
+        noOName = !(noObj) && ( next( tempIterator ) == inputArgs.end() ); 
                         
             
     // Check if incorrect input detected 
@@ -150,7 +148,7 @@ bool validateInput( int numArgs, char **inputStrings, string inputData[] )
         // Otherwise check if fragment shader filename not specified
         else if( noOName )
         {
-           cout << "ERROR: Object filename missing or incorrect extension"
+           cout << "ERROR: Object filename missing"
                 << endl;  
         }
 

@@ -36,10 +36,10 @@ using namespace std;
 struct Vertex
 {
   glm::vec3 vertex;
-  glm::vec2 texCoords;
+  glm::vec3 color;
 
   Vertex() {}
-  Vertex(glm::vec3 v, glm::vec2 t): vertex(v), texCoords(t) {}
+  Vertex(glm::vec3 v, glm::vec3 c): vertex(v), color(c) {}
 };
 
 #endif /* GRAPHICS_HEADERS_H */
