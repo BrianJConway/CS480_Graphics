@@ -10,14 +10,15 @@ class Mesh
    {
     public:
         // Constructor
-        Mesh(vector<Vertex> vertices, vector<GLuint> indices);
+        Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<GLuint> textures);
 
-        void Draw();
+        void Draw(Shader shader);
         
     private:
         // Data
         vector<Vertex> vertices;
         vector<GLuint> indices;
+        vector<GLuint> textures;
         GLuint VAO, VBO, IBO;
    };
 
