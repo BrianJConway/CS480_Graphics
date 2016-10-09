@@ -1,18 +1,19 @@
 #include "model.h"
-#include <time.h>
 
 // Constructor
-Model::Model(string path)
+Model::Model(string file)
    {
-    this->loadModel(path);
+    file = "models/" + file;
+    path = file;
+    this->loadModel();
    }
 
 // Draws the model by drawing each mesh
 void Model::Draw()
    {
-    for(GLuint i = 0; i < this->meshes.size(); i++)
+    for(GLuint index = 0; index < this->meshes.size(); index++)
        {
-        this->meshes[i].Draw();
+        this->meshes[ index ].Draw();
        }
    }
     
@@ -25,10 +26,9 @@ void Model::Update(unsigned int dt)
    } 
 
 // Uses ASSIMP to load the model from the file
-void Model::loadModel(string path)
+void Model::loadModel()
    {
     // Read file info into aiScene object
-    path = "models/" + path;
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
@@ -47,17 +47,17 @@ void Model::loadModel(string path)
 void Model::processNode(aiNode* node, const aiScene* scene)
    {
     // Process all meshes of the current node
-    for(GLuint i = 0; i < node->mNumMeshes; i++)
+    for(GLuint index = 0; index < node->mNumMeshes; index++)
        {
         // Get the mesh based on the index kept by the node, push to vector
-        aiMesh* mesh = scene->mMeshes[node->mMeshes[i]]; 
+        aiMesh* mesh = scene->mMeshes[node->mMeshes[ index ]]; 
         this->meshes.push_back(this->processMesh(mesh, scene));			
        }
        
     // If child nodes exist, process them as well
-    for(GLuint i = 0; i < node->mNumChildren; i++)
+    for(GLuint index = 0; index < node->mNumChildren; index++)
        {
-        this->processNode(node->mChildren[i], scene);
+        this->processNode(node->mChildren[ index ], scene);
        }
    }
 
@@ -66,52 +66,110 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     // Vertex and index vectors
     vector<Vertex> vertices;
     vector<GLuint> indices;
-          
-    srand(time(NULL));
+    vector<Gluint> textures;
+    
+    glm::vec2 vec;
+    glm::vec3 vector; 
+    Vertex vertex;
 
     // Iterate throgh all the vertices of the mesh
-    for(GLuint i = 0; i < mesh->mNumVertices; i++)
+    for(GLuint index = 0; index < mesh->mNumVertices; index++)
        {
-        Vertex vertex;
-        glm::vec3 vector; 
-            
         // Vertex coordinates
-        vector.x = mesh->mVertices[i].x;
-        vector.y = mesh->mVertices[i].y;
-        vector.z = mesh->mVertices[i].z;
+        vector.x = mesh->mVertices[ index ].x;
+        vector.y = mesh->mVertices[ index ].y;
+        vector.z = mesh->mVertices[ index ].z;
         vertex.vertex = vector;
             
-        // Set random color for each vertex
-        vector.x = (float) rand() / (float) RAND_MAX;
-        vector.y = (float) rand() / (float) RAND_MAX;
-        vector.z = (float) rand() / (float) RAND_MAX;
-        vertex.color = vector;
+        if(mesh->mTextureCoords[0])
+           {
+            vec.x = mesh->mTextureCoords[0][ index ].x; 
+            vec.y = mesh->mTextureCoords[0][ index ].y;
+            vertex.texCoords = vec;
+           }
+        else
+           {
+            vertex.texCoords = glm::vec2(0.0f, 0.0f);
+           }   
             
         vertices.push_back(vertex);
        }
 
     // Iterate through faces of the mesh
-    for(GLuint i = 0; i < mesh->mNumFaces; i++)
+    for(GLuint meshIndex = 0; meshIndex < mesh->mNumFaces; meshIndex++)
        {
-        aiFace face = mesh->mFaces[i];
+        aiFace face = mesh->mFaces[ meshIndex ];
 
         // Get the indices associated with the current face
-        for(GLuint j = 0; j < face.mNumIndices; j++)
+        for(GLuint index = 0; j < face.mNumIndices; index++)
            {
-            indices.push_back(face.mIndices[j]);
+            indices.push_back( face.mIndices[ index ] );
            }
        }
 
     // Process materials of the mesh
     if(mesh->mMaterialIndex >= 0)
        {
-        aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+        // Get current material
+        aiMaterial* material = scene->mMaterials[ mesh->mMaterialIndex ];
+        
+        // Load textures for current material
+        textures = loadTextures( material );
        }
         
     // Return data obtained from loaded mesh
-    return Mesh(vertices, indices );
+    return Mesh(vertices, indices, textures );
    }
     
+vector<Gluint> Mode::loadMaterialTextures( aiMaterial* material )
+   {
+    // initialize function/variables
+    vector<GLuint> textures;
+    GLuint index; 
+    string file;
+    GLuint texture;
+    
+    // Loop through textures for each material
+    for( index = 0; index < material->GetTextureCount( aiTextureType_DIFFUSE ); index++ )
+       {
+        // Get filename of texture
+        material->GetTexture( aiTextureType_DIFFUSE, index, &file );
+        
+        // use SOIL to load texture
+        texture = loadTexture( file );
+        
+        // Add texture to vector
+        textures.push_back( texture );
+       }
+    // end loop
+    
+    // Return texture vector
+    return textures;
+   }
+   
+GLuint Model::loadTexture( string fileName )
+   {
+    // initialize function/variables
+    int height, width;
+    GLuint texture;
+    unsigned char* img;
+    
+    fileName = "models/" + string( fileName );
+    
+    img = SOIL_load_image( fileName, &width, &height, 0, SOIL_LOAD_RGB );
+    glGenTextures(1, &texture );
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, width, );
+    
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, img);
+    glGenerateMipmap(GL_TEXTURE_2D);	
+    glBindTexture(GL_TEXTURE_2D, 0);
+    SOIL_free_image_data(img);
+    
+    
+    return texture;
+   }
+   
 // Returns mat4 of this Model
 glm::mat4 Model::getModel()
     {

@@ -10,18 +10,20 @@ using namespace std;
 class Model 
    {
     public:
-        Model(string path);
+        Model(string file);
         void Draw();	
 		void Update(unsigned int dt);
 		glm::mat4 getModel();
 
     private:
-        void loadModel(string path);
-        void processNode(aiNode* node, const aiScene* scene);
-        Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+        void loadModel();
+        void processNode( aiNode* node, const aiScene* scene );
+        Mesh processMesh( aiMesh* mesh, const aiScene* scene );
+        vector<Gluint> loadMaterialTextures( aiMaterial* material )
+        GLuint loadTexture( string fileName );
         
         vector<Mesh> meshes;
-        string directory;
+        string path;
 		glm::mat4 model;
 		float rotateAngle;
 
