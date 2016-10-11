@@ -1,6 +1,8 @@
 #include "mesh.h"
+#include <sstream>
+#include <string>
 
-Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Texture> textures)
+Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<GLuint> textures)
 {
     this->vertices = vertices;
     this->indices = indices;
@@ -35,11 +37,18 @@ Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Texture> text
 
 void Mesh::Draw(Shader shader)
 {
+    string
     for(GLuint i = 0; i < textures.size(); i++)
     {
         glActiveTexture(GL_TEXTURE0 + i);
-        glUniform1f(glGetUniformLocation(shader, /*("material." + name + number).c_str()), i*/);
-        glBindTexture(GL_TEXTURE_2D, textures[i]);
+      
+        stringstream ss;
+        string number;
+        ss << i;
+        number = ss.str(); 
+
+        glUniform1f(glGetUniformLocation(shader.Program, ("material." + number).c_str()), i);
+        glBindTexture(GL_TEXTURE_2D, this->textures[i]);
     }
 
     // Draw mesh
