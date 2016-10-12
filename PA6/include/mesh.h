@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "graphics_headers.h"
+#include "shader.h"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ class Mesh
         // Constructor
         Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<GLuint> textures);
 
-        void Draw();
+        void Draw(Shader shader);
         
     private:
         // Data

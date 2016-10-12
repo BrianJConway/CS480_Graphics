@@ -29,13 +29,14 @@ Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<GLuint> textu
     glBindVertexArray(0);
 }
 
-void Mesh::Draw()
+void Mesh::Draw(Shader shader)
 {
     // Set Up Textures    
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, this->textures[0] );
 
-   
+    glUniform1i(glGetUniformLocation( shader.m_shaderProg, "gSampler"), 0);
+
     // Draw mesh
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

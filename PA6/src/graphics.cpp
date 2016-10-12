@@ -139,7 +139,7 @@ void Graphics::Render()
 
   // Render the object
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_object->getModel()));
-  m_object->Draw();
+  m_object->Draw( *m_shader );
 
   // Get any errors from OpenGL
   auto error = glGetError();

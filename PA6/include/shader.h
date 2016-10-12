@@ -15,9 +15,10 @@ class Shader
     bool AddShader(GLenum ShaderType);
     bool Finalize();
     GLint GetUniformLocation(const char* pUniformName);
+    
+    GLuint m_shaderProg;    
 
   private:
-    GLuint m_shaderProg;    
     std::vector<GLuint> m_shaderObjList;
     
     // Holds filenames for vertex and fragment shaders

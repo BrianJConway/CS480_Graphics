@@ -1,23 +1,26 @@
 #include "model.h"
 #include "SOIL.h"
 #include <iostream>
+#include <Magick++.h>
 
 using namespace std;
+using namespace Magick;
 
 // Constructor
 Model::Model(string file)
    {
     file = "models/" + file;
     path = file;
+    
     this->loadModel();
    }
 
 // Draws the model by drawing each mesh
-void Model::Draw()
+void Model::Draw(Shader shader)
    {
     for(GLuint index = 0; index < this->meshes.size(); index++)
        {
-        this->meshes[ index ].Draw();
+        this->meshes[ index ].Draw( shader );
        }
    }
     
@@ -26,7 +29,12 @@ void Model::Update(unsigned int dt)
    {
     rotateAngle += dt * M_PI/9000;
 
-    model = glm::rotate(glm::mat4(1.0f), (rotateAngle), glm::vec3(0.0, 1.0, 0.0));
+    glm:: mat4 scale, rotate;
+    
+    scale = glm::scale(glm::mat4(1.0f), glm::vec3(4.0f));
+    rotate = glm::rotate(glm::mat4(1.0f), (rotateAngle), glm::vec3(0.0, 1.0, 0.0));
+    
+    model = rotate * scale;
    } 
 
 // Uses ASSIMP to load the model from the file
@@ -89,6 +97,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
            {
             vec.x = mesh->mTextureCoords[0][ index ].x; 
             vec.y = mesh->mTextureCoords[0][ index ].y;
+
             vertex.texCoords = vec;
            }
         else
@@ -156,16 +165,28 @@ GLuint Model::loadTexture( aiString fileName )
     // initialize function/variables
     int height, width;
     GLuint texture;
-    unsigned char* img;
+    unsigned char* img = NULL;
     
     fileName = "models/" + string( fileName.C_Str() );
     
-    
-    cout << fileName.C_Str() << endl;
-    
     glGenTextures(1, &texture );
+    
+    // Load image file using imagemagick
+    Image im;
+    im.read(fileName.C_Str());
+    
+    width = im.columns();
+    height = im.rows();
+     
+    img = new unsigned char[ width * height ];
+    
+    im.write( 0, 0, width, height, "RGBA", CharPixel, img );
+
+/*
+    // Load image file using soil
     img = SOIL_load_image( fileName.C_Str(), &width, &height, 0, SOIL_LOAD_RGB );
 
+*/
     
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, img);
@@ -175,8 +196,8 @@ GLuint Model::loadTexture( aiString fileName )
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     glBindTexture(GL_TEXTURE_2D, 0);
-    SOIL_free_image_data(img);
-    
+    //SOIL_free_image_data(img);
+
     return texture;
    }
    

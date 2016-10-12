@@ -3,6 +3,8 @@
 
 #include "graphics_headers.h"
 #include "mesh.h"
+#include "shader.h"
+
 #include <string>
 
 using namespace std;
@@ -11,7 +13,7 @@ class Model
    {
     public:
         Model(string file);
-        void Draw();	
+        void Draw(Shader shader);	
 		void Update(unsigned int dt);
 		glm::mat4 getModel();
 
