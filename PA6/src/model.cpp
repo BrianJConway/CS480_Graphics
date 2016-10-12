@@ -1,5 +1,8 @@
 #include "model.h"
 #include "SOIL.h"
+#include <iostream>
+
+using namespace std;
 
 // Constructor
 Model::Model(string file)
@@ -157,15 +160,22 @@ GLuint Model::loadTexture( aiString fileName )
     
     fileName = "models/" + string( fileName.C_Str() );
     
-    img = SOIL_load_image( fileName.C_Str(), &width, &height, 0, SOIL_LOAD_RGB );
+    
+    cout << fileName.C_Str() << endl;
+    
     glGenTextures(1, &texture );
+    img = SOIL_load_image( fileName.C_Str(), &width, &height, 0, SOIL_LOAD_RGB );
+
     
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, img);
     glGenerateMipmap(GL_TEXTURE_2D);	
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
     glBindTexture(GL_TEXTURE_2D, 0);
     SOIL_free_image_data(img);
-    
     
     return texture;
    }

@@ -31,16 +31,13 @@ Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<GLuint> textu
 
 void Mesh::Draw()
 {
-    // Set Up Textures
+    // Set Up Textures    
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, this->textures[0] );
 
+   
     // Draw mesh
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
-
-    // Back to Defaults
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, 0);
 }
