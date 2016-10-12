@@ -1,4 +1,5 @@
 #include "model.h"
+#include "SOIL.h"
 
 // Constructor
 Model::Model(string file)
@@ -66,7 +67,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     // Vertex and index vectors
     vector<Vertex> vertices;
     vector<GLuint> indices;
-    vector<Gluint> textures;
+    vector<GLuint> textures;
     
     glm::vec2 vec;
     glm::vec3 vector; 
@@ -101,7 +102,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         aiFace face = mesh->mFaces[ meshIndex ];
 
         // Get the indices associated with the current face
-        for(GLuint index = 0; j < face.mNumIndices; index++)
+        for(GLuint index = 0; index < face.mNumIndices; index++)
            {
             indices.push_back( face.mIndices[ index ] );
            }
@@ -114,19 +115,19 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         aiMaterial* material = scene->mMaterials[ mesh->mMaterialIndex ];
         
         // Load textures for current material
-        textures = loadTextures( material );
+        textures = loadMaterialTextures( material );
        }
         
     // Return data obtained from loaded mesh
     return Mesh(vertices, indices, textures );
    }
     
-vector<Gluint> Mode::loadMaterialTextures( aiMaterial* material )
+vector<GLuint> Model::loadMaterialTextures( aiMaterial* material )
    {
     // initialize function/variables
     vector<GLuint> textures;
     GLuint index; 
-    string file;
+    aiString file;
     GLuint texture;
     
     // Loop through textures for each material
@@ -147,18 +148,17 @@ vector<Gluint> Mode::loadMaterialTextures( aiMaterial* material )
     return textures;
    }
    
-GLuint Model::loadTexture( string fileName )
+GLuint Model::loadTexture( aiString fileName )
    {
     // initialize function/variables
     int height, width;
     GLuint texture;
     unsigned char* img;
     
-    fileName = "models/" + string( fileName );
+    fileName = "models/" + string( fileName.C_Str() );
     
-    img = SOIL_load_image( fileName, &width, &height, 0, SOIL_LOAD_RGB );
+    img = SOIL_load_image( fileName.C_Str(), &width, &height, 0, SOIL_LOAD_RGB );
     glGenTextures(1, &texture );
-    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, width, );
     
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, img);

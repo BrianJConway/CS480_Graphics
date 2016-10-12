@@ -19,8 +19,8 @@ class Model
         void loadModel();
         void processNode( aiNode* node, const aiScene* scene );
         Mesh processMesh( aiMesh* mesh, const aiScene* scene );
-        vector<Gluint> loadMaterialTextures( aiMaterial* material )
-        GLuint loadTexture( string fileName );
+        vector<GLuint> loadMaterialTextures( aiMaterial* material );
+        GLuint loadTexture( aiString fileName );
         
         vector<Mesh> meshes;
         string path;

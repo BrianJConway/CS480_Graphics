@@ -12,7 +12,7 @@ class Mesh
         // Constructor
         Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<GLuint> textures);
 
-        void Draw(Shader shader);
+        void Draw();
         
     private:
         // Data
