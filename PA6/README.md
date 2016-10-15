@@ -5,6 +5,12 @@
 ## Dependencies
 Uses ImageMagick to load texture images.
 
+## IMPORTANT 
+So for some reason some of us need "FindAssimp.cmake" or "Findassimp.cmake" 
+in order for the cmake to find ASSIMP, so both are in the repo but having both
+might also not make it compile. So you might have to check which one makes it 
+so our program compiles on your machine.
+
 ## CMake Instructions
 Navigate to the PA6 directory. Running the executable correctly involves specifying
 the vertex shader filename with '-v [NAME].glsl' and the fragment shader
