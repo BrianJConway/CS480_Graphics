@@ -6,23 +6,64 @@
 #include "shader.h"
 #include "texture.h"
 
+#define INVALID_MATERIAL 0xffffffff
+#define INVALID_OGL_VALUE 0xffffffff
+
 using namespace std;
 
+// Data structure for individual meshes
+struct MeshEntry
+   {
+    // Constructor
+    MeshEntry();
+    
+    // Destructor
+    ~MeshEntry();
+
+    // Initialize data members and buffers for an individual mesh
+    void Init( vector<Vertex>& Vertices, vector<unsigned int>& Indices );
+
+    // Buffer objects
+    GLuint VBO;
+    GLuint IBO;
+    
+    unsigned int numIndices;
+    
+    // Identifies which texture applies to this specific mesh
+    unsigned int materialIndex;
+   };
+
+// Datat structure that holds all meshes and textures for a model
 class Mesh
    {
     public:
-        // Constructor
-        Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Texture*> textures, unsigned int matIndex );
+       // Constructor
+       Mesh();
 
-        void Draw();
-        
+       // Destructor
+       ~Mesh();
+
+       // Load mesh using ASSIMP and ImageMagick
+       bool loadMesh( string& Filename );
+
+       // Output textured mesh
+       void Draw();
+
     private:
-        // Data
-        vector<Vertex> vertices;
-        vector<GLuint> indices;
-        vector<Texture*> textures;
-        unsigned int materialIndex;
-        GLuint VAO, VBO, IBO;
+       // Functions used to help load mesh
+       bool loadScene(const aiScene* pScene );
+       void initMesh(unsigned int Index, const aiMesh* paiMesh);
+       bool loadMaterials(const aiScene* pScene );
+       
+       // Deallocates textures 
+       void Clear();
+
+       // Vector of the meshes for this model
+       vector<MeshEntry> meshEntries;
+        
+       // Vector of all the model's specified textures
+       vector<Texture*> meshTextures;
    };
+
 
 #endif 

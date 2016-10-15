@@ -28,17 +28,17 @@ bool Texture::Load()
        }
 
     glGenTextures(1, &m_textureObj);
-    glBindTexture(m_textureTarget, m_textureObj);
-    glTexImage2D(m_textureTarget, 0, GL_RGBA, m_image.columns(), m_image.rows(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_blob.data());
-    glTexParameterf(m_textureTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameterf(m_textureTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);    
-    glBindTexture(m_textureTarget, 0);
+    glBindTexture(GL_TEXTURE_2D, m_textureObj);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_image.columns(), m_image.rows(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_blob.data());
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);    
+    glBindTexture(GL_TEXTURE_2D, 0);
     
     return true;
    }
 
 void Texture::Bind(GLenum TextureUnit)
    {
-    glActiveTexture(TextureUnit);
-    glBindTexture( m_textureTarget, m_textureObj );
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture( GL_TEXTURE_2D, m_textureObj );
    }
