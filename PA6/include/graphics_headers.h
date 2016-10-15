@@ -25,11 +25,8 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-// Headers for SOIL
-#include "SOIL.h"
-
 // Headers for ImageMagick
-#include <ImageMagick-6/Magick++.h>
+#include <Magick++.h>
 
 // Headers for file IO
 #include <fstream>
