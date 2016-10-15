@@ -11,7 +11,7 @@ class Model
    {
     public:
         Model( string file );
-        void Draw();	
+        virtual void Draw() = 0;	
 		virtual void Update(unsigned int dt) = 0;
 		glm::mat4 getModel();
 

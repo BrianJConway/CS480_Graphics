@@ -12,13 +12,6 @@ Model::Model(string file)
     mesh.loadMesh( file );
    }
 
-// Draws the model by drawing each mesh
-void Model::Draw()
-   {
-    // Draw meshes
-    mesh.Draw();
-   }
-
 // Returns mat4 of this Model
 glm::mat4 Model::getModel()
     {
