@@ -120,7 +120,6 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
 void Graphics::Update(unsigned int dt)
 {
   // Update the object
-  //m_cube->Update(dt);
   m_object->Update(dt);
 }
 
@@ -139,7 +138,7 @@ void Graphics::Render()
 
   // Render the object
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_object->getModel()));
-  m_object->Draw( *m_shader );
+  m_object->Draw();
 
   // Get any errors from OpenGL
   auto error = glGetError();

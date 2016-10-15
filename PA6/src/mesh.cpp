@@ -1,11 +1,14 @@
 #include "mesh.h"
 
-Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<GLuint> textures)
-{
+Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Texture*> textures, unsigned int matIndex )
+   {
     this->vertices = vertices;
     this->indices = indices;
     this->textures = textures;
-
+    materialIndex = matIndex - 1;
+    
+cout << "(MESH) NUM TEXTURES: " << textures.size() << endl;
+    
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &IBO);
@@ -25,20 +28,22 @@ Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<GLuint> textu
     // Vertex Texture
     glEnableVertexAttribArray(1);	
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, texCoords));
+    
 
     glBindVertexArray(0);
-}
-
-void Mesh::Draw(Shader shader)
-{
-    // Set Up Textures    
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, this->textures[0] );
-
-    glUniform1i(glGetUniformLocation( shader.m_shaderProg, "gSampler"), 0);
-
+   }
+ 
+void Mesh::Draw()
+   {
     // Draw mesh
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
-}
+    
+    cout << "matindex: " << materialIndex << endl;
+    cout << textures.size() << endl;
+    
+    if( textures[ materialIndex ] )
+    textures[ materialIndex ]->Bind( GL_TEXTURE0 );
+
+   }
