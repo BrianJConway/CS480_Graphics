@@ -74,20 +74,20 @@ void Mesh::Clear()
    }
 
 // Load model using ASSIMP 
-bool Mesh::loadMesh( string& Filename )
+bool Mesh::loadMesh( string& fileName )
    {   
     // Initialize function/variables
-    Filename = "models/" + Filename;
+    fileName = "models/" + fileName;
     Assimp::Importer Importer;
     Clear();
     
     // Get ASSIMP scene object
-    const aiScene* scene = Importer.ReadFile(Filename.c_str(), aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
+    const aiScene* scene = Importer.ReadFile(fileName.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs);
     
     // Check if failure loading scene from file
     if ( !scene ) 
        {
-        cout << "ASSIMP error loading: " << Filename << ": " <<endl
+        cout << "ASSIMP error loading: " << fileName << ": " <<endl
              << " " << Importer.GetErrorString(); 
         return false;
        }
@@ -106,8 +106,8 @@ bool Mesh::loadScene(const aiScene* scene )
     for( index = 0 ; index < meshEntries.size() ; index++) 
        {
         // Initialize the current mesh
-        const aiMesh* paiMesh = scene->mMeshes[ index ];
-        initMesh( index, paiMesh);
+        const aiMesh* mesh = scene->mMeshes[ index ];
+        initMesh( index, mesh );
        }
 
     // Get textures
@@ -221,7 +221,8 @@ void Mesh::Draw()
     int index;
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
-
+    int MaterialIndex;
+    
     // Loop through each mesh in the model
     for( index = 0 ; index < meshEntries.size() ; index++ ) 
        {
@@ -232,7 +233,7 @@ void Mesh::Draw()
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshEntries[ index ].IBO);
 
         // Get material index for current mesh ( if it has one )
-        const unsigned int MaterialIndex = meshEntries[ index ].materialIndex;
+        int MaterialIndex = meshEntries[ index ].materialIndex;
 
         // Check if mesh has a texture
         if( MaterialIndex < meshTextures.size() && meshTextures[ MaterialIndex ] ) 

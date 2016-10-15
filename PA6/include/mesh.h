@@ -44,16 +44,16 @@ class Mesh
        ~Mesh();
 
        // Load mesh using ASSIMP and ImageMagick
-       bool loadMesh( string& Filename );
+       bool loadMesh( string& fileName );
 
        // Output textured mesh
        void Draw();
 
     private:
        // Functions used to help load mesh
-       bool loadScene(const aiScene* pScene );
-       void initMesh(unsigned int Index, const aiMesh* paiMesh);
-       bool loadMaterials(const aiScene* pScene );
+       bool loadScene(const aiScene* scene );
+       void initMesh(unsigned int Index, const aiMesh* mesh );
+       bool loadMaterials(const aiScene* scene );
        
        // Deallocates textures 
        void Clear();
