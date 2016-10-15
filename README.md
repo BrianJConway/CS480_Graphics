@@ -24,3 +24,7 @@ This is a model loader that works with .obj files. It loads the model data from 
 ## PA5: Assimp Model Loader
 This is a model loader that uses Assimp to load in .obj files. It loads the model data from a file, randomizes the colors of each vertex, then slowly rotates the model. To run this project ```cd PA5``` then follow the instructions in the README.md.
 
+## PA6: Assimp Model Loader with textures
+This is a model loader that uses Assimp to load in .obj files with textures. It loads the model data from a file, applies its specified texture, then slowly rotates the model. To run this project ```cd PA6``` then follow the instructions in the README.md.
+
+
