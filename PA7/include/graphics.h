@@ -11,6 +11,7 @@ using namespace std;
 #include "camera.h"
 #include "shader.h"
 #include "model.h"
+#include "planet.h"
 
 class Graphics
 {
@@ -31,7 +32,7 @@ class Graphics
     GLint m_viewMatrix;
     GLint m_modelMatrix;
 
-    Model *m_object;
+    vector<Planet> m_planet;
 };
 
 #endif /* GRAPHICS_H */
