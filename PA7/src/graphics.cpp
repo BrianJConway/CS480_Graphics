@@ -55,13 +55,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   }
 
   // Load the model
-  // Planet(float radius, float speed, int moons, bool saturn, string fileName);
-  m_planet.push_back(Planet(1, 1000, 1, false, "mercury.obj"));
-  m_planet.push_back(Planet(2, 1000, 1, false, "venus.obj"));
-  m_planet.push_back(Planet(3, 1000, 1, false, "mars.obj"));
-  m_planet.push_back(Planet(4, 1000, 1, false, "earth.obj"));
-
-  //m_object = new Model( fNames[ 2 ] );
+  m_object = new Model( fNames[ 2 ] );
 
   // Set up the shaders
   m_shader = new Shader( fNames );
@@ -126,7 +120,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
 void Graphics::Update(unsigned int dt)
 {
   // Update the object
-  m_planet[0].Update(dt);
+  m_object->Update(dt);
 }
 
 void Graphics::Render()
@@ -143,11 +137,8 @@ void Graphics::Render()
   glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView())); 
 
   // Render the object
-    for(int i = 0; i < m_planet.size(); i++)
-    {
-        glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_planet[i].getModel()));
-        m_planet[i].Draw(m_modelMatrix);
-    }
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_object->getModel()));
+  m_object->Draw();
 
   // Get any errors from OpenGL
   auto error = glGetError();

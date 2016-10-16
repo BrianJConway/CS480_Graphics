@@ -10,13 +10,12 @@ using namespace std;
 class Model 
    {
     public:
-        Model();
-        Model( string fileName );
-        virtual void Draw(GLint modelMatrix) = 0;
-		virtual void Update(unsigned int dt) = 0;
+        Model( string file );
+        void Draw();	
+		void Update(unsigned int dt);
 		glm::mat4 getModel();
 
-    protected:
+    private:
         Mesh mesh;
 		glm::mat4 model;
 		float rotateAngle;

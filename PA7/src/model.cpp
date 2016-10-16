@@ -6,25 +6,20 @@ using namespace std;
 using namespace Magick;
 
 // Constructor
-Model::Model()
-{
-}
-
-Model::Model(string fileName)
+Model::Model(string file)
    {
     // Load meshes
-    mesh.loadMesh( fileName );
+    mesh.loadMesh( file );
    }
 
 // Draws the model by drawing each mesh
-/*void Model::Draw(GLint modelMatrix)
+void Model::Draw()
    {
     // Draw meshes
-    mesh.Draw(modelMatrix);
+    mesh.Draw();
    }
-*/    
+    
 // Slowly moves the model
-/*
 void Model::Update(unsigned int dt)
    {
     // Initialize function/variables
@@ -41,7 +36,7 @@ void Model::Update(unsigned int dt)
     // Apply transformations to model matrix
     model = rotate;
    } 
-*/
+
 // Returns mat4 of this Model
 glm::mat4 Model::getModel()
     {

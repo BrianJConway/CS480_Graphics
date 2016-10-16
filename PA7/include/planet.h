@@ -3,28 +3,26 @@
 
 #include <vector>
 #include "graphics_headers.h"
-//#include "moon.h"
+#include "moon.h"
 #include "model.h"
-#include <string>
 
 using namespace std;
 
 // Derived from Model Class
-class Planet: public Model
+class Planet: private Model
 {
-        
     public:
         // Constructor
-        Planet(float radius, float speed, int moons, bool saturn, string fileName);
+        Planet(float radius, float speed, int moons, bool saturn);
 
         // Destructor
         ~Planet();
 
         void Update(unsigned int dt);
-        void Draw(GLint modelMatrix);
+        void Draw();
 
     private:
-        //vector<Moon> Moons;
+        vector<Moon> Moons;
 
         float Radius;
         float Speed;
