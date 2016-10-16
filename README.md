@@ -27,4 +27,7 @@ This is a model loader that uses Assimp to load in .obj files. It loads the mode
 ## PA6: Assimp Model Loader with textures
 This is a model loader that uses Assimp to load in .obj files with textures. It loads the model data from a file, applies its specified texture, then slowly rotates the model. To run this project ```cd PA6``` then follow the instructions in the README.md.
 
+## PA7: Solar System Simulation
+This is a simulation of the solar system that uses Assimp to load in .obj files with textures. To run this project ```cd PA7``` then follow the instructions in the README.md.
+
 

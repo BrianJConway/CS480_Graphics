@@ -19,7 +19,7 @@ bool checkEndsWith( const string& testString, const string& endStr );
 int main(int argc, char **argv)
 {
     // Initialize program/variables
-    string inputInfo[ 3 ];
+    string inputInfo[ 2 ];
   
     // Check if shaders and object were specified correctly
     if( validateInput( argc, argv, inputInfo ) )
@@ -49,7 +49,7 @@ bool validateInput( int numArgs, char **inputStrings, string inputData[] )
     vector<string>::iterator tempIterator;
     string temp;
     int index;
-    bool noArgs, noVertex, noVName, noFragment, noFName, noObj, noOName, result;
+    bool noArgs, noVertex, noVName, noFragment, noFName, result;
     
         // Get vector of strings from inputs
         for( index = 0; index < numArgs; index++ )
@@ -62,11 +62,9 @@ bool validateInput( int numArgs, char **inputStrings, string inputData[] )
     // Check if help requested
     if( ( numArgs == 2 ) && ( inputArgs[ 1 ] == "--h" ) )
     {
-        cout << "USAGE: './Tutorial -v (VERTEX SHADER FILE) -f (FRAGMENT SHADER FILE) -o (OBJ FILE)'"
+        cout << "USAGE: './Tutorial -v (VERTEX SHADER FILE) -f (FRAGMENT SHADER FILE)'"
              << endl 
              << "Shader files must be of type '.glsl'"
-             << endl
-             << "Object files must be of type '.obj'"
              << endl;
              
         return false;
@@ -75,7 +73,7 @@ bool validateInput( int numArgs, char **inputStrings, string inputData[] )
     // Detect possible errors in program input
         
         // Check for incorrect number of arguments
-        noArgs = ( numArgs < 3 );
+        noArgs = ( numArgs < 2 );
         
         // Check if vertex shader specified
         tempIterator = find( inputArgs.begin(), inputArgs.end(), "-v" );
@@ -97,17 +95,9 @@ bool validateInput( int numArgs, char **inputStrings, string inputData[] )
                   ( next( tempIterator ) == inputArgs.end() || 
                     !checkEndsWith( *( next( tempIterator ) ), ".glsl" ) ); 
 
-        // Check if object specified
-        tempIterator = find( inputArgs.begin(), inputArgs.end(), "-o" );
-        noObj = tempIterator == inputArgs.end();     
-        
-        // Check if object specified but bad or missing filename 
-        // Returns false if '-o' at end of input or missing .obj extension 
-        noOName = !(noObj) && ( next( tempIterator ) == inputArgs.end() ); 
-                        
             
     // Check if incorrect input detected 
-    if( noArgs || noVertex || noVName || noFragment || noFName || noObj || noOName )                         
+    if( noArgs || noVertex || noVName || noFragment || noFName )                         
     {
         // Check if too few or too many arguments
         if( noArgs )
@@ -139,20 +129,7 @@ bool validateInput( int numArgs, char **inputStrings, string inputData[] )
            cout << "ERROR: Fragment shader filename missing or incorrect extension"
                 << endl;  
         }
-        
-        if( !noArgs && noObj )
-        {
-            cout << "ERROR: Object not specified."
-                 << endl;        
-        }
-        // Otherwise check if fragment shader filename not specified
-        else if( noOName )
-        {
-           cout << "ERROR: Object filename missing"
-                << endl;  
-        }
 
-        
         cout << "Try './Tutorial --h' for more information" 
              << endl;
              
@@ -168,10 +145,6 @@ bool validateInput( int numArgs, char **inputStrings, string inputData[] )
         // Load fragment shader filename into second element of output array
         tempIterator = find( inputArgs.begin(), inputArgs.end(), "-f" );
         inputData[ 1 ] = *( next(tempIterator ) );
-
-        // Load object filename into third element of output array
-        tempIterator = find( inputArgs.begin(), inputArgs.end(), "-o" );
-        inputData[ 2 ] = *( next(tempIterator ) );
         
         result = true;
     }
