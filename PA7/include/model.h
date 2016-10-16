@@ -11,15 +11,13 @@ class Model
    {
     public:
         Model( string file );
-        void Draw();	
-		void Update(unsigned int dt);
+        virtual void Draw() = 0;	
+		virtual void Update(unsigned int dt) = 0;
 		glm::mat4 getModel();
 
-    private:
+    protected:
         Mesh mesh;
 		glm::mat4 model;
-		float rotateAngle;
-
    };
    
 #endif
