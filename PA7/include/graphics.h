@@ -11,6 +11,8 @@ using namespace std;
 #include "camera.h"
 #include "shader.h"
 #include "model.h"
+#include "planet.h"
+#include "moon.h"
 
 class Graphics
 {
@@ -23,7 +25,9 @@ class Graphics
 
   private:
     std::string ErrorString(GLenum error);
-
+    void loadPlanets();
+    void loadMoons( int planetIndex );
+    
     Camera *m_camera;
     Shader *m_shader;
 
@@ -31,7 +35,9 @@ class Graphics
     GLint m_viewMatrix;
     GLint m_modelMatrix;
 
-    Model *m_object;
+    // Sun, all planets, and pluto
+    Vector<Planet*> planets( 10 );
+    
 };
 
 #endif /* GRAPHICS_H */
