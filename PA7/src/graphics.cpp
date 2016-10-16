@@ -260,3 +260,7 @@ std::string Graphics::ErrorString(GLenum error)
   }
 }
 
+Camera* Graphics::getCamera()
+   {
+    return m_camera;
+   }
