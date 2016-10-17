@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     if( validateInput( argc, argv, inputInfo ) )
     {
         // Start an engine and run it then cleanup after
-        Engine *engine = new Engine("Tutorial Window Name", 800, 600);
+        Engine *engine = new Engine("Tutorial Window Name", 1600, 900);
         if(!engine->Initialize( inputInfo ))
         {
           printf("The engine failed to start.\n");
