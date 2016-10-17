@@ -63,6 +63,7 @@ void Engine::Run()
     while(SDL_PollEvent(&m_event) != 0)
     {
       Keyboard();
+      Mouse();
     }
 
     // Update and render the graphics
@@ -74,21 +75,57 @@ void Engine::Run()
   }
 }
 
+// Handles mouse click events
+void Engine::Mouse()
+   {
+    // Initialize function/variables
+    Camera* m_camera = m_graphics->getCamera();
+    
+    // Checks for mouse button event
+    if(m_event.type == SDL_MOUSEMOTION )
+       {
+        m_camera->processMouseMovement( m_event.motion.xrel, m_event.motion.yrel );
+       }
+   }
+
 void Engine::Keyboard()
-{
-  if(m_event.type == SDL_QUIT)
-  {
-    m_running = false;
-  }
-  else if (m_event.type == SDL_KEYDOWN)
-  {
-    // handle key down events here
-    if (m_event.key.keysym.sym == SDLK_ESCAPE)
-    {
-      m_running = false;
-    }
-  }
-}
+   {
+    // Initialize function/varaibles 
+    Camera* m_camera = m_graphics->getCamera();
+    
+    if(m_event.type == SDL_QUIT)
+       {
+        m_running = false;
+       }
+    else if (m_event.type == SDL_KEYDOWN)
+       {
+        if (m_event.key.keysym.sym == SDLK_ESCAPE)
+           {
+            m_running = false;
+           }
+        // Toggle rotation direction key
+        else if(m_event.key.keysym.sym == SDLK_w)
+           {
+            m_camera->processKeyboard( "FORWARD", m_DT );
+           }
+        // Toggle rotation on/off key
+        else if(m_event.key.keysym.sym == SDLK_s)
+           {
+            m_camera->processKeyboard( "BACKWARDS", m_DT );
+           }
+        // Toggle moon orbit direction key
+        else if(m_event.key.keysym.sym == SDLK_a)
+           {
+            m_camera->processKeyboard( "LEFT", m_DT );
+           }
+        // Toggle moon rotationrere on/off 
+        else if(m_event.key.keysym.sym == SDLK_d)
+           {
+            m_camera->processKeyboard( "RIGHT", m_DT );
+           }
+       }
+   }
+
 
 unsigned int Engine::getDT()
 {
