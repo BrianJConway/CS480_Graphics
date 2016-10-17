@@ -44,11 +44,6 @@ glm::mat4 Camera::GetProjection()
 glm::mat4 Camera::GetView()
    {
     // Update and return view matrix
-    
-    cout << "pos  : " << pos.x << " " << pos.y << " " << pos.z << endl;
-    cout << "front: " << front.x + pos.x << " " << front.y + pos.y << " " << front.z + pos.z << endl;
-    cout << "up   : " << up.x << " " << up.y << " " << up.z << endl << endl << endl;
-    
     view = glm::lookAt( glm::vec3( pos.x, pos.y, pos.z), //Eye Position
                       glm::vec3( pos.x + front.x, pos.y + front.y, pos.z + front.z ), //Focus point
                       glm::vec3( up.x, up.y, up.z)); //Positive Y is up
