@@ -12,7 +12,7 @@ class Model
     public:
         Model();
         Model( string file );
-        virtual void Draw() = 0;	
+        virtual void Draw(GLint modelMatrix) = 0;	
 		virtual void Update(unsigned int dt) = 0;
 		glm::mat4 getModel();
 
