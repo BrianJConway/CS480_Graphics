@@ -2,11 +2,11 @@
 #include <vector>
 #include <cmath>
 
-Planet::Planet(int index, string fileName, float radius, float speed, int moons, float distance, float orbitPeriod)
+Planet::Planet(int index, string fileName, float radius, float speed, int moons, float distanceFromSun, float orbitPeriod)
 {
     mesh.loadMesh( fileName );
-    Radius = radius;
-    Speed = speed;
+    Radius = distanceFromSun * 5;
+    Speed = speed * 5000;
     NumMoons = moons;
 
     if(NumMoons > 3)

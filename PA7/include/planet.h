@@ -13,7 +13,7 @@ class Planet: private Model
 {
     public:
         // Constructor
-        Planet(int index, string fileName, float radius, float speed, int moons, float distance, float orbitPeriod);
+        Planet(int index, string fileName, float radius, float speed, int moons, float distanceFromSun, float orbitPeriod);
 
         // Destructor
         ~Planet();
