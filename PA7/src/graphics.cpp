@@ -119,6 +119,7 @@ void Graphics::loadPlanets()
    {
     // initialize function/variables
     int index;
+    bool realistic = true;
     
     // Loop through sun, planets, and pluto
     for( index = 0; index < 10; index++ )
@@ -128,52 +129,52 @@ void Graphics::loadPlanets()
            {
             // Check for sun index
             case 0:
-              planets[ index ] = new Planet( index, "sun.obj", 1.0, 26.24, 0, 0, -1  ); 
+              planets[ index ] = new Planet( index, "sun.obj", 1.0, 26.24, 0, 0, -1, realistic ); 
               break;  
   
             // Check for mercury index
             case 1:
-              planets[ index ] = new Planet( index, "mercury.obj", 0.0056, 58.65, 0, 0.39, .24 ); 
+              planets[ index ] = new Planet( index, "mercury.obj", 0.0056, 58.65, 0, 0.39, .24, realistic ); 
               break;  
 
             // Check for venus index
             case 2:
-              planets[ index ] = new Planet( index, "venus.obj", 0.0143, 243, 0, 0.72, 0.62 ); 
+              planets[ index ] = new Planet( index, "venus.obj", 0.0143, 243, 0, 0.72, 0.62, realistic ); 
               break;
 
             // Check for earth index
             case 3:
-              planets[ index ] = new Planet( index, "earth.obj", 0.0151, 1, 1, 1, 1 ); 
+              planets[ index ] = new Planet( index, "earth.obj", 0.0151, 1, 1, 1, 1, realistic ); 
               break;  
             
             // Check for mars index
             case 4:
-              planets[ index ] = new Planet( index, "mars.obj", 0.008, 1.03, 2, 1.52, 1.88 ); 
+              planets[ index ] = new Planet( index, "mars.obj", 0.008, 1.03, 2, 1.52, 1.88, realistic ); 
               break;
 
             // Check for jupiter index
             case 5:
-              planets[ index ] = new Planet( index, "jupiter.obj", 0.1652, 0.41, 67, 5.2, 11.86 ); 
+              planets[ index ] = new Planet( index, "jupiter.obj", 0.1652, 0.41, 67, 5.2, 11.86, realistic ); 
               break;  
   
             // Check for saturn index
             case 6:
-              planets[ index ] = new Planet( index, "saturn.obj", 0.1388, 0.44, 62, 9.54, 29.46 ); 
+              planets[ index ] = new Planet( index, "saturn.obj", 0.1388, 0.44, 62, 9.54, 29.46, realistic ); 
               break;  
 
             // Check for uranus index
             case 7:
-              planets[ index ] = new Planet( index, "uranus.obj", 0.0591, 0.72, 27, 19.18, 84.01 ); 
+              planets[ index ] = new Planet( index, "uranus.obj", 0.0591, 0.72, 27, 19.18, 84.01, realistic ); 
               break;
 
             // Check for neptune index
             case 8:
-              planets[ index ] = new Planet( index, "neptune.obj", 0.0573, 0.72, 14, 30.06, 164.8 ); 
+              planets[ index ] = new Planet( index, "neptune.obj", 0.0573, 0.72, 14, 30.06, 164.8, realistic ); 
               break;  
             
             // Otherwise, assume pluto index
             default:
-              planets[ index ] = new Planet( index, "pluto.obj", 0.0027, 6.38, 5, 39.44, 247.7 ); 
+              planets[ index ] = new Planet( index, "pluto.obj", 0.0027, 6.38, 5, 39.44, 247.7, realistic ); 
               break;
            }
        

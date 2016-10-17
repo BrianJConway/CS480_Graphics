@@ -13,7 +13,7 @@ class Planet: private Model
 {
     public:
         // Constructor
-        Planet(int index, string fileName, float radius, float speed, int moons, float distanceFromSun, float orbitPeriod);
+        Planet(int index, string fileName, float RelativeSize, float RotateSpeed, int moons, float OrbitDistance, float OrbitPeriod, bool realistic );
 
         // Destructor
         ~Planet();
@@ -24,10 +24,11 @@ class Planet: private Model
 
     private:
         //vector<Moon> Moons;
-
-        float Radius;
-        float Speed;
-        int NumMoons;
+        
+        int planetIndex, numMoons;
+        float relativeSize, rotateSpeed, orbitDistance, orbitPeriod;
+        float rotateAngle, orbitAngle;
+        bool realistic;
 };
 
 #endif
