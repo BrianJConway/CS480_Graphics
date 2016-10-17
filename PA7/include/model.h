@@ -10,6 +10,7 @@ using namespace std;
 class Model 
    {
     public:
+        Model();
         Model( string file );
         virtual void Draw() = 0;	
 		virtual void Update(unsigned int dt) = 0;
@@ -18,6 +19,7 @@ class Model
     protected:
         Mesh mesh;
 		glm::mat4 model;
+        float rotateAngle;
    };
    
 #endif

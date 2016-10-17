@@ -6,6 +6,10 @@ using namespace std;
 using namespace Magick;
 
 // Constructor
+Model::Model()
+{
+}
+
 Model::Model(string file)
    {
     // Load meshes

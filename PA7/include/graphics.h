@@ -12,7 +12,7 @@ using namespace std;
 #include "shader.h"
 #include "model.h"
 #include "planet.h"
-#include "moon.h"
+//#include "moon.h"
 
 class Graphics
 {
@@ -36,7 +36,7 @@ class Graphics
     GLint m_modelMatrix;
 
     // Sun, all planets, and pluto
-    Vector<Planet*> planets( 10 );
+    vector<Planet*> planets;
     
 };
 

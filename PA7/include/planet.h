@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "graphics_headers.h"
-#include "moon.h"
+//#include "moon.h"
 #include "model.h"
 
 using namespace std;
@@ -13,21 +13,21 @@ class Planet: private Model
 {
     public:
         // Constructor
-        Planet(float radius, float speed, int moons, bool saturn);
+        Planet(int index, string fileName, float radius, float speed, int moons, float distance, float orbitPeriod);
 
         // Destructor
         ~Planet();
 
         void Update(unsigned int dt);
-        void Draw();
+        void Draw(GLint modelMatrix);
+        glm::mat4 getModel();
 
     private:
-        vector<Moon> Moons;
+        //vector<Moon> Moons;
 
         float Radius;
         float Speed;
         int NumMoons;
-        bool IsSaturn;
 };
 
 #endif
