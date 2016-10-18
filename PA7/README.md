@@ -7,16 +7,13 @@ Uses ImageMagick to load texture images.
 
 ## Controls
 
-### NOTE
-Camera controls are a little wonky, make sure when you run the program your
-mouse isn't where the window will appear. After you run the program, move mouse 
-into the window and then hold S until you can see the models. Then use the controls
-as normal.
-
 ### Keyboard Controls
 W - Camera forward
+
 S - Camera backward
+
 A - Camera left
+
 D - Camera right
 
 ### Mouse Controls
