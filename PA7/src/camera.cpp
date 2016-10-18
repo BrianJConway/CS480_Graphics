@@ -14,7 +14,7 @@ Camera::Camera()
     pitch = 0;
     yaw = 0;
     
-    moveSpeed = 0.1f;
+    moveSpeed = 0.05f;
     sensitivity = 0.25f;
    }
 
@@ -55,7 +55,7 @@ glm::mat4 Camera::GetView()
 // Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
 void Camera::processKeyboard( string direction, GLfloat dt )
    {
-    GLfloat velocity = moveSpeed * dt;
+    GLfloat velocity = moveSpeed;
     
     if( direction == "FORWARD" )
        {
