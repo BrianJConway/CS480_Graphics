@@ -31,11 +31,13 @@ Planet::Planet(int index, string fileName, double RelativeSize, double RotateSpe
         relativeSize = RelativeSize;
        }
 
-        
-
-    
     rotateAngle = 0.0f;
     orbitAngle = 0.0f;
+
+
+    orbitAngle += planetIndex * 5;
+      
+
 
     if(numMoons > 3)
     {
@@ -55,15 +57,16 @@ void Planet::Update(unsigned int dt)
   glm::mat4 translate = model;
   glm::mat4 rotate = model;
   glm::mat4 scale = model;
-
-  rotateAngle += dt * M_PI / 5000;
   
-  double orbitScale = 10000.00 * orbitPeriod;
+  double orbitScale = 50000.00 * orbitPeriod;
+  double rotateScale = 2000.00 * rotateSpeed;
   
   if( planetIndex != 0 )
   orbitAngle += dt * M_PI/ orbitScale;
   else
   orbitAngle += dt * M_PI/ 10000;
+
+  rotateAngle += dt * M_PI / rotateScale;
 
   // Caclulate coordinates based on parametric equation for a circle
   float xPos = 0.0 + orbitDistance * glm::cos( orbitAngle );
