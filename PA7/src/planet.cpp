@@ -68,7 +68,7 @@ void Planet::Update(unsigned int dt)
   else
   orbitAngle += dt * M_PI/ 10000;
 
-  rotateAngle += dt * M_PI / rotateScale;
+  rotateAngle -= dt * M_PI / rotateScale;
 
   // Caclulate coordinates based on parametric equation for a circle
   float xPos = 0.0 + orbitDistance * glm::cos( orbitAngle );
