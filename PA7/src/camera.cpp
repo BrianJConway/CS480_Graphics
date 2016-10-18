@@ -14,7 +14,7 @@ Camera::Camera()
     pitch = 0;
     yaw = 0;
     
-    moveSpeed = 0.5f;
+    moveSpeed = 0.1f;
     sensitivity = 0.25f;
    }
 

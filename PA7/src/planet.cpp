@@ -15,10 +15,12 @@ Planet::Planet(int index, string fileName, double RelativeSize, double RotateSpe
        {
         orbitDistance = index * 2.0;
         
-        if( planetIndex != 0 )
-            relativeSize = RelativeSize * 4.00;
-        else
-            relativeSize = RelativeSize * 1.75;
+        if( planetIndex == 9 || planetIndex > 0 && planetIndex < 5  )
+            relativeSize = RelativeSize * 15.00;
+        else if( planetIndex != 0 )
+            relativeSize = RelativeSize * 3.75;
+        else 
+            relativeSize = RelativeSize;
        }
 
     else
