@@ -2,15 +2,15 @@
 #include <vector>
 #include <cmath>
 
-Planet::Planet(int index, string fileName, float RelativeSize, float RotateSpeed, int moons, float OrbitDistance, float OrbitPeriod, bool realistic )
+Planet::Planet(int index, string fileName, double RelativeSize, double RotateSpeed, int moons, double OrbitDistance, double OrbitPeriod, bool realistic )
 {
     mesh.loadMesh( fileName );
     
     planetIndex = index;
     rotateSpeed = RotateSpeed;
     numMoons = moons;
-    orbitPeriod = orbitPeriod;
-    
+    orbitPeriod = OrbitPeriod;
+
     if( !realistic )
        {
         orbitDistance = index * 2.0;
@@ -57,7 +57,13 @@ void Planet::Update(unsigned int dt)
   glm::mat4 scale = model;
 
   rotateAngle += dt * M_PI / 5000;
-  orbitAngle += dt * M_PI/ 100000;
+  
+  double orbitScale = 10000.00 * orbitPeriod;
+  
+  if( planetIndex != 0 )
+  orbitAngle += dt * M_PI/ orbitScale;
+  else
+  orbitAngle += dt * M_PI/ 10000;
 
   // Caclulate coordinates based on parametric equation for a circle
   float xPos = 0.0 + orbitDistance * glm::cos( orbitAngle );

@@ -129,7 +129,7 @@ void Graphics::loadPlanets()
            {
             // Check for sun index
             case 0:
-              planets[ index ] = new Planet( index, "sun.obj", 1.0, 26.24, 0, 0, -1, realistic ); 
+              planets[ index ] = new Planet( index, "sun.obj", 1.0, 26.24, 0, 0, -1.0, realistic ); 
               break;  
   
             // Check for mercury index
