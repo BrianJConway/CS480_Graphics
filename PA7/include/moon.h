@@ -24,6 +24,8 @@ class Moon: public Model
 
     private:
         glm::mat4 planetModel;
+	int Index;
+	float orbitAngle;
 };
 
 #endif
