@@ -106,22 +106,22 @@ void Engine::Keyboard()
         // Toggle rotation direction key
         else if(m_event.key.keysym.sym == SDLK_w)
            {
-            m_camera->processKeyboard( "FORWARD", m_DT );
+            m_camera->processKeyboard( "FORWARD" );
            }
         // Toggle rotation on/off key
         else if(m_event.key.keysym.sym == SDLK_s)
            {
-            m_camera->processKeyboard( "BACKWARDS", m_DT );
+            m_camera->processKeyboard( "BACK" );
            }
         // Toggle moon orbit direction key
         else if(m_event.key.keysym.sym == SDLK_a)
            {
-            m_camera->processKeyboard( "LEFT", m_DT );
+            m_camera->processKeyboard( "LEFT" );
            }
         // Toggle moon rotationrere on/off 
         else if(m_event.key.keysym.sym == SDLK_d)
            {
-            m_camera->processKeyboard( "RIGHT", m_DT );
+            m_camera->processKeyboard( "RIGHT" );
            }
        }
    }

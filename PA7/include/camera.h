@@ -16,7 +16,7 @@ class Camera
     glm::mat4 GetView();
     
     void updateVectors();
-    void processKeyboard( string direction, GLfloat dt );
+    void processKeyboard( string direction );
     void processMouseMovement(GLfloat xoffset, GLfloat yoffset );
 
   private:
