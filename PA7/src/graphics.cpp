@@ -10,7 +10,7 @@ Graphics::Graphics()
 {
     planets.resize(10);
     star = NULL;
-    stars = true;
+    stars = false;
     realistic = true;
 }
 
@@ -57,10 +57,16 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   }
   
   // Check if load starfield
-  if( stars )
+  if( fNames[ 3 ] == "stars" )
      {
+      stars = true;
       star = new Stars();
      }
+  // Check if scaled version   
+  if( fNames[ 2 ] == "scaled" )
+     {
+      realistic = false;
+     } 
          
   // Load models for solar system
   loadPlanets();
@@ -129,7 +135,6 @@ void Graphics::loadPlanets()
    {
     // initialize function/variables
     int index;
-    bool realistic = true;
     
     // Loop through sun, planets, and pluto
     for( index = 0; index < 10; index++ )

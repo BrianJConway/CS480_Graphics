@@ -19,7 +19,7 @@ bool checkEndsWith( const string& testString, const string& endStr );
 int main(int argc, char **argv)
 {
     // Initialize program/variables
-    string inputInfo[ 2 ];
+    string inputInfo[ 4 ];
   
     // Check if shaders and object were specified correctly
     if( validateInput( argc, argv, inputInfo ) )
@@ -146,6 +146,22 @@ bool validateInput( int numArgs, char **inputStrings, string inputData[] )
         tempIterator = find( inputArgs.begin(), inputArgs.end(), "-f" );
         inputData[ 1 ] = *( next(tempIterator ) );
         
+        // initialize scale and stars settings
+        inputData[ 2 ] = "noscale";
+        inputData[ 3 ] = "nostars";
+        
+        // Check if specified scaling
+        if( find( inputArgs.begin(), inputArgs.end(), "scaled" ) != inputArgs.end() )
+           {
+            inputData[ 2 ] = "scaled";
+           }
+           
+        // Check if specified star field
+        if( find( inputArgs.begin(), inputArgs.end(), "stars" ) != inputArgs.end() )
+           {
+            inputData[ 3 ] = "stars";
+           }
+           
         result = true;
     }
     
