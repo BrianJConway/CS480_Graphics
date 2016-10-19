@@ -90,8 +90,8 @@ void Planet::Update(unsigned int dt)
   // Update all moons
   for(int i = 0; i < Moons.size(); i++)
   {
-	//Moons[i]->UpdatePlanet(getModel());
-	//Moons[i]->Update(dt);
+	Moons[i]->UpdatePlanet(getModel());
+	Moons[i]->Update(dt);
   }
 }
 
@@ -108,7 +108,7 @@ void Planet::Draw(GLint modelMatrix)
     
     for(int i = 0; i < Moons.size(); i++)
     {
-	//glUniformMatrix4fv(modelMatrix, 1, GL_FALSE,  glm::value_ptr(Moons[i]->getModel()));
-        //Moons[i]->Draw(modelMatrix);
+	glUniformMatrix4fv(modelMatrix, 1, GL_FALSE,  glm::value_ptr(Moons[i]->getModel()));
+        Moons[i]->Draw(modelMatrix);
     }
 }
