@@ -12,7 +12,7 @@ class Moon: public Model
 {
     public:
         // Constructor
-        Moon(int index, string fileName); 
+        Moon(int index, int PlanetIndex, bool realistic ); 
 
         // Destructor
         ~Moon();
@@ -24,8 +24,8 @@ class Moon: public Model
 
     private:
         glm::mat4 planetModel;
-	int Index;
-	float orbitAngle;
+	    int moonIndex, planetIndex;
+	    float orbitAngle;
 };
 
 #endif
