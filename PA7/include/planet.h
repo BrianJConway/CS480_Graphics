@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "graphics_headers.h"
-//#include "moon.h"
+#include "moon.h"
 #include "model.h"
 
 using namespace std;
@@ -23,7 +23,7 @@ class Planet: private Model
         glm::mat4 getModel();
 
     private:
-        //vector<Moon> Moons;
+        vector<Moon*> Moons;
         
         int planetIndex, numMoons;
         double relativeSize, rotateSpeed, orbitDistance, orbitPeriod;

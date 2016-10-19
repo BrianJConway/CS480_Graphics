@@ -2,6 +2,8 @@
 #include <vector>
 #include <cmath>
 
+using namespace std;
+
 Planet::Planet(int index, string fileName, double RelativeSize, double RotateSpeed, int moons, double OrbitDistance, double OrbitPeriod, bool realistic )
 {
     mesh.loadMesh( fileName );
@@ -48,7 +50,8 @@ Planet::Planet(int index, string fileName, double RelativeSize, double RotateSpe
 
     for(int i = 0; i < numMoons; i++)
     {
-        // push moon into vector
+        Moon* moonptr = new Moon(i, "pluto.obj");
+	Moons.push_back(moonptr);
     }
 }
 
@@ -82,6 +85,14 @@ void Planet::Update(unsigned int dt)
   translate = glm::translate( glm::mat4(1.0f), glm::vec3( xPos, 0.0, zPos ) );
   
   model = translate * rotate * scale; 
+
+
+  // Update all moons
+  for(int i = 0; i < Moons.size(); i++)
+  {
+	//Moons[i]->UpdatePlanet(getModel());
+	//Moons[i]->Update(dt);
+  }
 }
 
 glm::mat4 Planet::getModel()
@@ -95,8 +106,9 @@ void Planet::Draw(GLint modelMatrix)
     // Draw meshes
     mesh.Draw();
     
-    /*for(int i = 0; i < Moons.size(); i++)
+    for(int i = 0; i < Moons.size(); i++)
     {
-        Moons[i].mesh->Draw();
-    }*/
+	//glUniformMatrix4fv(modelMatrix, 1, GL_FALSE,  glm::value_ptr(Moons[i]->getModel()));
+        //Moons[i]->Draw(modelMatrix);
+    }
 }

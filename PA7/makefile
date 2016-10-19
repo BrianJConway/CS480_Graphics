@@ -19,7 +19,7 @@ endif
 CXXFLAGS=-g -Wall -std=c++0x
 
 # .o Compilation
-O_FILES=main.o camera.o engine.o graphics.o object.o shader.o window.o
+O_FILES=main.o camera.o engine.o graphics.o planet.o model.o moon.o shader.o window.o
 
 # Point to includes of local directories
 INDLUDES=-I../include
@@ -40,8 +40,14 @@ engine.o: ../src/engine.cpp
 graphics.o: ../src/graphics.cpp
 	$(CC) $(CXXFLAGS) -c ../src/graphics.cpp -o graphics.o $(INDLUDES)
 
-object.o: ../src/object.cpp
-	$(CC) $(CXXFLAGS) -c ../src/object.cpp -o object.o $(INDLUDES)
+planet.o: ../src/planet.cpp
+	$(CC) $(CXXFLAGS) -c ../src/planet.cpp -o planet.o $(INDLUDES)
+
+model.o: ../src/model.cpp
+	$(CC) $(CXXFLAGS) -c ../src/model.cpp -o model.o $(INDLUDES)
+
+moon.o: ../src/moon.cpp
+	$(CC) $(CXXFLAGS) -c ../src/moon.cpp -o moon.o $(INDLUDES)
 
 shader.o: ../src/shader.cpp
 	$(CC) $(CXXFLAGS) -c ../src/shader.cpp -o shader.o $(INDLUDES)
