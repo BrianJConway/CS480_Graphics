@@ -12,7 +12,7 @@ using namespace std;
 #include "shader.h"
 #include "model.h"
 #include "planet.h"
-//#include "moon.h"
+#include "stars.h"
 
 class Graphics
 {
@@ -28,6 +28,8 @@ class Graphics
     std::string ErrorString(GLenum error);
     void loadPlanets();
     void loadMoons( int planetIndex );
+    bool realistic;
+    bool stars;
     
     Camera *m_camera;
     Shader *m_shader;
@@ -38,7 +40,7 @@ class Graphics
 
     // Sun, all planets, and pluto
     vector<Planet*> planets;
-    
+    Stars* star;
 };
 
 #endif /* GRAPHICS_H */

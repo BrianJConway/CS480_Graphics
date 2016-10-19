@@ -3,11 +3,15 @@
 #include <fstream>
 #include <time.h>
 
+
 using namespace std;
 
 Graphics::Graphics()
 {
     planets.resize(10);
+    star = NULL;
+    stars = true;
+    realistic = true;
 }
 
 Graphics::~Graphics()
@@ -51,6 +55,12 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
     printf("Camera Failed to Initialize\n");
     return false;
   }
+  
+  // Check if load starfield
+  if( stars )
+     {
+      star = new Stars();
+     }
          
   // Load models for solar system
   loadPlanets();
@@ -192,6 +202,12 @@ void Graphics::Update(unsigned int dt)
       // Update the current object
       planets[ index ]->Update(dt);
      }
+     
+  // Check if starfield updates
+  if( stars )
+     {
+      star->Update(dt);
+     }
 }
 
 void Graphics::Render()
@@ -218,6 +234,13 @@ void Graphics::Render()
       planets[ index ]->Draw( m_modelMatrix );
      }
   // end loop
+  
+  // Check if stars need to be drawn
+  if( stars )
+     {
+      glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(star->getModel()));
+      star->Draw( m_modelMatrix );
+     }
 
   // Get any errors from OpenGL
   auto error = glGetError();
