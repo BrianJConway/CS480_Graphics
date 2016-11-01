@@ -56,10 +56,10 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   }
 
   // Load the models
-  string ground = "ground.obj";
+  string ground = "PA8Board.obj";
   m_ground = new Ground( ground, dynamicsWorld );
 
-  string sphere = "sphere.obj";
+  string sphere = "PA8Sphere.obj";
   m_sphere = new Sphere( sphere, dynamicsWorld );
 
   // Set up the shaders
@@ -124,18 +124,14 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
 
 void Graphics::Update(unsigned int dt)
 {
-  if( counter % 500 == 0 )
-  {
   // Update the dynamics world
   dynamicsWorld->stepSimulation( dt, 10 );
-  }
   
   // Update the objects
   m_ground->Update( dynamicsWorld, dt );
   m_sphere->Update( dynamicsWorld, dt );
   
   
-  counter++;
 }
 
 void Graphics::Render()
