@@ -13,6 +13,7 @@ using namespace std;
 #include "model.h"
 #include "sphere.h"
 #include "ground.h"
+#include "cube.h"
 
 class Graphics
 {
@@ -37,6 +38,7 @@ class Graphics
 
     Ground *m_ground;
     Sphere *m_sphere;
+    Cube *m_cube;
     
    unsigned long int counter = 0;
 };

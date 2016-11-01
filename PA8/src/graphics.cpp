@@ -62,6 +62,9 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   string sphere = "PA8Sphere.obj";
   m_sphere = new Sphere( sphere, dynamicsWorld );
 
+  string cube = "PA8Cube.obj";
+  m_cube = new Cube( cube, dynamicsWorld );
+
   // Set up the shaders
   m_shader = new Shader( fNames );
   if(!m_shader->Initialize())
@@ -130,6 +133,7 @@ void Graphics::Update(unsigned int dt)
   // Update the objects
   m_ground->Update( dynamicsWorld, dt );
   m_sphere->Update( dynamicsWorld, dt );
+  m_cube->Update( dynamicsWorld, dt );
   
   
 }

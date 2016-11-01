@@ -1,19 +1,19 @@
-#include "sphere.h"
+#include "cube.h"
 #include <vector>
 #include <cmath>
 
 using namespace std;
 
-Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
+Cube::Cube( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
-    // Create sphere collision shape
-    btCollisionShape* fallShape = new btSphereShape( 1 );
+    // Create cube collision shape
+    btCollisionShape* fallShape = new btBoxShape( btVector3( 0, 1, 0 ) );
         
-    // Create sphere motion state, place 50 meters above ground
+    // Create cube motion state
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, 10, -10 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, 10, 10 ) ) );            
             
-    // Create Sphere rigid body
+    // Create cube rigid body
     btScalar mass = 1;
     btVector3 fallInertia = btVector3( 0, 0, 0 );
     fallShape->calculateLocalInertia( mass, fallInertia );
