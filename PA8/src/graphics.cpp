@@ -56,11 +56,17 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   }
 
   // Load the models
-  string ground = "board.obj";
-  m_ground = new Ground( ground, dynamicsWorld );
+  string objFile = "board.obj";
+  m_ground = new Ground( objFile, dynamicsWorld );
 
-  string sphere = "sphere.obj";
-  m_sphere = new Sphere( sphere, dynamicsWorld );
+  objFile = "sphere.obj";
+  m_sphere = new Sphere( objFile, dynamicsWorld );
+
+  objFile = "cylinder.obj";
+  //m_cylinder = new Cylinder( objFile, dynamicsWorld );
+
+  objFile = "cube.obj";
+  m_cube = new Cube( objFile, dynamicsWorld );
 
   // Set up the shaders
   m_shader = new Shader( fNames );
@@ -132,6 +138,8 @@ void Graphics::Update(unsigned int dt)
   // Update the objects
   m_ground->Update( dynamicsWorld, dt );
   m_sphere->Update( dynamicsWorld, dt );
+  //m_cylinder->Update( dynamicsWorld, dt );
+  m_cube->Update( dynamicsWorld, dt );
   
 }
 
@@ -154,6 +162,12 @@ void Graphics::Render()
 
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sphere->getModel()));
   m_sphere->Draw();
+
+  //glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cylinder->getModel()));
+  //m_cylinder->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cube->getModel()));
+  m_cube->Draw();
 
   // Get any errors from OpenGL
   auto error = glGetError();
