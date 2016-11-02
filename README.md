@@ -30,4 +30,8 @@ This is a model loader that uses Assimp to load in .obj files with textures. It 
 ## PA7: Solar System Simulation
 This is a simulation of the solar system that uses Assimp to load in .obj files with textures. To run this project ```cd PA7``` then follow the instructions in the README.md.
 
+## PA8: Bullet Physics Demo
+This is a simulation of various objects interacting with bullet physics. It features a controllable cube, a sphere, and a static cylinder. To run this project ```cd PA8``` then follow the instructions in the README.md.
+
+
 
