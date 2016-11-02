@@ -1,6 +1,7 @@
 #include "sphere.h"
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 using namespace std;
 
@@ -11,7 +12,7 @@ Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
         
     // Create sphere motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, 50, 0 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, 10, 0 ) ) );            
             
     // Create Sphere rigid body
     btScalar mass = 1;
@@ -24,3 +25,17 @@ Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
     // Add sphere to world
     dynamicsWorld->addRigidBody( rigidBody );    
    }
+
+void Sphere::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
+   {
+    btTransform trans;
+    btScalar m[ 16 ];
+    
+    rigidBody->getMotionState()->getWorldTransform( trans );
+    
+    trans.getOpenGLMatrix( m );
+
+    cout << "sphere height: " << trans.getOrigin().getY() << endl;
+    
+    model = glm::make_mat4( m );
+   } 

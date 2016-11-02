@@ -56,7 +56,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   }
 
   // Load the models
-  string ground = "ground.obj";
+  string ground = "board.obj";
   m_ground = new Ground( ground, dynamicsWorld );
 
   string sphere = "sphere.obj";
@@ -124,18 +124,15 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
 
 void Graphics::Update(unsigned int dt)
 {
-  if( counter % 500 == 0 )
-  {
+  double dTime = (double) dt / 1000;
+  
   // Update the dynamics world
-  dynamicsWorld->stepSimulation( dt, 10 );
-  }
+  dynamicsWorld->stepSimulation( dt, 1 );
   
   // Update the objects
   m_ground->Update( dynamicsWorld, dt );
   m_sphere->Update( dynamicsWorld, dt );
   
-  
-  counter++;
 }
 
 void Graphics::Render()

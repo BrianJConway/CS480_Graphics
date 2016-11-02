@@ -1,5 +1,5 @@
-#ifndef SPHERE_H
-#define SPHERE_H
+#ifndef CYLINDER_H
+#define CYLINDER_H
 
 #include <vector>
 #include "graphics_headers.h"
@@ -9,16 +9,16 @@
 using namespace std;
 
 // Derived from Model Class
-class Sphere: public Model
+class Cylinder: public Model
 {
     public:
         // Constructor
-        Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
+        Cylinder( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
         
         void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
         
         // Destructor
-        ~Sphere();
+        ~Cylinder();
 
     private:
     

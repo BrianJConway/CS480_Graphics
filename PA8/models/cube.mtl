@@ -1,7 +1,7 @@
-# Blender MTL File: 'PA8Sphere.blend'
+# Blender MTL File: 'PA8Cube.blend'
 # Material Count: 1
 
-newmtl Material.001
+newmtl Material
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
