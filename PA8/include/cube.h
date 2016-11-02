@@ -16,6 +16,7 @@ class Cube: public Model
         Cube( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
         
         void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
+        void Update( btDiscreteDynamicsWorld* dynamicsWorld, string motion );
         
         // Destructor
         ~Cube();

@@ -15,12 +15,14 @@ Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
     btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, 2, 0 ) ) );            
             
     // Create Sphere rigid body
-    btScalar mass = 1;
+    btScalar mass = 0.1;
     btVector3 fallInertia = btVector3( 0, 0, 0 );
     fallShape->calculateLocalInertia( mass, fallInertia );
     btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI( 
                                 mass, fallMotionState, fallShape, fallInertia );
     rigidBody = new btRigidBody( fallRigidBodyCI );
+
+    rigidBody->setRestitution(0.9);
                         
     // Add sphere to world
     dynamicsWorld->addRigidBody( rigidBody );    

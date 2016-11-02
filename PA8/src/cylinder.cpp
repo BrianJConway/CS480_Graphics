@@ -5,28 +5,30 @@
 
 using namespace std;
 
-Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
+Cylinder::Cylinder( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
-    // Create sphere collision shape
-    btCollisionShape* fallShape = new btSphereShape( 1 );
+    // Create cylinder collision shape
+    btCollisionShape* cylinderShape = new btBoxShape( btVector3( 1, 1, 1 ) );
         
-    // Create sphere motion state, place 50 meters above ground
-    btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, 2, 0 ) ) );            
+    // Create cylinder motion state, place 50 meters above ground
+    btDefaultMotionState* cylinderMotionState = new btDefaultMotionState( 
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, 1, -10 ) ) );            
             
-    // Create Sphere rigid body
-    btScalar mass = 1;
-    btVector3 fallInertia = btVector3( 0, 0, 0 );
-    fallShape->calculateLocalInertia( mass, fallInertia );
-    btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI( 
-                                mass, fallMotionState, fallShape, fallInertia );
-    rigidBody = new btRigidBody( fallRigidBodyCI );
+    // Create Cylinder rigid body
+    btScalar mass = 0;
+    btVector3 cylinderInertia = btVector3( 0, 0, 0 );
+    cylinderShape->calculateLocalInertia( mass, cylinderInertia );
+    btRigidBody::btRigidBodyConstructionInfo cylinderRigidBodyCI( 
+                                mass, cylinderMotionState, cylinderShape, cylinderInertia );
+    rigidBody = new btRigidBody( cylinderRigidBodyCI );
+    
+    rigidBody->setRestitution( .001 );
                         
-    // Add sphere to world
+    // Add cylinder to world
     dynamicsWorld->addRigidBody( rigidBody );    
    }
 
-void Sphere::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
+void Cylinder::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
     btTransform trans;
     btScalar m[ 16 ];

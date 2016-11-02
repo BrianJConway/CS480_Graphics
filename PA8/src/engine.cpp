@@ -7,6 +7,7 @@ Engine::Engine(string name, int width, int height)
   m_WINDOW_WIDTH = width;
   m_WINDOW_HEIGHT = height;
   m_FULLSCREEN = false;
+  motion = "NONE";
 }
 
 Engine::Engine(string name)
@@ -103,8 +104,10 @@ void Engine::Run()
     }
 
     // Update and render the graphics
-    m_graphics->Update(m_DT);
+    m_graphics->Update(m_DT, motion);
     m_graphics->Render();
+    
+    //motion = "NONE";
 
     // Swap to the Window
     m_window->Swap();
@@ -112,20 +115,39 @@ void Engine::Run()
 }
 
 void Engine::Keyboard()
-{
-  if(m_event.type == SDL_QUIT)
-  {
-    m_running = false;
-  }
-  else if (m_event.type == SDL_KEYDOWN)
-  {
-    // handle key down events here
-    if (m_event.key.keysym.sym == SDLK_ESCAPE)
-    {
-      m_running = false;
-    }
-  }
-}
+   {
+    if(m_event.type == SDL_QUIT)
+       {
+        m_running = false;
+       }
+    else if (m_event.type == SDL_KEYDOWN)
+       {
+        if (m_event.key.keysym.sym == SDLK_ESCAPE)
+           {
+            m_running = false;
+           }
+        // Toggle rotation direction key
+        else if(m_event.key.keysym.sym == SDLK_w)
+           {
+            motion = "UP";
+           }
+        // Toggle rotation on/off key
+        else if(m_event.key.keysym.sym == SDLK_s)
+           {
+            motion = "DOWN";
+           }
+        // Toggle moon orbit direction key
+        else if(m_event.key.keysym.sym == SDLK_a)
+           {
+            motion = "LEFT";
+           }
+        // Toggle moon rotationrere on/off 
+        else if(m_event.key.keysym.sym == SDLK_d)
+           {
+            motion = "RIGHT";
+           }
+       }
+   }
 
 unsigned int Engine::getDT()
 {

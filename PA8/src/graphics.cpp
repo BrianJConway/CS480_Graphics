@@ -63,10 +63,12 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   m_sphere = new Sphere( objFile, dynamicsWorld );
 
   objFile = "cylinder.obj";
-  //m_cylinder = new Cylinder( objFile, dynamicsWorld );
+  m_cylinder = new Cylinder( objFile, dynamicsWorld );
 
   objFile = "cube.obj";
   m_cube = new Cube( objFile, dynamicsWorld );
+  
+  m_walls = new Walls( dynamicsWorld );
 
   // Set up the shaders
   m_shader = new Shader( fNames );
@@ -128,7 +130,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   return true;
 }
 
-void Graphics::Update(unsigned int dt)
+void Graphics::Update(unsigned int dt, string motion)
 {
   double dTime = (double) dt / 1000;
   
@@ -138,8 +140,8 @@ void Graphics::Update(unsigned int dt)
   // Update the objects
   m_ground->Update( dynamicsWorld, dt );
   m_sphere->Update( dynamicsWorld, dt );
-  //m_cylinder->Update( dynamicsWorld, dt );
-  m_cube->Update( dynamicsWorld, dt );
+  m_cylinder->Update( dynamicsWorld, dt );
+  m_cube->Update( dynamicsWorld, motion );
   
 }
 
@@ -163,8 +165,8 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sphere->getModel()));
   m_sphere->Draw();
 
-  //glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cylinder->getModel()));
-  //m_cylinder->Draw();
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cylinder->getModel()));
+  m_cylinder->Draw();
 
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cube->getModel()));
   m_cube->Draw();

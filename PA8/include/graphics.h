@@ -15,6 +15,7 @@ using namespace std;
 #include "ground.h"
 #include "cylinder.h"
 #include "cube.h"
+#include "walls.h"
 
 class Graphics
 {
@@ -22,7 +23,7 @@ class Graphics
     Graphics( btDiscreteDynamicsWorld* DynamicsWorld );
     ~Graphics();
     bool Initialize(int width, int height, std::string fNames[] );
-    void Update(unsigned int dt);
+    void Update(unsigned int dt, string motion);
     void Render();
 
   private:
@@ -41,6 +42,7 @@ class Graphics
     Sphere *m_sphere;
     Cylinder *m_cylinder;
     Cube *m_cube;
+    Walls *m_walls;
     
    unsigned long int counter = 0;
 };
