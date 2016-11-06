@@ -17,6 +17,18 @@ using namespace std;
 #include "cube.h"
 #include "walls.h"
 
+
+struct Light
+   {
+    glm::vec4 AmbientProduct;
+    glm::vec4 DiffuseProduct;
+    glm::vec4 SpecularProduct;
+    glm::vec4 LightPosition;
+    float coneAngle;
+    glm::vec3 coneDirection;
+    float attenuation;
+   };
+
 class Graphics
 {
   public:
@@ -25,11 +37,14 @@ class Graphics
     bool Initialize(int width, int height, std::string fNames[] );
     void Update(unsigned int dt, string motion);
     void Render();
+    void setLightingUniforms();
 
   private:
     std::string ErrorString(GLenum error);
 
     Camera *m_camera;
+    Shader *m_shaderGouraud;
+    Shader *m_shaderPhong;
     Shader *m_shader;
 
     GLint m_projectionMatrix;
@@ -44,7 +59,10 @@ class Graphics
     Cube *m_cube;
     Walls *m_walls;
     
-   unsigned long int counter = 0;
+    vector<Light> lights;
+    
+    unsigned long int counter = 0;
+   
 };
 
 #endif /* GRAPHICS_H */

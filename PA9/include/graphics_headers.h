@@ -43,11 +43,12 @@ using namespace std;
 
 struct Vertex
 {
-  glm::vec3 vertex;
+  glm::vec4 vertex;
   glm::vec2 texCoords;
+  glm::vec3 normals;
 
   Vertex() {}
-  Vertex(glm::vec3 v, glm::vec2 t): vertex(v), texCoords(t) {}
+  Vertex(glm::vec4 v, glm::vec3 n, glm::vec2 t): vertex(v), normals(n), texCoords(t) {}
 };
 
 #endif /* GRAPHICS_HEADERS_H */

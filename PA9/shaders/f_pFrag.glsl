@@ -8,7 +8,8 @@
               vec4 SpecularProduct;
               vec4 LightPosition;
               float coneAngle;
-              float coneDirection;
+              vec3 coneDirection;
+              float attenuation;
              };
           
           in vec2 texture; 

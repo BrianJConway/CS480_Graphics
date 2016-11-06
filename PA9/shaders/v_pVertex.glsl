@@ -9,11 +9,12 @@
               vec4 LightPosition;
               float coneAngle;
               float coneDirection;
+              vec3 coneDirection;
              };
           
           layout (location = 0) in vec4 v_position; 
-          layout (locaiton = 1) in vec3 v_normal; 
-          layout (locaiton = 2) in vec2 v_texture; 
+          layout (location = 1) in vec2 v_texture; 
+          layout (location = 2) in vec3 v_normal; 
           
           out vec4 color; 
           out vec2 texture;
