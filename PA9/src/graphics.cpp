@@ -26,7 +26,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   string phong[ 2 ];
   
   gouraud[ 0 ] = "v_pVertex.glsl";
-  gouraud[ 1 ] = "v_pVertex.glsl";
+  gouraud[ 1 ] = "f_pVertex.glsl";
   
   phong[ 0 ] = "v_pFrag.glsl";
   phong[ 1 ] = "f_pFrag.glsl";

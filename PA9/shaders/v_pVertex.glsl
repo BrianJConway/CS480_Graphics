@@ -1,6 +1,6 @@
  #version 330
           const int MAX_LIGHTS = 10;
-          
+
           struct Light
              {
               vec4 AmbientProduct;
@@ -8,8 +8,8 @@
               vec4 SpecularProduct;
               vec4 LightPosition;
               float coneAngle;
-              float coneDirection;
               vec3 coneDirection;
+              float attenuation;
              };
           
           layout (location = 0) in vec4 v_position; 
@@ -28,8 +28,9 @@
           void main(void) 
           { 
             float attenuation = 1.0;
-            
-            vec3 pos = ( ModelView * v_position ).xyz
+            vec3 surfaceToLight;
+
+            vec3 pos = ( ModelView * v_position ).xyz;
             
             vec4 ambient = vec4( 0.0 );
             vec4 diffuse = vec4( 0.0 );
@@ -37,30 +38,31 @@
             
             for( int index = 0; index < numLights; index++ )
                {
+                vec3 L = normalize( lights[ index ].LightPosition.xyz - pos );
+                vec3 E = normalize( -pos );
+                vec3 H = normalize( L + E );
+
                 // Check for directional light
                 if( lights[ index ].LightPosition.w == 0.0 )
                    {
-                   
+                    surfaceToLight = normalize( lights[ index ].LightPosition.xyz);
+                    attenuation = 1.0;
                    }               
                  // Otherwise, assume point/spotlight
                  else
                     {
                      // Point light distance affecting attenuation
-                     vec3 surfaceToLight = normalize( lights[ index ].LightPosition.xyz );
-                     floate distanceToLight = length( L );
-                     attenuation = 1.0 / ( 1.0 + light.attenuation * pow( distanceToLight, 2 ) );
+                     surfaceToLight = normalize( lights[ index ].LightPosition.xyz );
+                     float distanceToLight = length( L );
+                     attenuation = 1.0 / ( 1.0 + lights[ index ].attenuation * pow( distanceToLight, 2 ) );
                      
                      // Spotlight cone affecting attenuation
-                     float lightToSurfaceAngle = degrees( acos ( dot (-surfaceToLight, normalize( light.coneDirection ) ) ) );
-                     if( lighttoSurfaceAngle > light.coneAngle )
+                     float lightToSurfaceAngle = degrees( acos ( dot (-surfaceToLight, normalize( lights[ index ].coneDirection ) ) ) );
+                     if( lightToSurfaceAngle > lights[ index ].coneAngle )
                         {
                          attenuation = 0.0;
                         }
                     }
-                    
-                vec3 L = normalize( lights[ index ].LightPosition.xyz - pos );
-                vec3 E = normalize( -pos );
-                vec3 H = normalize( L + E );
                 
                 vec3 N = normalize( ModelView * vec4( v_normal, 0.0 ) ).xyz;
                 
@@ -74,7 +76,7 @@
                 
                 if(dot( L, N ) < 0.0 ) specular += vec4( 0.0, 0.0, 0.0, 1.0 );
                 
-                gl_Position = Projection * ModelView * vPosition;     
+                gl_Position = projectionMatrix * ModelView * v_position;     
                }
 
             
