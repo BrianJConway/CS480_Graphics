@@ -1,5 +1,5 @@
-#ifndef CUBE_H
-#define CUBE_H
+#ifndef CYLINDER_H
+#define CYLINDER_H
 
 #include <vector>
 #include "graphics_headers.h"
@@ -9,17 +9,16 @@
 using namespace std;
 
 // Derived from Model Class
-class Cube: public Model
+class Cylinder: public Model
 {
     public:
         // Constructor
-        Cube( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
+        Cylinder( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
         
         void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
-        void Update( btDiscreteDynamicsWorld* dynamicsWorld, string motion );
         
         // Destructor
-        ~Cube();
+        ~Cylinder();
 
     private:
     

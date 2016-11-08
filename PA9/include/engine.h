@@ -3,6 +3,7 @@
 
 #include <sys/time.h>
 #include <assert.h>
+#include <string>
 
 #include "window.h"
 #include "graphics.h"
@@ -40,6 +41,7 @@ class Engine
     unsigned int m_DT;
     long long m_currentTimeMillis;
     bool m_running;
+    string motion[2];
 };
 
 #endif // ENGINE_H

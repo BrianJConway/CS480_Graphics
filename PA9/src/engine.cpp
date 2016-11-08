@@ -7,6 +7,7 @@ Engine::Engine(string name, int width, int height)
   m_WINDOW_WIDTH = width;
   m_WINDOW_HEIGHT = height;
   m_FULLSCREEN = false;
+  motion[0] = "NONE";
 }
 
 Engine::Engine(string name)
@@ -103,8 +104,10 @@ void Engine::Run()
     }
 
     // Update and render the graphics
-    m_graphics->Update(m_DT);
+    m_graphics->Update(m_DT, motion);
     m_graphics->Render();
+    
+    //motion = "NONE";
 
     // Swap to the Window
     m_window->Swap();
@@ -112,20 +115,79 @@ void Engine::Run()
 }
 
 void Engine::Keyboard()
-{
-  if(m_event.type == SDL_QUIT)
-  {
-    m_running = false;
-  }
-  else if (m_event.type == SDL_KEYDOWN)
-  {
-    // handle key down events here
-    if (m_event.key.keysym.sym == SDLK_ESCAPE)
-    {
-      m_running = false;
-    }
-  }
-}
+   {
+    if(m_event.type == SDL_QUIT)
+       {
+        m_running = false;
+       }
+    else if (m_event.type == SDL_KEYDOWN)
+       {
+        if (m_event.key.keysym.sym == SDLK_ESCAPE)
+           {
+            m_running = false;
+           }
+        // Toggle rotation direction key
+        else if(m_event.key.keysym.sym == SDLK_w)
+           {
+            motion[0] = "UP";
+           }
+        // Toggle rotation on/off key
+        else if(m_event.key.keysym.sym == SDLK_s)
+           {
+            motion[0] = "DOWN";
+           }
+        // Toggle moon orbit direction key
+        else if(m_event.key.keysym.sym == SDLK_a)
+           {
+            motion[0] = "LEFT";
+           }
+        // Toggle moon rotationrere on/off 
+        else if(m_event.key.keysym.sym == SDLK_d)
+           {
+            motion[0] = "RIGHT";
+           }
+        else if(m_event.key.keysym.sym == SDLK_UP)
+        {
+            // increase spotlight size
+            motion[1] = "I SPOT SIZE";
+        }
+        else if(m_event.key.keysym.sym == SDLK_DOWN)
+        {
+            // decrease spotlight size
+            motion[1] = "D SPOT SIZE";
+        }
+        else if(m_event.key.keysym.sym == SDLK_RIGHT)
+        {
+            // increase spotlight brightness
+            motion[1] = "I SPOT BRIGHT";
+        }
+        else if(m_event.key.keysym.sym == SDLK_LEFT)
+        {
+            // decrease spotlight brightness
+            motion[1] = "D SPOT BRIGHT";
+        }
+        else if(m_event.key.keysym.sym == SDLK_u)
+        {
+            // increase ambient brightness
+            motion[1] = "I AMBIENT BRIGHT";
+        }
+        else if(m_event.key.keysym.sym == SDLK_j)
+        {
+            // decrease ambient brightness
+            motion[1] = "D AMBIENT BRIGHT";
+        }
+        else if(m_event.key.keysym.sym == SDLK_h)
+        {
+            // decrease specular brightness of sphere
+            motion[1] = "D SPEC";
+        }
+        else if(m_event.key.keysym.sym == SDLK_k)
+        {
+            // increase specular brightness of sphere
+            motion[1] = "I SPEC";
+        }
+       }
+   }
 
 unsigned int Engine::getDT()
 {

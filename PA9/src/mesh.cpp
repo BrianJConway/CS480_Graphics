@@ -125,7 +125,8 @@ void Mesh::initMesh( unsigned int Index, const aiMesh* mesh )
     vector<unsigned int> Indices;
 
     glm::vec2 vec;
-    glm::vec3 vector; 
+    glm::vec4 vector; 
+    glm::vec3 normal; 
     Vertex vertex;
     
     // Loop through all vertices
@@ -135,8 +136,15 @@ void Mesh::initMesh( unsigned int Index, const aiMesh* mesh )
         vector.x = mesh->mVertices[ index ].x;
         vector.y = mesh->mVertices[ index ].y;
         vector.z = mesh->mVertices[ index ].z;
+        vector.w = 1.0f;
         
         vertex.vertex = vector;
+        
+        // Vertex normals
+        normal.x = mesh->mNormals[ index ].x;
+        normal.y = mesh->mNormals[ index ].y;
+        normal.z = mesh->mNormals[ index ].z;
+            
             
         // Check if texture coordinates specified    
         if(mesh->mTextureCoords[0])
@@ -221,6 +229,8 @@ void Mesh::Draw()
     int index;
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
+
     int MaterialIndex;
     
     // Loop through each mesh in the model
@@ -230,6 +240,7 @@ void Mesh::Draw()
         glBindBuffer(GL_ARRAY_BUFFER, meshEntries[ index ].VBO);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)20);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshEntries[ index ].IBO);
 
         // Get material index for current mesh ( if it has one )
@@ -249,5 +260,7 @@ void Mesh::Draw()
     
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(2);
+
    }
 
