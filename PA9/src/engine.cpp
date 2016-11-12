@@ -193,7 +193,7 @@ void Engine::Keyboard()
             // decrease specular brightness of sphere
             motion[1] = "PHONG";
         }
-        else if(m_event.key.keysym.sym == SDLK_a)
+        else if(m_event.key.keysym.sym == SDLK_z)
         {
             // increase specular brightness of sphere
             motion[1] = "GOURAUD";

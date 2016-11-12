@@ -55,10 +55,9 @@
                  // Otherwise, assume point/spotlight
                  else
                     {
-                     // Point light distance affecting attenuation
+                     // Point light attenuation
                      surfaceToLight = normalize( lights[ index ].LightPosition.xyz - surfacePos );
-                     float distanceToLight = length( lights[ index ].LightPosition.xyz - surfacePos );
-                     attenuation = 1.0 / ( 1.0 + lights[ index ].attenuation * pow( distanceToLight, 2 ) );
+                     attenuation = lights[ index ].attenuation;
                      
                      // Spotlight cone affecting attenuation
                      float lightToSurfaceAngle = degrees( acos ( dot (-surfaceToLight, normalize( lights[ index ].coneDirection ) ) ) );

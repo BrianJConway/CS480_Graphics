@@ -176,12 +176,21 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
     
   // Initialize lights
   Light spotlight;
-  spotlight.LightPosition = glm::vec4(-0.6,3.0,-6.0,1.0);
-  spotlight.AmbientProduct = glm::vec4(0.5,0.5,0.5,1.0); 
+  spotlight.LightPosition = glm::vec4( 0.0,5.0,0.0,1.0);
+  spotlight.AmbientProduct = glm::vec4(0.0,0.0,0.0,1.0); 
   spotlight.DiffuseProduct = glm::vec4(0.9,0.9,0.9,1.0); 
   spotlight.SpecularProduct = glm::vec4(0.9,0.9,0.9,1.0); 
   spotlight.attenuation = 1.0f;
   spotlight.coneAngle = 10.0f;
+  spotlight.coneDirection = glm::vec3(0.0,-2.0,1.0);
+
+  Light pointlight;
+  spotlight.LightPosition = glm::vec4(-2.0,1.0,-3.0,1.0);
+  spotlight.AmbientProduct = glm::vec4(0.9,0.9,0.9,1.0); 
+  spotlight.DiffuseProduct = glm::vec4(0.3,0.3,0.3,1.0); 
+  spotlight.SpecularProduct = glm::vec4(0.3,0.4,0.3,1.0); 
+  spotlight.attenuation = 4.0f;
+  spotlight.coneAngle = 180.0f;
   spotlight.coneDirection = glm::vec3(0.0,0.0,1.0);
 
   Light directionalLight;
@@ -191,6 +200,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   directionalLight.SpecularProduct = glm::vec4( 0.9, 0.9, 0.9, 1.0 ); 
 
   lights.push_back(spotlight);
+  lights.push_back(pointlight);
   lights.push_back(directionalLight);
  
   return true;
@@ -225,12 +235,15 @@ void Graphics::swapShaders( string shader )
     if( shader == "PHONG" )
        {
         m_shader = m_shaderPhong;
-       
        }
     else if( shader == "GOURAUD" )
        {
         m_shader = m_shaderGouraud;
        }   
+
+    m_projectionMatrix = m_shader->GetUniformLocation("projectionMatrix");
+    m_viewMatrix = m_shader->GetUniformLocation("viewMatrix");
+    m_modelMatrix = m_shader->GetUniformLocation("modelMatrix");
 
     // Start the correct program
     m_shader->Enable();
