@@ -166,6 +166,9 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
     printf("m_modelMatrix not found\n");
     return false;
   }
+
+  // Start the correct program
+  m_shader->Enable();
       
   //enable depth testing
   glEnable(GL_DEPTH_TEST);
@@ -173,19 +176,19 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
     
   // Initialize lights
   Light spotlight;
-  spotlight.LightPosition = glm::vec4(-4,0,10,1);
-  spotlight.AmbientProduct = glm::vec4(0.0,0.0,0.0,0.0); 
-  spotlight.DiffuseProduct = glm::vec4(0.4,0.3,0.1,1.0); 
-  spotlight.SpecularProduct = glm::vec4(0.4,0.3,0.1,1.0); 
-  spotlight.attenuation = 0.1f;
-  spotlight.coneAngle = 15.0f;
-  spotlight.coneDirection = glm::vec3(0,0,-1);
+  spotlight.LightPosition = glm::vec4(-0.6,3.0,-6.0,1.0);
+  spotlight.AmbientProduct = glm::vec4(0.5,0.5,0.5,1.0); 
+  spotlight.DiffuseProduct = glm::vec4(0.9,0.9,0.9,1.0); 
+  spotlight.SpecularProduct = glm::vec4(0.9,0.9,0.9,1.0); 
+  spotlight.attenuation = 1.0f;
+  spotlight.coneAngle = 10.0f;
+  spotlight.coneDirection = glm::vec3(0.0,0.0,1.0);
 
   Light directionalLight;
-  directionalLight.LightPosition = glm::vec4(1, 0.8, 0.6, 0); 
-  directionalLight.AmbientProduct = glm::vec4(0.2,0.2,0.2,1.0); 
-  directionalLight.DiffuseProduct = glm::vec4(0.4,0.3,0.1,1.0); 
-  directionalLight.SpecularProduct = glm::vec4(0.4,0.3,0.1,1.0); 
+  directionalLight.LightPosition = glm::vec4( 10.0, -5.0, -5.0, 0.0 ); 
+  directionalLight.AmbientProduct = glm::vec4( 0.2, 0.2,0.2, 1.0) ; 
+  directionalLight.DiffuseProduct = glm::vec4( 0.5, 0.5, 0.5, 1.0 ); 
+  directionalLight.SpecularProduct = glm::vec4( 0.9, 0.9, 0.9, 1.0 ); 
 
   lights.push_back(spotlight);
   lights.push_back(directionalLight);
@@ -193,8 +196,18 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   return true;
 }
 
-void Graphics::Update(unsigned int dt, string motion)
+void Graphics::Update(unsigned int dt, string motion[])
 {
+  // Check for shader swap
+  if( motion[ 1 ] == "GOURAUD" || motion[ 1 ] == "PHONG" )
+     {
+      swapShaders( motion[ 1 ] );
+     }
+  else if( motion[ 1 ] != "NONE" )
+     {
+      adjustLighting( motion[ 1 ] );
+     }
+     
   double dTime = (double) dt / 1000;
   
   // Update the dynamics world
@@ -204,9 +217,25 @@ void Graphics::Update(unsigned int dt, string motion)
   m_ground->Update( dynamicsWorld, dt );
   m_sphere->Update( dynamicsWorld, dt );
   m_cylinder->Update( dynamicsWorld, dt );
-  m_cube->Update( dynamicsWorld, motion );
-  
+  m_cube->Update( dynamicsWorld, motion[0] );
 }
+
+void Graphics::swapShaders( string shader )
+   {
+    if( shader == "PHONG" )
+       {
+        m_shader = m_shaderPhong;
+       
+       }
+    else if( shader == "GOURAUD" )
+       {
+        m_shader = m_shaderGouraud;
+       }   
+
+    // Start the correct program
+    m_shader->Enable();
+   }
+   
 
 void Graphics::Render()
 {
@@ -214,11 +243,6 @@ void Graphics::Render()
   glClearColor(0.0, 0.0, 0.2, 1.0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  // Start the correct program
-  m_shader->Enable();
-  
-  // Set uniforms for all lights
-  setLightingUniforms();
 
   // Send in the projection and view to the shader
   glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection())); 
@@ -226,15 +250,19 @@ void Graphics::Render()
 
   // Render the objects
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ground->getModel()));
+  setLightingUniforms( m_ground );
   m_ground->Draw();
 
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sphere->getModel()));
+  setLightingUniforms( m_sphere );
   m_sphere->Draw();
 
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cylinder->getModel()));
+  setLightingUniforms( m_cylinder );
   m_cylinder->Draw();
 
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cube->getModel()));
+  setLightingUniforms( m_cube );
   m_cube->Draw();
 
   // Get any errors from OpenGL
@@ -246,37 +274,93 @@ void Graphics::Render()
   }
 }
 
-void Graphics::setLightingUniforms()
+void Graphics::setLightingUniforms( Model* object )
    {
     // Set number of lights
     GLuint loc = m_shader->GetUniformLocation( "numLights" );
     int numLights = lights.size();
     glUniform1i( loc, numLights );
+    string locName;
+
+    loc = m_shader->GetUniformLocation( "Shininess" );
+    glUniform1f( loc, object->getShininess() );
 
     for( int index = 0; index < lights.size(); index++ )
        {
-        loc = m_shader->GetUniformLocation( "lights[ index ].LightPosition" );
-        glUniform3fv( loc, 1, glm::value_ptr( lights[ index ].LightPosition ) );
+        locName = "lights[" + to_string(index) + "].lightPosition";
+        loc = m_shader->GetUniformLocation( locName.c_str() );
+        glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].LightPosition ) );
 
-        loc = m_shader->GetUniformLocation( "lights[ index ].AmbientProduct" );
-        glUniform3fv( loc, 1, glm::value_ptr( lights[ index ].AmbientProduct ) );
+        locName = "lights[" + to_string(index) + "].AmbientProduct";
+        loc = m_shader->GetUniformLocation( locName.c_str() );
+        glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].AmbientProduct ) );
 
-        loc = m_shader->GetUniformLocation( "lights[ index ].DiffuseProduct" );
-        glUniform3fv( loc, 1, glm::value_ptr( lights[ index ].DiffuseProduct ) );
+        locName = "lights[" + to_string(index) + "].DiffuseProduct";
+        loc = m_shader->GetUniformLocation( locName.c_str() );
+        glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].DiffuseProduct ) );
 
-        loc = m_shader->GetUniformLocation( "lights[ index ].SpecularProduct" );
-        glUniform3fv( loc, 1, glm::value_ptr( lights[ index ].SpecularProduct ) );
+        locName = "lights[" + to_string(index) + "].SpecularProduct";
+        loc = m_shader->GetUniformLocation( locName.c_str() );
+        glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].SpecularProduct ) );
 
-        loc = m_shader->GetUniformLocation( "lights[ index ].coneAngle" );
+        locName = "lights[" + to_string(index) + "].coneAngle";
+        loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform1f( loc, lights[ index ].coneAngle );
-
-        loc = m_shader->GetUniformLocation( "lights[ index ].coneDirection" );
+        
+        locName = "lights[" + to_string(index) + "].coneDirection";
+        loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform3fv( loc, 1, glm::value_ptr( lights[ index ].coneDirection ) );
 
-        loc = m_shader->GetUniformLocation( "lights[ index ].attenuation" );
+        locName = "lights[" + to_string(index) + "].attenuation";
+        loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform1f( loc, lights[ index ].attenuation );
        }
    }
+
+void Graphics::adjustLighting( string control )
+   {
+    int index;
+    
+    if( control == "I AMBIENT BRIGHT" )
+       {
+        lights[ 1 ].AmbientProduct += glm::vec4( -0.1, -0.1, -0.1, 0.0 );       
+       }
+    else if( control == "D AMBIENT BRIGHT" )
+       {
+        lights[ 1 ].AmbientProduct += glm::vec4( 0.1, 0.1, 0.1, 0.0 ); 
+       }
+    else if( control == "I SPEC" )
+       {
+        m_ground->adjustShininess( "UP" );
+        m_sphere->adjustShininess( "UP" );
+        m_cylinder->adjustShininess( "UP" );
+        m_cube->adjustShininess( "UP" );
+       }
+    else if( control == "D SPEC" )
+       {
+        m_ground->adjustShininess( "DOWN" );
+        m_sphere->adjustShininess( "DOWN" );
+        m_cylinder->adjustShininess( "DOWN" );
+        m_cube->adjustShininess( "DOWN" );
+       }
+    else if( control == "I SPOT SIZE" )
+       {
+        lights[ 0 ].coneAngle += 10;
+       }
+    else if( control == "D SPOT SIZE" )
+       {
+        lights[ 0 ].coneAngle -= 10;
+       }
+    else if( control == "I SPOT BRIGHT" )
+       {
+        lights[ 0 ].attenuation += 0.1;
+       }
+    else if( control == "D SPOT BRIGHT" )
+       {
+        lights[ 0 ].attenuation -= 0.1;
+       }
+   }
+    
    
 std::string Graphics::ErrorString(GLenum error)
 {

@@ -41,7 +41,7 @@ class Engine
     unsigned int m_DT;
     long long m_currentTimeMillis;
     bool m_running;
-    string motion;
+    string motion[2];
 };
 
 #endif // ENGINE_H

@@ -10,6 +10,7 @@ Model::Model( string file )
    {
     // Load meshes
     mesh.loadMesh( file );
+    shininess = 0.7;
    }
 
 // Draws the model by drawing each mesh
@@ -37,3 +38,21 @@ glm::mat4 Model::getModel()
     {
      return model;
     }
+    
+    
+float Model::getShininess()
+   {
+    return shininess;
+   }
+
+void Model::adjustShininess( string control )
+   {
+    if( control == "UP" )
+       {
+        shininess += 0.1;
+       }
+    else
+       {
+        shininess -= 0.1;
+       }
+   }

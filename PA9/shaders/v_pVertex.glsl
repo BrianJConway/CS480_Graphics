@@ -12,7 +12,7 @@
               float attenuation;
              };
           
-          layout (location = 0) in vec4 v_position; 
+          layout (location = 0) in vec3 v_position; 
           layout (location = 1) in vec2 v_texture; 
           layout (location = 2) in vec3 v_normal; 
           
@@ -22,15 +22,17 @@
           uniform int numLights;          
           uniform Light lights[ MAX_LIGHTS ];
           uniform mat4 projectionMatrix; 
-          uniform mat4 ModelView; 
+          uniform mat4 viewMatrix;
+          uniform mat4 modelMatrix; 
           uniform float Shininess;
           
           void main(void) 
           { 
+            vec4 v = vec4( v_position, 1.0 );
             float attenuation = 1.0;
             vec3 surfaceToLight;
-
-            vec3 pos = ( ModelView * v_position ).xyz;
+            mat4 ModelView = viewMatrix * modelMatrix;
+            vec3 pos = ( ModelView * v ).xyz;
             
             vec4 ambient = vec4( 0.0 );
             vec4 diffuse = vec4( 0.0 );
@@ -52,8 +54,8 @@
                  else
                     {
                      // Point light distance affecting attenuation
-                     surfaceToLight = normalize( lights[ index ].LightPosition.xyz );
-                     float distanceToLight = length( L );
+                     surfaceToLight = normalize( lights[ index ].LightPosition.xyz - pos );
+                     float distanceToLight = length( L - pos );
                      attenuation = 1.0 / ( 1.0 + lights[ index ].attenuation * pow( distanceToLight, 2 ) );
                      
                      // Spotlight cone affecting attenuation
@@ -74,9 +76,12 @@
                 float Ks = pow( max( dot( N, H ), 0.0 ), Shininess );
                 specular += Ks * lights[ index ].SpecularProduct;
                 
-                if(dot( L, N ) < 0.0 ) specular += vec4( 0.0, 0.0, 0.0, 1.0 );
-                
-                gl_Position = projectionMatrix * ModelView * v_position;     
+                if(dot( L, N ) < 0.0 )
+                   {
+                    specular += vec4( 0.0, 0.0, 0.0, 1.0 );
+                   }
+                   
+                gl_Position = projectionMatrix * ModelView * v;     
                }
 
             

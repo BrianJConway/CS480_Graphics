@@ -35,10 +35,12 @@ class Graphics
     Graphics( btDiscreteDynamicsWorld* DynamicsWorld );
     ~Graphics();
     bool Initialize(int width, int height, std::string fNames[] );
-    void Update(unsigned int dt, string motion);
+    void Update(unsigned int dt, string motion[] );
     void Render();
-    void setLightingUniforms();
-
+    void setLightingUniforms( Model* object );
+    void swapShaders( string shader );
+    void adjustLighting( string control );
+    
   private:
     std::string ErrorString(GLenum error);
 
