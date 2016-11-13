@@ -13,6 +13,11 @@ Model::Model( string file )
     shininess = 0.7;
    }
 
+Model::Model( string file, btTriangleMesh*& objTriMesh )
+   {
+    mesh.loadMesh( file, objTriMesh );
+    shininess = 0.7;
+   }
 // Draws the model by drawing each mesh
 void Model::Draw()
    {

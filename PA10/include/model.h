@@ -11,6 +11,7 @@ class Model
    {
     public:
         Model( string file );
+        Model( string file, btTriangleMesh *& objTriMesh );
         void Draw();	
 		void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
 		glm::mat4 getModel();

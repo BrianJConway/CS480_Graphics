@@ -19,7 +19,7 @@ class Ground: public Model
         ~Ground();
 
     private:
-    
+        btTriangleMesh* m_objTriMesh; 
 };
 
 #endif

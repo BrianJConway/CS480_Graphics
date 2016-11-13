@@ -4,11 +4,11 @@
 
 using namespace std;
 
-Ground::Ground( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
+Ground::Ground( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName, m_objTriMesh  )
    {
     // Create ground collision shape
     btCollisionShape* groundShape = 
-                              new btStaticPlaneShape( btVector3( 0, 1, 0 ), 1 );
+                                new btBvhTriangleMeshShape( m_objTriMesh, true);
     
     // Create ground motion state, place 1 meter below ground
     btDefaultMotionState* groundMotionState = new btDefaultMotionState( 

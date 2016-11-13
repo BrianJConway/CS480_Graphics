@@ -45,6 +45,8 @@ class Mesh
 
        // Load mesh using ASSIMP and ImageMagick
        bool loadMesh( string& fileName );
+       bool loadMesh( string& fileName, btTriangleMesh*& objTriMesh  );
+
 
        // Output textured mesh
        void Draw();
@@ -53,6 +55,7 @@ class Mesh
        // Functions used to help load mesh
        bool loadScene(const aiScene* scene );
        void initMesh(unsigned int Index, const aiMesh* mesh );
+       void initTriMesh(unsigned int Index, const aiMesh* mesh );
        bool loadMaterials(const aiScene* scene );
        
        // Deallocates textures 
@@ -60,7 +63,8 @@ class Mesh
 
        // Vector of the meshes for this model
        vector<MeshEntry> meshEntries;
-        
+       btTriangleMesh* m_objTriMesh;
+       
        // Vector of all the model's specified textures
        vector<Texture*> meshTextures;
    };

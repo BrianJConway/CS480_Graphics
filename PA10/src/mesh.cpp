@@ -44,7 +44,7 @@ void MeshEntry::Init( vector<Vertex>& Vertices, vector<unsigned int>& Indices)
 // Constructor
 Mesh::Mesh()
    {
-   
+    m_objTriMesh = NULL;
    }
 
 // Destructor
@@ -95,6 +95,30 @@ bool Mesh::loadMesh( string& fileName )
     return loadScene( scene );
    }
 
+bool Mesh::loadMesh( string& fileName, btTriangleMesh*& objTriMesh  )
+   {   
+    // Initialize function/variables
+    fileName = "models/" + fileName;
+    Assimp::Importer Importer;
+    Clear();
+    
+    objTriMesh = new btTriangleMesh();
+    m_objTriMesh = objTriMesh;
+    
+    // Get ASSIMP scene object
+    const aiScene* scene = Importer.ReadFile(fileName.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices );
+    
+    // Check if failure loading scene from file
+    if ( !scene ) 
+       {
+        cout << "ASSIMP error loading: " << fileName << ": " <<endl
+             << " " << Importer.GetErrorString(); 
+        return false;
+       }
+       
+    return loadScene( scene );
+   }
+
 bool Mesh::loadScene(const aiScene* scene )
    {  
     // Initialize function/variables
@@ -107,7 +131,16 @@ bool Mesh::loadScene(const aiScene* scene )
        {
         // Initialize the current mesh
         const aiMesh* mesh = scene->mMeshes[ index ];
-        initMesh( index, mesh );
+        
+        if( m_objTriMesh == NULL )
+           {
+            initMesh( index, mesh );
+           }
+        else
+           {
+            initTriMesh( index, mesh );
+           }
+
        }
 
     // Get textures
@@ -174,6 +207,81 @@ void Mesh::initMesh( unsigned int Index, const aiMesh* mesh )
 
         for(GLuint index = 0; index < face.mNumIndices; index++)
            {
+            Indices.push_back( face.mIndices[ index ] );
+           }
+       }
+    // end loop
+    
+    // Initialize current mesh's buffers
+    meshEntries[ Index ].Init( Vertices, Indices );
+   }
+
+// Loads vertex, index, and texture coordinates for a single mesh
+void Mesh::initTriMesh( unsigned int Index, const aiMesh* mesh )
+   {
+    // Initialize function/variables
+    int index;
+    meshEntries[Index].materialIndex = mesh->mMaterialIndex;
+
+    vector<Vertex> Vertices;
+    vector<unsigned int> Indices;
+
+    glm::vec2 vec;
+    glm::vec4 vector; 
+    glm::vec3 normal; 
+    Vertex vertex;
+    
+    // Loop through all vertices
+    for( index = 0 ; index < mesh->mNumVertices ;index++ ) 
+       {
+        // Vertex coordinates
+        vector.x = mesh->mVertices[ index ].x;
+        vector.y = mesh->mVertices[ index ].y;
+        vector.z = mesh->mVertices[ index ].z;
+        vector.w = 1.0f;
+        
+        vertex.vertex = vector;
+        
+        // Vertex normals
+        normal.x = mesh->mNormals[ index ].x;
+        normal.y = mesh->mNormals[ index ].y;
+        normal.z = mesh->mNormals[ index ].z;
+            
+            
+        // Check if texture coordinates specified    
+        if(mesh->mTextureCoords[0])
+           {
+            // Load Texture coordinates
+            vec.x = mesh->mTextureCoords[0][ index ].x; 
+            vec.y = mesh->mTextureCoords[0][ index ].y;
+
+            vertex.texCoords = vec;
+           }
+        // Otherwise, assume no texture coordinates
+        else
+           {
+            vertex.texCoords = glm::vec2(0.0f, 0.0f);
+           }   
+ 
+        // Store current vertex
+        Vertices.push_back( vertex );
+       }
+    // end loop
+    
+    // Loop through all faces
+    for(GLuint meshIndex = 0; meshIndex < mesh->mNumFaces; meshIndex++)
+       {       
+        btVector3 triArray[ 3 ];
+        
+        // Get the indices associated with the current face
+        aiFace face = mesh->mFaces[ meshIndex ];
+
+        for(GLuint index = 0; index < face.mNumIndices; index++)
+           {
+            aiVector3D position = mesh->mVertices[ face.mIndices[ index ] ];
+            triArray[ index ] = btVector3( position.x, position.y, position.z );
+            m_objTriMesh->addTriangle( triArray[ 0 ], triArray[ 1 ], triArray[ 2 ] );
+            
             Indices.push_back( face.mIndices[ index ] );
            }
        }

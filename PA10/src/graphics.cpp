@@ -76,7 +76,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "cube.obj";
   m_cube = new Cube( objFile, dynamicsWorld );
   
-  m_walls = new Walls( dynamicsWorld );
+//  m_walls = new Walls( dynamicsWorld );
 
   // Set up the shaders
   m_shaderGouraud = new Shader( gouraud );
