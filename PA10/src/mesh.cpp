@@ -280,10 +280,11 @@ void Mesh::initTriMesh( unsigned int Index, const aiMesh* mesh )
            {
             aiVector3D position = mesh->mVertices[ face.mIndices[ index ] ];
             triArray[ index ] = btVector3( position.x, position.y, position.z );
-            m_objTriMesh->addTriangle( triArray[ 0 ], triArray[ 1 ], triArray[ 2 ] );
             
             Indices.push_back( face.mIndices[ index ] );
            }
+
+        m_objTriMesh->addTriangle( triArray[ 0 ], triArray[ 1 ], triArray[ 2 ] );
        }
     // end loop
     
