@@ -64,7 +64,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   }
 
   // Load the models
-  string objFile = "board.obj";
+  string objFile = "PA10PinballMachine.obj";
   m_ground = new Ground( objFile, dynamicsWorld );
 
   objFile = "sphere.obj";
