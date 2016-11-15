@@ -209,7 +209,7 @@ void Graphics::Update(unsigned int dt, string motion[])
      {
       adjustLighting( motion[ 1 ] );
      }
-  if( motion[1] == "UP")
+  if( motion[0] == "UP")
      {
         m_sphere->Start();
      }

@@ -15,7 +15,7 @@ Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
     btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -25, 2, -32 ) ) );            
             
     // Create Sphere rigid body
-    btScalar mass = 0.1;
+    btScalar mass = 10;
     btVector3 fallInertia = btVector3( 0, 0, 0 );
     fallShape->calculateLocalInertia( mass, fallInertia );
     btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI( 
