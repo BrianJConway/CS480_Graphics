@@ -12,7 +12,7 @@ Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
         
     // Create sphere motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, 2, 0 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -25, 2, -32 ) ) );            
             
     // Create Sphere rigid body
     btScalar mass = 0.1;
@@ -21,6 +21,9 @@ Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
     btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI( 
                                 mass, fallMotionState, fallShape, fallInertia );
     rigidBody = new btRigidBody( fallRigidBodyCI );
+
+    rigidBody->setLinearFactor(btVector3( 1, 1, 1 ) );
+    rigidBody->setAngularFactor(btVector3( 0, 0, 0 ) );
 
     rigidBody->setRestitution(0.9);
                         
@@ -39,3 +42,8 @@ void Sphere::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
     
     model = glm::make_mat4( m );
    } 
+
+void Sphere::Start()
+{
+    rigidBody->applyCentralImpulse( btVector3(0,0,1000));
+}

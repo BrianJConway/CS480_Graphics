@@ -70,14 +70,6 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "sphere.obj";
   m_sphere = new Sphere( objFile, dynamicsWorld );
 
-  objFile = "cylinder.obj";
-  m_cylinder = new Cylinder( objFile, dynamicsWorld );
-
-  objFile = "cube.obj";
-  m_cube = new Cube( objFile, dynamicsWorld );
-  
-//  m_walls = new Walls( dynamicsWorld );
-
   // Set up the shaders
   m_shaderGouraud = new Shader( gouraud );
   if(!m_shaderGouraud->Initialize( ))
@@ -217,6 +209,10 @@ void Graphics::Update(unsigned int dt, string motion[])
      {
       adjustLighting( motion[ 1 ] );
      }
+  if( motion[1] == "UP")
+     {
+        m_sphere->Start();
+     }
      
   double dTime = (double) dt / 1000;
   
@@ -226,8 +222,6 @@ void Graphics::Update(unsigned int dt, string motion[])
   // Update the objects
   m_ground->Update( dynamicsWorld, dt );
   m_sphere->Update( dynamicsWorld, dt );
-  m_cylinder->Update( dynamicsWorld, dt );
-  m_cube->Update( dynamicsWorld, motion[0] );
 }
 
 void Graphics::swapShaders( string shader )
@@ -269,14 +263,6 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sphere->getModel()));
   setLightingUniforms( m_sphere );
   m_sphere->Draw();
-
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cylinder->getModel()));
-  setLightingUniforms( m_cylinder );
-  m_cylinder->Draw();
-
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cube->getModel()));
-  setLightingUniforms( m_cube );
-  m_cube->Draw();
 
   // Get any errors from OpenGL
   auto error = glGetError();

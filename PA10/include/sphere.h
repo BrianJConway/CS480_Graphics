@@ -16,6 +16,7 @@ class Sphere: public Model
         Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
         
         void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
+        void Start();
         
         // Destructor
         ~Sphere();
