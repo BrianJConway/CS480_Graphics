@@ -225,7 +225,6 @@ void Graphics::Update(unsigned int dt, string motion[])
   // Update the objects
   m_ground->Update( dynamicsWorld, dt );
   m_sphere->Update( dynamicsWorld, dt );
-  m_cylinder->Update(dynamicsWorld, dt);
 }
 
 void Graphics::swapShaders( string shader )
@@ -267,10 +266,6 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sphere->getModel()));
   setLightingUniforms( m_sphere );
   m_sphere->Draw();
-
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cylinder->getModel()));
-  setLightingUniforms( m_cylinder );
-  m_cylinder->Draw();
 
   // Get any errors from OpenGL
   auto error = glGetError();
