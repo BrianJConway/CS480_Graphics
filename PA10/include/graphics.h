@@ -16,6 +16,7 @@ using namespace std;
 #include "cylinder.h"
 #include "cube.h"
 #include "walls.h"
+#include "rpaddle.h"
 
 
 struct Light
@@ -60,6 +61,7 @@ class Graphics
     Cylinder *m_cylinder;
     Cube *m_cube;
     Walls *m_walls;
+    RPaddle *m_rpaddle;
     
     vector<Light> lights;
     
