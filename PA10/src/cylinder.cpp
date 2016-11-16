@@ -8,7 +8,7 @@ using namespace std;
 Cylinder::Cylinder( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create cylinder collision shape
-    btCollisionShape* cylinderShape = new btBoxShape( btVector3( 1, 1, 1 ) );
+    btCollisionShape* cylinderShape = new btBoxShape( btVector3( 1, 10, 4 ) );
         
     // Create cylinder motion state, place 50 meters above ground
     btDefaultMotionState* cylinderMotionState = new btDefaultMotionState( 
