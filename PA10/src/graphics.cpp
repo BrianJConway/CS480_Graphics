@@ -70,6 +70,9 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "sphere.obj";
   m_sphere = new Sphere( objFile, dynamicsWorld );
 
+  objFile = "spring.obj";
+  m_cylinder = new Cylinder(objFile, dynamicsWorld);
+
   // Set up the shaders
   m_shaderGouraud = new Shader( gouraud );
   if(!m_shaderGouraud->Initialize( ))

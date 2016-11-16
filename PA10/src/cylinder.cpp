@@ -12,7 +12,7 @@ Cylinder::Cylinder( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : 
         
     // Create cylinder motion state, place 50 meters above ground
     btDefaultMotionState* cylinderMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, 1, -10 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -23, 1, -30 ) ) );            
             
     // Create Cylinder rigid body
     btScalar mass = 0;
