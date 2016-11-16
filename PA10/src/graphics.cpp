@@ -70,8 +70,6 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "sphere.obj";
   m_sphere = new Sphere( objFile, dynamicsWorld );
 
-  m_walls = new Walls(dynamicsWorld);
-
   // Set up the shaders
   m_shaderGouraud = new Shader( gouraud );
   if(!m_shaderGouraud->Initialize( ))

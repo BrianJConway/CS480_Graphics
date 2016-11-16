@@ -72,7 +72,7 @@ bool Engine::Initialize( std::string fileNames[] )
                                            m_solver, m_collisionConfiguration );
                            
       // Set gravity, this sets Y axis as "up" and gravity pointing down
-      m_dynamicsWorld->setGravity( btVector3( 0, -9.80, -7.35 ) );
+      m_dynamicsWorld->setGravity( btVector3( 0, -20, -15 ) );
 
   // Start the graphics
   m_graphics = new Graphics( m_dynamicsWorld );
