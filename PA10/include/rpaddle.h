@@ -16,6 +16,7 @@ class RPaddle: public Model
         RPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
         
         void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
+        void Swing();
         
         // Destructor
         ~RPaddle();

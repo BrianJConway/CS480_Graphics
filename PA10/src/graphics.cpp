@@ -219,6 +219,10 @@ void Graphics::Update(unsigned int dt, string motion[])
      {
         m_sphere->Start();
      }
+  if( motion[0] == "RIGHT")
+     {
+        m_rpaddle->Swing();
+     }
      
   double dTime = (double) dt / 1000;
   

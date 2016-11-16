@@ -12,7 +12,7 @@ RPaddle::RPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mo
         
     // Create paddle motion state, place in socket
     btDefaultMotionState* paddleMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 0, 1, 0 ) ) );            
+    btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(120)), btVector3( 0, 1, 0 ) ) );            
             
     // Create Cylinder rigid body
     btScalar mass = 1;
@@ -25,7 +25,6 @@ RPaddle::RPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mo
     rigidBody->setLinearFactor(btVector3( 0, 0, 0 ) );
     rigidBody->setAngularFactor(btVector3( 0, 1, 0 ) );
     
-    rigidBody->setRestitution( .001 );
                         
     // Add paddle to world
     dynamicsWorld->addRigidBody( rigidBody );    
@@ -35,6 +34,8 @@ void RPaddle::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
     btTransform trans;
     btScalar m[ 16 ];
+
+    rigidBody->forceActivationState(ACTIVE_TAG);
     
     rigidBody->getMotionState()->getWorldTransform( trans );
     
@@ -42,3 +43,9 @@ void RPaddle::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
     
     model = glm::make_mat4( m );
    } 
+
+void RPaddle::Swing()
+{
+    rigidBody->setAngularVelocity(btVector3(0, 1000, 0));
+    //rigidbody->applyTorqueImpulse(btVector3(0, 1000, 0));
+}
