@@ -23,7 +23,7 @@ Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
     rigidBody = new btRigidBody( fallRigidBodyCI );
 
     rigidBody->setLinearFactor(btVector3( 1, 1, 1 ) );
-    rigidBody->setAngularFactor(btVector3( 0, 0, 0 ) );
+    rigidBody->setAngularFactor(btVector3( 0, 1, 0 ) );
 
     rigidBody->setRestitution(0.9);
                         
@@ -35,6 +35,8 @@ void Sphere::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
     btTransform trans;
     btScalar m[ 16 ];
+
+    rigidBody->forceActivationState(ACTIVE_TAG);
     
     rigidBody->getMotionState()->getWorldTransform( trans );
     
