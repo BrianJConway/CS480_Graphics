@@ -21,10 +21,7 @@ class Walls
         ~Walls();
 
     private:
-        btRigidBody* topBody;
-        btRigidBody* bottomBody;
-        btRigidBody* leftBody;
-        btRigidBody* rightBody;
+        btRigidBody* ceilingBody;
     
 };
 
