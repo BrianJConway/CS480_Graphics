@@ -62,6 +62,7 @@ class Graphics
     Cube *m_cube;
     Walls *m_walls;
     RPaddle *m_rpaddle;
+    LPaddle *m_lpaddle;
     
     vector<Light> lights;
     
