@@ -17,6 +17,7 @@ using namespace std;
 #include "cube.h"
 #include "walls.h"
 #include "rpaddle.h"
+#include "lpaddle.h"
 
 
 struct Light
