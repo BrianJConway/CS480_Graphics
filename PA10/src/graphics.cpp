@@ -67,7 +67,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   string objFile = "PA10PinballMachineNoBumper.obj";
   m_ground = new Ground( objFile, dynamicsWorld );
 
-  objFile = "sphere.obj";
+  objFile = "PA10PinballBall.obj";
   m_sphere = new Sphere( objFile, dynamicsWorld );
 
   objFile = "spring.obj";
@@ -75,6 +75,9 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
 
   objFile = "PA10RightPaddle.obj";
   m_rpaddle = new RPaddle(objFile, dynamicsWorld);
+
+  objFile = "PA10LeftPaddle.obj";
+  m_lpaddle = new LPaddle(objFile, dynamicsWorld);
 
   // Set up the shaders
   m_shaderGouraud = new Shader( gouraud );
@@ -223,6 +226,10 @@ void Graphics::Update(unsigned int dt, string motion[])
      {
         m_rpaddle->Swing();
      }
+  if( motion[0] == "LEFT")
+     {
+        m_lpaddle->Swing();
+     }
      
   double dTime = (double) dt / 1000;
   
@@ -234,6 +241,7 @@ void Graphics::Update(unsigned int dt, string motion[])
   m_sphere->Update( dynamicsWorld, dt );
   m_cylinder->Update(dynamicsWorld, dt);
   m_rpaddle->Update(dynamicsWorld, dt);
+  m_lpaddle->Update(dynamicsWorld, dt);
 }
 
 void Graphics::swapShaders( string shader )
@@ -283,6 +291,10 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_rpaddle->getModel()));
   setLightingUniforms( m_rpaddle );
   m_rpaddle->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_lpaddle->getModel()));
+  setLightingUniforms( m_lpaddle );
+  m_lpaddle->Draw();
 
   // Get any errors from OpenGL
   auto error = glGetError();
