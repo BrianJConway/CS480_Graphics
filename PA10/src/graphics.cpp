@@ -173,33 +173,13 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   glDepthFunc(GL_LESS);
     
   // Initialize lights
-  Light spotlight;
-  spotlight.LightPosition = glm::vec4( 0.0,0.0,-5.0,1.0);
-  spotlight.AmbientProduct = glm::vec4(0.0,0.0,0.0,1.0); 
-  spotlight.DiffuseProduct = glm::vec4(0.9,0.9,0.9,1.0); 
-  spotlight.SpecularProduct = glm::vec4(0.9,0.9,0.9,1.0); 
-  spotlight.attenuation = 1.0f;
-  spotlight.coneAngle = 10.0f;
-  spotlight.coneDirection = glm::vec3(0.0,-2.0,1.0);
+  Light light;
+  light.LightPosition = glm::vec4( 5.0,5.0,5.0,0.0);
+  light.AmbientProduct = glm::vec4(0.2,0.2,0.2,1.0); 
+  light.DiffuseProduct = glm::vec4(0.4,0.4,0.4,1.0); 
+  light.SpecularProduct = glm::vec4(0.6,0.6,0.6,1.0); 
 
-  Light pointlight;
-  pointlight.LightPosition = glm::vec4(-2.0,1.0,-3.0,1.0);
-  pointlight.AmbientProduct = glm::vec4(0.9,0.9,0.9,1.0); 
-  pointlight.DiffuseProduct = glm::vec4(0.3,0.3,0.3,1.0); 
-  pointlight.SpecularProduct = glm::vec4(0.3,0.4,0.3,1.0); 
-  pointlight.attenuation = 4.0f;
-  pointlight.coneAngle = 180.0f;
-  pointlight.coneDirection = glm::vec3(0.0,0.0,1.0);
-
-  Light directionalLight;
-  directionalLight.LightPosition = glm::vec4( 10.0, -5.0, -5.0, 0.0 ); 
-  directionalLight.AmbientProduct = glm::vec4( 0.2, 0.2,0.2, 1.0) ; 
-  directionalLight.DiffuseProduct = glm::vec4( 0.5, 0.5, 0.5, 1.0 ); 
-  directionalLight.SpecularProduct = glm::vec4( 0.9, 0.9, 0.9, 1.0 ); 
-
-  lights.push_back(spotlight);
-  lights.push_back(pointlight);
-  lights.push_back(directionalLight);
+  lights.push_back(light);
  
   return true;
 }
@@ -296,9 +276,8 @@ void Graphics::Render()
 void Graphics::setLightingUniforms( Model* object )
    {
     // Set number of lights
-    GLuint loc = m_shader->GetUniformLocation( "numLights" );
+    GLuint loc;
     int numLights = lights.size();
-    glUniform1i( loc, numLights );
     string locName;
 
     loc = m_shader->GetUniformLocation( "Shininess" );
@@ -306,33 +285,21 @@ void Graphics::setLightingUniforms( Model* object )
 
     for( int index = 0; index < lights.size(); index++ )
        {
-        locName = "lights[" + to_string(index) + "].lightPosition";
+        locName = "LightPosition";
         loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].LightPosition ) );
 
-        locName = "lights[" + to_string(index) + "].AmbientProduct";
+        locName = "AmbientProduct";
         loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].AmbientProduct ) );
 
-        locName = "lights[" + to_string(index) + "].DiffuseProduct";
+        locName = "DiffuseProduct";
         loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].DiffuseProduct ) );
 
-        locName = "lights[" + to_string(index) + "].SpecularProduct";
+        locName = "SpecularProduct";
         loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].SpecularProduct ) );
-
-        locName = "lights[" + to_string(index) + "].coneAngle";
-        loc = m_shader->GetUniformLocation( locName.c_str() );
-        glUniform1f( loc, lights[ index ].coneAngle );
-        
-        locName = "lights[" + to_string(index) + "].coneDirection";
-        loc = m_shader->GetUniformLocation( locName.c_str() );
-        glUniform3fv( loc, 1, glm::value_ptr( lights[ index ].coneDirection ) );
-
-        locName = "lights[" + to_string(index) + "].attenuation";
-        loc = m_shader->GetUniformLocation( locName.c_str() );
-        glUniform1f( loc, lights[ index ].attenuation );
        }
    }
 
