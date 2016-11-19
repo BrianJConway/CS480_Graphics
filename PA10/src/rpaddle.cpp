@@ -12,7 +12,7 @@ RPaddle::RPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mo
         
     // Create paddle motion state, place in socket
     btDefaultMotionState* paddleMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(120)), btVector3( -10, 1, 0 ) ) );            
+    btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(120)), btVector3( -5, 1, -29 ) ) );            
             
     // Create Cylinder rigid body
     btScalar mass = 1;
