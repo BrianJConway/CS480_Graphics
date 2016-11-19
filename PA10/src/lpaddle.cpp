@@ -8,11 +8,11 @@ using namespace std;
 LPaddle::LPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create paddle collision shape
-    btCollisionShape* paddleShape = new btBoxShape( btVector3( 1, 10, 4 ) );
+    btCollisionShape* paddleShape = new btBoxShape( btVector3( 1, 1, 1 ) );
         
     // Create paddle motion state, place in socket
     btDefaultMotionState* paddleMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(120)), btVector3( -3, 1, 0 ) ) );            
+    btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(120)), btVector3( -10, 1, 0 ) ) );            
             
     // Create Cylinder rigid body
     btScalar mass = 1;
@@ -27,7 +27,7 @@ LPaddle::LPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mo
     
                         
     // Add paddle to world
-    dynamicsWorld->addRigidBody( rigidBody );    
+    dynamicsWorld->addRigidBody( rigidBody, COL_PADDLE, paddleCollidesWith );    
    }
 
 void LPaddle::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
