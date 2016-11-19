@@ -67,7 +67,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   string objFile = "PA10PinballMachineNoBumper.obj";
   m_ground = new Ground( objFile, dynamicsWorld );
 
-  objFile = "sphere.obj";
+  objFile = "PA10Ball.obj";
   m_sphere = new Sphere( objFile, dynamicsWorld );
 
   objFile = "spring.obj";
