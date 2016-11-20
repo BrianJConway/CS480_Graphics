@@ -7,6 +7,7 @@
           out vec3 fN;
           out vec3 fE;
           out vec3 fL;
+          out vec3 frag_pos;
 
           out vec2 texture; 
           
@@ -17,6 +18,7 @@
  
           void main(void) 
           { 
+            frag_pos = v_position;
             vec4 v = vec4( v_position, 1.0 );
             fN = v_normal;
             fE = v_position;

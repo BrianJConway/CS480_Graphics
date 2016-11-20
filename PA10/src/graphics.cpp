@@ -177,11 +177,14 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
     
   // Initialize lights
   Light light;
-  light.LightPosition = glm::vec4( 5.0,5.0,5.0,0.0);
-  light.AmbientProduct = glm::vec4(0.2,0.2,0.2,1.0); 
+  light.LightPosition = glm::vec4( 0.1,10.0,-0.1,0.0);
+  light.AmbientProduct = glm::vec4(0.1,0.1,0.1,1.0); 
   light.DiffuseProduct = glm::vec4(0.4,0.4,0.4,1.0); 
   light.SpecularProduct = glm::vec4(0.6,0.6,0.6,1.0); 
-
+  light.coneAngle = 20.0;
+  light.coneDirection = glm::vec3( 0.0, -1.0, 0.0 );
+  light.brightness = 1.0;
+  
   lights.push_back(light);
  
   return true;
@@ -312,6 +315,19 @@ void Graphics::setLightingUniforms( Model* object )
         locName = "SpecularProduct";
         loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].SpecularProduct ) );
+
+        locName = "coneDirection";
+        loc = m_shader->GetUniformLocation( locName.c_str() );
+        glUniform3fv( loc, 1, glm::value_ptr( lights[ index ].coneDirection ) );
+
+        locName = "coneAngle";
+        loc = m_shader->GetUniformLocation( locName.c_str() );
+        glUniform1f( loc, lights[ index ].coneAngle );  
+        
+        locName = "brightness";
+        loc = m_shader->GetUniformLocation( locName.c_str() );
+        glUniform1f( loc, lights[ index ].brightness );  
+
        }
    }
 
@@ -343,11 +359,11 @@ void Graphics::adjustLighting( string control )
        }
     else if( control == "I SPOT SIZE" )
        {
-        lights[ 0 ].coneAngle += 10;
+        lights[ 0 ].coneAngle += 1;
        }
     else if( control == "D SPOT SIZE" )
        {
-        lights[ 0 ].coneAngle -= 10;
+        lights[ 0 ].coneAngle -= 1;
        }
     else if( control == "I SPOT BRIGHT" )
        {

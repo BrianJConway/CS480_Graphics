@@ -11,7 +11,9 @@
           uniform vec4 DiffuseProduct;
           uniform vec4 SpecularProduct;
           uniform vec4 LightPosition;
-
+          uniform vec3 coneDirection;
+          uniform float coneAngle;
+          
           uniform mat4 projectionMatrix; 
           uniform mat4 viewMatrix;
           uniform mat4 modelMatrix; 
@@ -19,8 +21,17 @@
           
           void main(void) 
           { 
+            float attenuation = 1.0;
             vec4 v = vec4( v_position, 1.0 );
             vec3 pos = ( viewMatrix * modelMatrix * v ).xyz;
+            
+            vec3 surfaceToLight = normalize( LightPosition.xyz - v_position );
+            float lightToSurfaceAngle = degrees( acos ( dot ( -surfaceToLight, normalize ( coneDirection ) ) ) );
+            
+            if( lightToSurfaceAngle > coneAngle )
+               {
+                attenuation = 0.0;
+               }
             
             vec3 L = normalize( LightPosition.xyz - pos );
             vec3 E = normalize( -pos );
@@ -37,12 +48,12 @@
                 
             if(dot( L, N ) < 0.0 )
                {
-                specular += vec4( 0.0, 0.0, 0.0, 1.0 );
+                specular = vec4( 0.0, 0.0, 0.0, 1.0 );
                }
                    
             gl_Position = projectionMatrix * viewMatrix * modelMatrix * v;     
             
-            color = ambient + diffuse + specular;
+            color = ambient + attenuation * ( diffuse + specular );
             color.a = 1.0;
             
             texture = v_texture;
