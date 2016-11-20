@@ -8,7 +8,7 @@ using namespace std;
 RPaddle::RPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create paddle collision shape
-    btCollisionShape* paddleShape = new btBoxShape( btVector3( 1, 1, 1 ) );
+    btCollisionShape* paddleShape = new btBoxShape( btVector3( 3.5, 2, 2 ) );
         
     // Create paddle motion state, place in socket
     btDefaultMotionState* paddleMotionState = new btDefaultMotionState( 
