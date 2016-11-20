@@ -8,14 +8,14 @@ using namespace std;
 RPaddle::RPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create paddle collision shape
-    btCollisionShape* paddleShape = new btBoxShape( btVector3( 3.5, 2, 2 ) );
+    btCollisionShape* paddleShape = new btBoxShape( btVector3( 1, 1.5, 4 ) );
         
     // Create paddle motion state, place in socket
     btDefaultMotionState* paddleMotionState = new btDefaultMotionState( 
     btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(120)), btVector3( -5, 1, -29 ) ) );            
             
     // Create Cylinder rigid body
-    btScalar mass = 10;
+    btScalar mass = 100;
     btVector3 paddleInertia = btVector3( 0, 0, 0 );
     paddleShape->calculateLocalInertia( mass, paddleInertia );
     btRigidBody::btRigidBodyConstructionInfo paddleRigidBodyCI( 
@@ -36,7 +36,7 @@ void RPaddle::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
 
     if(quat.getAngle() < 0.3)
     {
-        rigidBody->applyTorqueImpulse(btVector3(0, 500, 0));
+        rigidBody->applyTorqueImpulse(btVector3(0, 7000, 0));
     }
     if(quat.getAngle() > 2.0944)
     {
@@ -57,5 +57,5 @@ void RPaddle::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
 
 void RPaddle::Swing()
 {
-    rigidBody->applyTorqueImpulse(btVector3(0, -500, 0));
+    rigidBody->applyTorqueImpulse(btVector3(0, -7000, 0));
 }
