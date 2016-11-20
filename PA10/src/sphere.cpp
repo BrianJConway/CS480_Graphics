@@ -62,5 +62,5 @@ void Sphere::Start()
 void Sphere::Restart()
 {
     BallNum++;
-    rigidBody->translate(-25, 0, 10);
+    rigidBody->translate(btVector3(-25, 0, 10));
 }
