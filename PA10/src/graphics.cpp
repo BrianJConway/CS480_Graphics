@@ -76,7 +76,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "PA10RightPaddle.obj";
   m_rpaddle = new RPaddle(objFile, dynamicsWorld);
 
-  objFile = "PA10LeftPaddle.obj";
+  objFile = "PA10LeftPaddle2.obj";
   m_lpaddle = new LPaddle(objFile, dynamicsWorld);
 
   // Set up the shaders

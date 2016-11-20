@@ -8,14 +8,14 @@ using namespace std;
 LPaddle::LPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create paddle collision shape
-    btCollisionShape* paddleShape = new btBoxShape( btVector3( 3, 2, 2 ) );
+    btCollisionShape* paddleShape = new btBoxShape( btVector3( 1, 3, 6 ) );
         
     // Create paddle motion state, place in socket
     btDefaultMotionState* paddleMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(60)), btVector3( 7, 1, -30 ) ) );            
+    btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(80)), btVector3( 10, 1, -28 ) ) );            
             
     // Create Cylinder rigid body
-    btScalar mass = 1;
+    btScalar mass = 100;
     btVector3 paddleInertia = btVector3( 0, 0, 0 );
     paddleShape->calculateLocalInertia( mass, paddleInertia );
     btRigidBody::btRigidBodyConstructionInfo paddleRigidBodyCI( 
@@ -32,6 +32,17 @@ LPaddle::LPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mo
 
 void LPaddle::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
+    btQuaternion quat = rigidBody->getOrientation();
+
+    if(quat.getAngle() > 3)
+    {
+        rigidBody->applyTorqueImpulse(btVector3(0, -7000, 0));
+    }
+    if(quat.getAngle() < 1.28)
+    {
+        rigidBody->setAngularVelocity(btVector3(0,0,0));
+    }
+
     btTransform trans;
     btScalar m[ 16 ];
 
@@ -46,6 +57,5 @@ void LPaddle::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
 
 void LPaddle::Swing()
 {
-    rigidBody->setAngularVelocity(btVector3(0, 1000, 0));
-    //rigidbody->applyTorqueImpulse(btVector3(0, 1000, 0));
+    rigidBody->applyTorqueImpulse(btVector3(0, 7000, 0));
 }
