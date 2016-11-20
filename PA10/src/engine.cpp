@@ -95,6 +95,13 @@ void Engine::Run()
 
   while(m_running)
   {
+    // Check to see if game over
+    if(m_graphics->getBallNum() >= 3)
+    {
+        m_running = false;
+        cout << "Game Over" << endl;
+    }
+
     // Update the DT
     m_DT = getDT();
 

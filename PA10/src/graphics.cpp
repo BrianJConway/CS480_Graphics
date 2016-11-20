@@ -233,6 +233,16 @@ void Graphics::Update(unsigned int dt, string motion[])
      
   double dTime = (double) dt / 1000;
   
+  // Check if ball needs to be reset
+  if(gutter.distance(getSphereCOM()) < 0.5)
+  {
+        delete m_sphere;
+        string objFile;
+        objFile = "PA10Ball.obj";
+        m_sphere = new Sphere( objFile, dynamicsWorld );
+        BallNum++;
+  }
+
   // Update the dynamics world
   dynamicsWorld->stepSimulation( dt, 1 );
   
@@ -392,6 +402,15 @@ void Graphics::adjustLighting( string control )
        }
    }
     
+btVector3 Graphics::getSphereCOM()
+{
+    return m_sphere->getCOM();
+}
+
+int Graphics::getBallNum()
+{
+    return BallNum;
+}
    
 std::string Graphics::ErrorString(GLenum error)
 {

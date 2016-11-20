@@ -31,13 +31,12 @@ Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
     dynamicsWorld->addRigidBody( rigidBody, COL_BALL, ballCollidesWith );    
    }
 
+Sphere::~Sphere()
+{
+}
+
 void Sphere::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
-
-    if(gutter.distance(rigidBody->getCenterOfMassPosition()) < 1)
-    {
-        Restart();
-    }
 
     btTransform trans;
     btScalar m[ 16 ];
@@ -59,8 +58,7 @@ void Sphere::Start()
     }
 }
 
-void Sphere::Restart()
+btVector3 Sphere::getCOM()
 {
-    BallNum++;
-    rigidBody->translate(btVector3(-25, 0, 10));
+    return rigidBody->getCenterOfMassPosition();
 }

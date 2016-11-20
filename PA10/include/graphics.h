@@ -42,6 +42,8 @@ class Graphics
     void setLightingUniforms( Model* object );
     void swapShaders( string shader );
     void adjustLighting( string control );
+    btVector3 getSphereCOM();
+    int getBallNum();
     
   private:
     std::string ErrorString(GLenum error);
@@ -68,6 +70,8 @@ class Graphics
     vector<Light> lights;
     
     unsigned long int counter = 0;
+    btVector3 gutter = btVector3(1.2, 3, -34);
+    int BallNum = 0;
    
 };
 
