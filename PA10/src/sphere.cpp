@@ -33,6 +33,12 @@ Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
 
 void Sphere::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
+
+    if(gutter.distance(rigidBody->getCenterOfMassPosition()) < 1)
+    {
+        Restart();
+    }
+
     btTransform trans;
     btScalar m[ 16 ];
 
@@ -48,4 +54,10 @@ void Sphere::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
 void Sphere::Start()
 {
     rigidBody->applyCentralImpulse( btVector3(0,0,1000));
+}
+
+void Sphere::Restart()
+{
+    BallNum++;
+    //translate
 }

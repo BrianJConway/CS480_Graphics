@@ -17,12 +17,14 @@ class Sphere: public Model
         
         void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
         void Start();
-        
+        void Restart();        
+
         // Destructor
         ~Sphere();
 
     private:
-    
+        int BallNum = 0;
+        btVector3 gutter = btVector3(1.2, 3, -34);
 };
 
 #endif
