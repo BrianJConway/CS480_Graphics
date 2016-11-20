@@ -32,7 +32,7 @@ RPaddle::RPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mo
 
 void RPaddle::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
-    btQuaternion quat = rigidBody-getOrientation();
+    btQuaternion quat = rigidBody->getOrientation();
 
     if(quat.getAngle() < 0.3)
     {
