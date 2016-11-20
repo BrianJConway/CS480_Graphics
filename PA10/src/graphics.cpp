@@ -184,8 +184,19 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   light.coneAngle = 20.0;
   light.coneDirection = glm::vec3( 0.0, -1.0, 0.0 );
   light.brightness = 1.0;
+
+  Light light2;
+  light2.LightPosition = glm::vec4( 0.5,10.0,-0.5,0.0);
+  light2.AmbientProduct = glm::vec4(0.1,0.1,0.1,1.0); 
+  light2.DiffuseProduct = glm::vec4(0.4,0.4,0.4,1.0); 
+  light2.SpecularProduct = glm::vec4(0.6,0.6,0.6,1.0); 
+  light2.coneAngle = 20.0;
+  light2.coneDirection = glm::vec3( 0.0, -1.0, -0.5 );
+  light2.brightness = 1.0;
+  
   
   lights.push_back(light);
+  lights.push_back(light2);
  
   return true;
 }
@@ -291,8 +302,9 @@ void Graphics::Render()
 void Graphics::setLightingUniforms( Model* object )
    {
     // Set number of lights
-    GLuint loc;
+    GLuint loc = m_shader->GetUniformLocation( "numLights" );
     int numLights = lights.size();
+    glUniform1i( loc, numLights );
     string locName;
 
     loc = m_shader->GetUniformLocation( "Shininess" );
@@ -300,34 +312,33 @@ void Graphics::setLightingUniforms( Model* object )
 
     for( int index = 0; index < lights.size(); index++ )
        {
-        locName = "LightPosition";
+        locName = "lights[" + to_string(index) + "].LightPosition";
         loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].LightPosition ) );
 
-        locName = "AmbientProduct";
+        locName = "lights[" + to_string(index) + "].AmbientProduct";
         loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].AmbientProduct ) );
 
-        locName = "DiffuseProduct";
+        locName = "lights[" + to_string(index) + "].DiffuseProduct";
         loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].DiffuseProduct ) );
 
-        locName = "SpecularProduct";
+        locName = "lights[" + to_string(index) + "].SpecularProduct";
         loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].SpecularProduct ) );
 
-        locName = "coneDirection";
+        locName = "lights[" + to_string(index) + "].coneAngle";
+        loc = m_shader->GetUniformLocation( locName.c_str() );
+        glUniform1f( loc, lights[ index ].coneAngle );
+        
+        locName = "lights[" + to_string(index) + "].coneDirection";
         loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform3fv( loc, 1, glm::value_ptr( lights[ index ].coneDirection ) );
 
-        locName = "coneAngle";
+        locName = "lights[" + to_string(index) + "].brightness";
         loc = m_shader->GetUniformLocation( locName.c_str() );
-        glUniform1f( loc, lights[ index ].coneAngle );  
-        
-        locName = "brightness";
-        loc = m_shader->GetUniformLocation( locName.c_str() );
-        glUniform1f( loc, lights[ index ].brightness );  
-
+        glUniform1f( loc, lights[ index ].brightness );
        }
    }
 
@@ -367,11 +378,11 @@ void Graphics::adjustLighting( string control )
        }
     else if( control == "I SPOT BRIGHT" )
        {
-        lights[ 0 ].attenuation += 0.1;
+        lights[ 0 ].brightness += 0.1;
        }
     else if( control == "D SPOT BRIGHT" )
        {
-        lights[ 0 ].attenuation -= 0.1;
+        lights[ 0 ].brightness -= 0.1;
        }
    }
     
