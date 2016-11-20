@@ -1,18 +1,18 @@
-#include "rpaddle.h"
+#include "lpaddle.h"
 #include <vector>
 #include <cmath>
 #include <iostream>
 
 using namespace std;
 
-RPaddle::RPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
+LPaddle::LPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create paddle collision shape
-    btCollisionShape* paddleShape = new btBoxShape( btVector3( 3.5, 2, 2 ) );
+    btCollisionShape* paddleShape = new btBoxShape( btVector3( 3, 2, 2 ) );
         
     // Create paddle motion state, place in socket
     btDefaultMotionState* paddleMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(120)), btVector3( -5, 1, -29 ) ) );            
+    btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(60)), btVector3( 7, 1, -30 ) ) );            
             
     // Create Cylinder rigid body
     btScalar mass = 1;
@@ -30,7 +30,7 @@ RPaddle::RPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mo
     dynamicsWorld->addRigidBody( rigidBody, COL_PADDLE, paddleCollidesWith );    
    }
 
-void RPaddle::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
+void LPaddle::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
     btTransform trans;
     btScalar m[ 16 ];
@@ -44,7 +44,7 @@ void RPaddle::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
     model = glm::make_mat4( m );
    } 
 
-void RPaddle::Swing()
+void LPaddle::Swing()
 {
     rigidBody->setAngularVelocity(btVector3(0, 1000, 0));
     //rigidbody->applyTorqueImpulse(btVector3(0, 1000, 0));

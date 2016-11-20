@@ -28,7 +28,7 @@ Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
     rigidBody->setRestitution(0.9);
                         
     // Add sphere to world
-    dynamicsWorld->addRigidBody( rigidBody );    
+    dynamicsWorld->addRigidBody( rigidBody, COL_BALL, ballCollidesWith );    
    }
 
 void Sphere::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
