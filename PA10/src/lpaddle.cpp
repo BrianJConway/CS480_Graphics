@@ -15,7 +15,7 @@ LPaddle::LPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mo
     btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(60)), btVector3( 7, 1, -30 ) ) );            
             
     // Create Cylinder rigid body
-    btScalar mass = 1;
+    btScalar mass = 10;
     btVector3 paddleInertia = btVector3( 0, 0, 0 );
     paddleShape->calculateLocalInertia( mass, paddleInertia );
     btRigidBody::btRigidBodyConstructionInfo paddleRigidBodyCI( 
@@ -46,6 +46,5 @@ void LPaddle::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
 
 void LPaddle::Swing()
 {
-    rigidBody->setAngularVelocity(btVector3(0, 1000, 0));
-    //rigidbody->applyTorqueImpulse(btVector3(0, 1000, 0));
+    rigidBody->applyTorqueImpulse(btVector3(0, 500, 0));
 }
