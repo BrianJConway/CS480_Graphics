@@ -12,7 +12,7 @@ enum collisiontypes {
     COL_NOTHING = 0, //<Collide with nothing
     COL_PADDLE = BIT(0), //<Collide with paddle
     COL_WALL = BIT(1), //<Collide with walls
-    COL_BALL = BIT(2) //<Collide with ball
+    COL_BALL = BIT(2), //<Collide with ball
     COL_BUMPER = BIT(3) //Collide with bumper
 };
 
