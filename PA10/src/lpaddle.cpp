@@ -12,7 +12,7 @@ LPaddle::LPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mo
         
     // Create paddle motion state, place in socket
     btDefaultMotionState* paddleMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(60)), btVector3( 7, 1, -30 ) ) );            
+    btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(60)), btVector3( 10, 1, -28 ) ) );            
             
     // Create Cylinder rigid body
     btScalar mass = 10;
@@ -32,6 +32,17 @@ LPaddle::LPaddle( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mo
 
 void LPaddle::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
+    btQuaternion quat = rigidBody->getOrientation();
+
+    if(quat.getAngle() > 3)
+    {
+        rigidBody->applyTorqueImpulse(btVector3(0, -500, 0));
+    }
+    if(quat.getAngle() < 1.28)
+    {
+        rigidBody->setAngularVelocity(btVector3(0,0,0));
+    }
+
     btTransform trans;
     btScalar m[ 16 ];
 
