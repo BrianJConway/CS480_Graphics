@@ -53,11 +53,14 @@ void Sphere::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
 
 void Sphere::Start()
 {
-    rigidBody->applyCentralImpulse( btVector3(0,0,1000));
+    if(start.distance(rigidBody->getCenterOfMassPosition()) < 1)
+    {
+        rigidBody->applyCentralImpulse( btVector3(0,0,1000));
+    }
 }
 
 void Sphere::Restart()
 {
     BallNum++;
-    //translate
+    rigidBody->translate(-25, 0, 10);
 }
