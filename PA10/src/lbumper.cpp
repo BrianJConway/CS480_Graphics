@@ -5,10 +5,10 @@
 
 using namespace std;
 
-LBumper::LBumper( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName, m_objTriMesh )
+LBumper::LBumper( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create bumper collision shape
-    btCollisionShape* bumperShape = new btBvhTriangleMeshShape( m_objTriMesh, true);
+    btCollisionShape* bumperShape = new btSphereShape( 2 );
         
     // Create bumper motion state
     btDefaultMotionState* bumperMotionState = new btDefaultMotionState( 
