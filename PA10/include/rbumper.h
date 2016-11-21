@@ -21,6 +21,7 @@ class RBumper: public Model
         ~RBumper();
 
     private:
+        btTriangleMesh* m_objTriMesh; 
     
 };
 

@@ -37,6 +37,7 @@ class Model
         int paddleCollidesWith = COL_BALL;
         int wallCollidesWith = COL_BALL;
         int ballCollidesWith = COL_PADDLE | COL_WALL;
+        int bumperCollidesWith = COL_BALL;
    };
    
 #endif
