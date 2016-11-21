@@ -70,7 +70,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "PA10Ball.obj";
   m_sphere = new Sphere( objFile, dynamicsWorld );
 
-  objFile = "spring_new.obj";
+  objFile = "spring.obj";
   m_cylinder = new Cylinder(objFile, dynamicsWorld);
 
   objFile = "PA10RightPaddle.obj";
