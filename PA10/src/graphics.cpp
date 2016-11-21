@@ -185,33 +185,27 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   glDepthFunc(GL_LESS);
     
   // Initialize lights
-  Light spotlight;
-  spotlight.LightPosition = glm::vec4( 0.0,0.0,-5.0,1.0);
-  spotlight.AmbientProduct = glm::vec4(0.0,0.0,0.0,1.0); 
-  spotlight.DiffuseProduct = glm::vec4(0.9,0.9,0.9,1.0); 
-  spotlight.SpecularProduct = glm::vec4(0.9,0.9,0.9,1.0); 
-  spotlight.attenuation = 1.0f;
-  spotlight.coneAngle = 10.0f;
-  spotlight.coneDirection = glm::vec3(0.0,-2.0,1.0);
+  Light light;
+  light.LightPosition = glm::vec4( 0.1,10.0,-0.1,0.0);
+  light.AmbientProduct = glm::vec4(0.1,0.1,0.1,1.0); 
+  light.DiffuseProduct = glm::vec4(0.4,0.4,0.4,1.0); 
+  light.SpecularProduct = glm::vec4(0.6,0.6,0.6,1.0); 
+  light.coneAngle = 20.0;
+  light.coneDirection = glm::vec3( 0.0, -1.0, 0.0 );
+  light.brightness = 1.0;
 
-  Light pointlight;
-  pointlight.LightPosition = glm::vec4(-2.0,1.0,-3.0,1.0);
-  pointlight.AmbientProduct = glm::vec4(0.9,0.9,0.9,1.0); 
-  pointlight.DiffuseProduct = glm::vec4(0.3,0.3,0.3,1.0); 
-  pointlight.SpecularProduct = glm::vec4(0.3,0.4,0.3,1.0); 
-  pointlight.attenuation = 4.0f;
-  pointlight.coneAngle = 180.0f;
-  pointlight.coneDirection = glm::vec3(0.0,0.0,1.0);
-
-  Light directionalLight;
-  directionalLight.LightPosition = glm::vec4( 10.0, -5.0, -5.0, 0.0 ); 
-  directionalLight.AmbientProduct = glm::vec4( 0.2, 0.2,0.2, 1.0) ; 
-  directionalLight.DiffuseProduct = glm::vec4( 0.5, 0.5, 0.5, 1.0 ); 
-  directionalLight.SpecularProduct = glm::vec4( 0.9, 0.9, 0.9, 1.0 ); 
-
-  lights.push_back(spotlight);
-  lights.push_back(pointlight);
-  lights.push_back(directionalLight);
+  Light light2;
+  light2.LightPosition = glm::vec4( 0.5,10.0,-0.5,0.0);
+  light2.AmbientProduct = glm::vec4(0.1,0.1,0.1,1.0); 
+  light2.DiffuseProduct = glm::vec4(0.4,0.4,0.4,1.0); 
+  light2.SpecularProduct = glm::vec4(0.6,0.6,0.6,1.0); 
+  light2.coneAngle = 20.0;
+  light2.coneDirection = glm::vec3( 0.0, -1.0, -0.5 );
+  light2.brightness = 1.0;
+  
+  
+  lights.push_back(light);
+  lights.push_back(light2);
  
   return true;
 }
@@ -369,7 +363,7 @@ void Graphics::setLightingUniforms( Model* object )
 
     for( int index = 0; index < lights.size(); index++ )
        {
-        locName = "lights[" + to_string(index) + "].lightPosition";
+        locName = "lights[" + to_string(index) + "].LightPosition";
         loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform4fv( loc, 1, glm::value_ptr( lights[ index ].LightPosition ) );
 
@@ -393,9 +387,9 @@ void Graphics::setLightingUniforms( Model* object )
         loc = m_shader->GetUniformLocation( locName.c_str() );
         glUniform3fv( loc, 1, glm::value_ptr( lights[ index ].coneDirection ) );
 
-        locName = "lights[" + to_string(index) + "].attenuation";
+        locName = "lights[" + to_string(index) + "].brightness";
         loc = m_shader->GetUniformLocation( locName.c_str() );
-        glUniform1f( loc, lights[ index ].attenuation );
+        glUniform1f( loc, lights[ index ].brightness );
        }
    }
 
@@ -427,19 +421,19 @@ void Graphics::adjustLighting( string control )
        }
     else if( control == "I SPOT SIZE" )
        {
-        lights[ 0 ].coneAngle += 10;
+        lights[ 0 ].coneAngle += 1;
        }
     else if( control == "D SPOT SIZE" )
        {
-        lights[ 0 ].coneAngle -= 10;
+        lights[ 0 ].coneAngle -= 1;
        }
     else if( control == "I SPOT BRIGHT" )
        {
-        lights[ 0 ].attenuation += 0.1;
+        lights[ 0 ].brightness += 0.1;
        }
     else if( control == "D SPOT BRIGHT" )
        {
-        lights[ 0 ].attenuation -= 0.1;
+        lights[ 0 ].brightness -= 0.1;
        }
    }
     

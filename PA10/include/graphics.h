@@ -31,7 +31,7 @@ struct Light
     glm::vec4 LightPosition;
     float coneAngle;
     glm::vec3 coneDirection;
-    float attenuation;
+    float brightness;
    };
 
 class Graphics
