@@ -12,7 +12,7 @@ Back::Back( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( f
         
     // Create back motion state
     btDefaultMotionState* backMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( btVector3(0, 0, 0), 0), btVector3( 0, 1, 5 ) ) );            
+    btTransform( btQuaternion(0, 0, 0, 1), btVector3( 0, 1, 5 ) ) );            
             
     // Create back rigid body
     btScalar mass = 0;
