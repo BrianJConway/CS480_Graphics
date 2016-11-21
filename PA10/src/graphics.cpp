@@ -67,8 +67,8 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   string objFile = "PA10PinballMachineNoBumper.obj";
   m_ground = new Ground( objFile, dynamicsWorld );
 
-  objFile = "PA10Ball_new.obj";
-  m_sphere = new Sphere( objFile, dynamicsWorld );
+  //objFile = "PA10Ball_new.obj";
+  //m_sphere = new Sphere( objFile, dynamicsWorld );
 
   //objFile = "spring.obj";
   //m_cylinder = new Cylinder(objFile, dynamicsWorld);
@@ -76,8 +76,8 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "PA10RightPaddle.obj";
   m_rpaddle = new RPaddle(objFile, dynamicsWorld);
 
-  objFile = "PA10LeftPaddle2_new.obj";
-  m_lpaddle = new LPaddle(objFile, dynamicsWorld);
+  //objFile = "PA10LeftPaddle2_new.obj";
+  //m_lpaddle = new LPaddle(objFile, dynamicsWorld);
 
   // Set up the shaders
   m_shaderGouraud = new Shader( gouraud );
@@ -234,24 +234,24 @@ void Graphics::Update(unsigned int dt, string motion[])
   double dTime = (double) dt / 1000;
   
   // Check if ball needs to be reset
-  if(gutter.distance(getSphereCOM()) < 0.5)
+  /*if(gutter.distance(getSphereCOM()) < 0.5)
   {
         delete m_sphere;
         string objFile;
         objFile = "PA10Ball.obj";
         m_sphere = new Sphere( objFile, dynamicsWorld );
         BallNum++;
-  }
+  }*/
 
   // Update the dynamics world
   dynamicsWorld->stepSimulation( dt, 1 );
   
   // Update the objects
   m_ground->Update( dynamicsWorld, dt );
-  m_sphere->Update( dynamicsWorld, dt );
+  //m_sphere->Update( dynamicsWorld, dt );
   //m_cylinder->Update(dynamicsWorld, dt);
   m_rpaddle->Update(dynamicsWorld, dt);
-  m_lpaddle->Update(dynamicsWorld, dt);
+  //m_lpaddle->Update(dynamicsWorld, dt);
 }
 
 void Graphics::swapShaders( string shader )
@@ -290,9 +290,9 @@ void Graphics::Render()
   setLightingUniforms( m_ground );
   m_ground->Draw();
 
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sphere->getModel()));
-  setLightingUniforms( m_sphere );
-  m_sphere->Draw();
+  //glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sphere->getModel()));
+  //setLightingUniforms( m_sphere );
+  //m_sphere->Draw();
 
   //glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cylinder->getModel()));
   //setLightingUniforms( m_cylinder );
@@ -302,9 +302,9 @@ void Graphics::Render()
   setLightingUniforms( m_rpaddle );
   m_rpaddle->Draw();
 
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_lpaddle->getModel()));
-  setLightingUniforms( m_lpaddle );
-  m_lpaddle->Draw();
+  //glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_lpaddle->getModel()));
+  //setLightingUniforms( m_lpaddle );
+  //m_lpaddle->Draw();
 
   // Get any errors from OpenGL
   auto error = glGetError();
