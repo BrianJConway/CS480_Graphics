@@ -18,6 +18,7 @@ using namespace std;
 #include "walls.h"
 #include "rpaddle.h"
 #include "lpaddle.h"
+#include "back.h"
 
 
 struct Light
@@ -66,6 +67,7 @@ class Graphics
     Walls *m_walls;
     RPaddle *m_rpaddle;
     LPaddle *m_lpaddle;
+    Back *m_back;
     
     vector<Light> lights;
     
