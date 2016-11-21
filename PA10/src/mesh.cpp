@@ -82,7 +82,7 @@ bool Mesh::loadMesh( string& fileName )
     Clear();
     
     // Get ASSIMP scene object
-    const aiScene* scene = Importer.ReadFile(fileName.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_OptimizeMeshes );
+    const aiScene* scene = Importer.ReadFile(fileName.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs );
     
     // Check if failure loading scene from file
     if ( !scene ) 
@@ -372,4 +372,3 @@ void Mesh::Draw()
     glDisableVertexAttribArray(2);
 
    }
-
