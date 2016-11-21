@@ -17,6 +17,8 @@ class Sphere: public Model
         
         void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
         void Start();
+        void Left();
+        void Right();
         btVector3 getCOM();
 
         // Destructor
@@ -24,6 +26,8 @@ class Sphere: public Model
 
     private:
         btVector3 start = btVector3(-24.1019, 3, -25.0097);
+        btVector3 right = btVector3(-5, 3, -28.0);
+        btVector3 left = btVector3( 5, 3, -28);
 };
 
 #endif

@@ -88,6 +88,9 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "mashroom_new.obj";
   m_lbumper = new LBumper(objFile, dynamicsWorld);
 
+  objFile = "mashroom_new.obj";
+  m_mbumper = new MBumper(objFile, dynamicsWorld);
+
   // Set up the shaders
   m_shaderGouraud = new Shader( gouraud );
   if(!m_shaderGouraud->Initialize( ))
@@ -187,25 +190,25 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   // Initialize lights
   Light light;
   light.LightPosition = glm::vec4( 0.1,10.0,-0.1,0.0);
-  light.AmbientProduct = glm::vec4(0.1,0.1,0.1,1.0); 
-  light.DiffuseProduct = glm::vec4(0.4,0.4,0.4,1.0); 
-  light.SpecularProduct = glm::vec4(0.6,0.6,0.6,1.0); 
-  light.coneAngle = 20.0;
+  light.AmbientProduct = glm::vec4(0.2,0.2,0.2,1.0); 
+  light.DiffuseProduct = glm::vec4(0.1,0.1,0.9,1.0); 
+  light.SpecularProduct = glm::vec4(0.9,0.1,0.1,1.0); 
+  light.coneAngle = 180.0;
   light.coneDirection = glm::vec3( 0.0, -1.0, 0.0 );
   light.brightness = 1.0;
 
   Light light2;
-  light2.LightPosition = glm::vec4( 0.5,10.0,-0.5,0.0);
+  light2.LightPosition = glm::vec4( 0.5,10.0,-1.5,1.0);
   light2.AmbientProduct = glm::vec4(0.1,0.1,0.1,1.0); 
   light2.DiffuseProduct = glm::vec4(0.4,0.4,0.4,1.0); 
   light2.SpecularProduct = glm::vec4(0.6,0.6,0.6,1.0); 
-  light2.coneAngle = 20.0;
-  light2.coneDirection = glm::vec3( 0.0, -1.0, -0.5 );
+  light2.coneAngle = 10.0;
+  light2.coneDirection = glm::vec3( 0.0, -1.0, -1.5 );
   light2.brightness = 1.0;
   
   
-  lights.push_back(light);
   lights.push_back(light2);
+  lights.push_back(light);
  
   return true;
 }
@@ -227,14 +230,16 @@ void Graphics::Update(unsigned int dt, string motion[])
      }
   if( motion[0] == "RIGHT")
      {
-        m_rpaddle->Swing();
+   //     m_rpaddle->Swing();
+        m_sphere->Right();
      }
   if( motion[0] == "LEFT")
      {
-        m_lpaddle->Swing();
+   //     m_lpaddle->Swing();
+        m_sphere->Left();
      }
      
-  double dTime = (double) dt / 1000;
+  double dTime = (double) dt / 500;
   
   // Check if ball needs to be reset
   if(gutter.distance(getSphereCOM()) < 0.5)
@@ -264,7 +269,7 @@ void Graphics::Update(unsigned int dt, string motion[])
   }
 
   // Update the dynamics world
-  dynamicsWorld->stepSimulation( dt, 1 );
+  dynamicsWorld->stepSimulation( dTime, 1 );
   
   // Update the objects
   m_ground->Update( dynamicsWorld, dt );
@@ -275,6 +280,7 @@ void Graphics::Update(unsigned int dt, string motion[])
   m_back->Update(dynamicsWorld, dt);
   m_rbumper->Update(dynamicsWorld, dt);
   m_lbumper->Update(dynamicsWorld, dt);
+  m_mbumper->Update(dynamicsWorld, dt);
 }
 
 void Graphics::swapShaders( string shader )
@@ -300,7 +306,7 @@ void Graphics::swapShaders( string shader )
 void Graphics::Render()
 {
   //clear the screen
-  glClearColor(0.0, 0.0, 0.2, 1.0);
+  glClearColor(0.0, 0.0, 0.0, 1.0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
@@ -340,6 +346,10 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_lbumper->getModel()));
   setLightingUniforms( m_lbumper );
   m_lbumper->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_mbumper->getModel()));
+  setLightingUniforms( m_mbumper );
+  m_mbumper->Draw();
 
   // Get any errors from OpenGL
   auto error = glGetError();
@@ -410,14 +420,24 @@ void Graphics::adjustLighting( string control )
         m_ground->adjustShininess( "UP" );
         m_sphere->adjustShininess( "UP" );
         m_cylinder->adjustShininess( "UP" );
-        m_cube->adjustShininess( "UP" );
+        m_rpaddle->adjustShininess( "UP" );
+        m_lpaddle->adjustShininess( "UP" );
+        m_back->adjustShininess( "UP" );
+        m_rbumper->adjustShininess( "UP" );
+        m_lbumper->adjustShininess( "UP" );
+        m_mbumper->adjustShininess( "UP" );
        }
     else if( control == "D SPEC" )
        {
         m_ground->adjustShininess( "DOWN" );
         m_sphere->adjustShininess( "DOWN" );
         m_cylinder->adjustShininess( "DOWN" );
-        m_cube->adjustShininess( "DOWN" );
+        m_rpaddle->adjustShininess( "DOWN" );
+        m_lpaddle->adjustShininess( "DOWN" );
+        m_back->adjustShininess( "DOWN" );
+        m_rbumper->adjustShininess( "DOWN" );
+        m_lbumper->adjustShininess( "UP" );
+        m_mbumper->adjustShininess( "UP" );
        }
     else if( control == "I SPOT SIZE" )
        {
@@ -426,14 +446,6 @@ void Graphics::adjustLighting( string control )
     else if( control == "D SPOT SIZE" )
        {
         lights[ 0 ].coneAngle -= 1;
-       }
-    else if( control == "I SPOT BRIGHT" )
-       {
-        lights[ 0 ].brightness += 0.1;
-       }
-    else if( control == "D SPOT BRIGHT" )
-       {
-        lights[ 0 ].brightness -= 0.1;
        }
    }
     
@@ -483,4 +495,9 @@ std::string Graphics::ErrorString(GLenum error)
     return "None";
   }
 }
+
+Camera* Graphics::getCamera()
+   {
+    return m_camera;
+   }
 

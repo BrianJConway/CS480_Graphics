@@ -21,6 +21,7 @@ using namespace std;
 #include "back.h"
 #include "rbumper.h"
 #include "lbumper.h"
+#include "mbumper.h"
 
 
 struct Light
@@ -48,6 +49,7 @@ class Graphics
     btVector3 getSphereCOM();
     int getBallNum();
     int getScore();
+    Camera* getCamera();
     
   private:
     std::string ErrorString(GLenum error);
@@ -73,6 +75,7 @@ class Graphics
     Back *m_back;
     RBumper *m_rbumper;
     LBumper *m_lbumper;
+    MBumper *m_mbumper;
     
     vector<Light> lights;
     

@@ -58,6 +58,22 @@ void Sphere::Start()
     }
 }
 
+void Sphere::Left()
+{
+    if(left.distance(rigidBody->getCenterOfMassPosition()) < 3)
+    {
+        rigidBody->applyCentralImpulse( btVector3(-200,0,1000));
+    }
+}
+
+void Sphere::Right()
+{
+    if(right.distance(rigidBody->getCenterOfMassPosition()) < 3)
+    {
+        rigidBody->applyCentralImpulse( btVector3(200,0,1000));
+    }
+}
+
 btVector3 Sphere::getCOM()
 {
     return rigidBody->getCenterOfMassPosition();

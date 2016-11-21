@@ -126,6 +126,8 @@ void Engine::Run()
 
 void Engine::Keyboard()
    {
+    Camera* m_camera = m_graphics->getCamera();
+    
     if(m_event.type == SDL_QUIT)
        {
         m_running = false;
@@ -169,12 +171,12 @@ void Engine::Keyboard()
         else if(m_event.key.keysym.sym == SDLK_RIGHT)
         {
             // increase spotlight brightness
-            motion[1] = "I SPOT BRIGHT";
+            m_camera->processKeyboard( "FORWARD" );
         }
         else if(m_event.key.keysym.sym == SDLK_LEFT)
         {
             // decrease spotlight brightness
-            motion[1] = "D SPOT BRIGHT";
+            m_camera->processKeyboard( "BACK" );
         }
         else if(m_event.key.keysym.sym == SDLK_u)
         {

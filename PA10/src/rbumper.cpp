@@ -34,6 +34,7 @@ void RBumper::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
     btTransform trans;
     btScalar m[ 16 ];
+    glm::mat4 scale;
 
     rigidBody->forceActivationState(ACTIVE_TAG);
     
@@ -42,4 +43,8 @@ void RBumper::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
     trans.getOpenGLMatrix( m );
     
     model = glm::make_mat4( m );
+
+    scale = glm::scale(glm::mat4(1.0f), glm::vec3(7.3f));
+    
+    model *= scale;
    } 

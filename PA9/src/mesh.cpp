@@ -145,6 +145,7 @@ void Mesh::initMesh( unsigned int Index, const aiMesh* mesh )
         normal.y = mesh->mNormals[ index ].y;
         normal.z = mesh->mNormals[ index ].z;
             
+        vertex.normals = normal;
             
         // Check if texture coordinates specified    
         if(mesh->mTextureCoords[0])
