@@ -19,6 +19,7 @@ using namespace std;
 #include "rpaddle.h"
 #include "lpaddle.h"
 #include "back.h"
+#include "rbumper.h"
 
 
 struct Light
@@ -68,6 +69,7 @@ class Graphics
     RPaddle *m_rpaddle;
     LPaddle *m_lpaddle;
     Back *m_back;
+    RBumper *m_rbumper;
     
     vector<Light> lights;
     

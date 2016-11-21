@@ -82,6 +82,9 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "backboard.obj";
   m_back = new Back(objFile, dynamicsWorld);
 
+  objFile = "mashroom_new.obj";
+  m_rbumper = new RBumper(objFile, dynamicsWorld);
+
   // Set up the shaders
   m_shaderGouraud = new Shader( gouraud );
   if(!m_shaderGouraud->Initialize( ))
@@ -256,6 +259,7 @@ void Graphics::Update(unsigned int dt, string motion[])
   m_rpaddle->Update(dynamicsWorld, dt);
   m_lpaddle->Update(dynamicsWorld, dt);
   m_back->Update(dynamicsWorld, dt);
+  m_rbumper->Update(dynamicsWorld, dt);
 }
 
 void Graphics::swapShaders( string shader )
@@ -313,6 +317,10 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_back->getModel()));
   setLightingUniforms( m_back );
   m_back->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_rbumper->getModel()));
+  setLightingUniforms( m_rbumper );
+  m_rbumper->Draw();
 
   // Get any errors from OpenGL
   auto error = glGetError();
