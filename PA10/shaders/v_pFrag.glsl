@@ -1,4 +1,5 @@
  #version 330
+
         const int MAX_LIGHTS = 10;
         struct Light
            {
@@ -39,6 +40,3 @@
              
             gl_Position = projectionMatrix * viewMatrix * modelMatrix * v;     
           } 
-          
-          
-          

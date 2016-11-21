@@ -49,7 +49,7 @@
                 vec3 N = normalize( viewMatrix * modelMatrix * vec4( v_normal, 0.0 ) ).xyz;
                 
                 ambient += lights[index].AmbientProduct;
-                
+
                 if( lightToSurfaceAngle < lights[index].coneAngle )
                    {
                     float Kd = max( dot( L, N ), 0.0 );
@@ -70,6 +70,3 @@
             
             texture = v_texture;
           } 
-          
-          
-          

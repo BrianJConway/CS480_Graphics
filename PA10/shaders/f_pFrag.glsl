@@ -73,6 +73,3 @@
              frag_color *= texture2D( gSampler, texture.xy );
              frag_color.a = 1.0; 
           } 
-          
-          
-          
