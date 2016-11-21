@@ -250,7 +250,10 @@ void Graphics::Update(unsigned int dt, string motion[])
         objFile = "PA10Ball.obj";
         m_sphere = new Sphere( objFile, dynamicsWorld );
         BallNum++;
+        if(BallNum != 3)
+        {
         cout << "Ball: " << BallNum+1 << endl;
+        }
   }
 
   // Check if Score changed
