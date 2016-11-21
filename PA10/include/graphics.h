@@ -47,6 +47,7 @@ class Graphics
     void adjustLighting( string control );
     btVector3 getSphereCOM();
     int getBallNum();
+    int getScore();
     
   private:
     std::string ErrorString(GLenum error);
@@ -77,7 +78,10 @@ class Graphics
     
     unsigned long int counter = 0;
     btVector3 gutter = btVector3(1.2, 3, -34);
+    btVector3 lbumper = btVector3(10, 3, 20);
+    btVector3 rbumper = btVector3(-10, 3, 20);
     int BallNum = 0;
+    int Score = 0;
    
 };
 

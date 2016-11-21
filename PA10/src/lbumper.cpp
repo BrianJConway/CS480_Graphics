@@ -8,7 +8,7 @@ using namespace std;
 LBumper::LBumper( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create bumper collision shape
-    btCollisionShape* bumperShape = new btSphereShape( 2 );
+    btCollisionShape* bumperShape = new btSphereShape( 4 );
         
     // Create bumper motion state
     btDefaultMotionState* bumperMotionState = new btDefaultMotionState( 

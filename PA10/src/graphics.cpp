@@ -250,6 +250,20 @@ void Graphics::Update(unsigned int dt, string motion[])
         objFile = "PA10Ball.obj";
         m_sphere = new Sphere( objFile, dynamicsWorld );
         BallNum++;
+        cout << "Ball: " << BallNum+1 << endl;
+  }
+
+  // Check if Score changed
+  if(lbumper.distance(getSphereCOM()) < 4.6)
+  {
+        Score += 25;
+        cout << "Score: " << Score << endl;
+  }
+
+  if(rbumper.distance(getSphereCOM()) < 4.6)
+  {
+        Score += 25;
+        cout << "Score: " << Score << endl;
   }
 
   // Update the dynamics world
@@ -434,6 +448,11 @@ btVector3 Graphics::getSphereCOM()
 int Graphics::getBallNum()
 {
     return BallNum;
+}
+
+int Graphics::getScore()
+{
+    return Score;
 }
    
 std::string Graphics::ErrorString(GLenum error)

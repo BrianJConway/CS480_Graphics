@@ -100,6 +100,7 @@ void Engine::Run()
     {
         m_running = false;
         cout << "Game Over" << endl;
+        cout << "Final Score: " << m_graphics->getScore() << endl;
     }
 
     // Update the DT
