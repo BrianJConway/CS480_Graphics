@@ -1,5 +1,5 @@
-#ifndef RBUMPER_H
-#define RBUMPER_H
+#ifndef LBUMPER_H
+#define LBUMPER_H
 
 #include <vector>
 #include "graphics_headers.h"
@@ -9,16 +9,16 @@
 using namespace std;
 
 // Derived from Model Class
-class RBumper: public Model
+class LBumper: public Model
 {
     public:
         // Constructor
-        RBumper( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
+        LBumper( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
         
         void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
         
         // Destructor
-        ~RBumper();
+        ~LBumper();
 
     private:
     

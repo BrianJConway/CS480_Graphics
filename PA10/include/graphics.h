@@ -20,6 +20,7 @@ using namespace std;
 #include "lpaddle.h"
 #include "back.h"
 #include "rbumper.h"
+#include "lbumper.h"
 
 
 struct Light
@@ -70,6 +71,7 @@ class Graphics
     LPaddle *m_lpaddle;
     Back *m_back;
     RBumper *m_rbumper;
+    LBumper *m_lbumper;
     
     vector<Light> lights;
     

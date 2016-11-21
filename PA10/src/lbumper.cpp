@@ -1,18 +1,18 @@
-#include "rbumper.h"
+#include "lbumper.h"
 #include <vector>
 #include <cmath>
 #include <iostream>
 
 using namespace std;
 
-RBumper::RBumper( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
+LBumper::LBumper( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create bumper collision shape
     btCollisionShape* bumperShape = new btBoxShape( btVector3( 1, 1, 1 ) );
         
     // Create bumper motion state
     btDefaultMotionState* bumperMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1), btVector3( -10, 1, 20 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1), btVector3( 10, 1, 20 ) ) );            
             
     // Create bumper rigid body
     btScalar mass = 0;
@@ -30,7 +30,7 @@ RBumper::RBumper( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mo
     dynamicsWorld->addRigidBody( rigidBody );    
    }
 
-void RBumper::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
+void LBumper::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
     btTransform trans;
     btScalar m[ 16 ];
