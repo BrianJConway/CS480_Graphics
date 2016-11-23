@@ -1,4 +1,4 @@
-# PA9: Lighting
+# PA10: Pinball
 
 # Building and Running
 
@@ -7,36 +7,35 @@ Uses ImageMagick to load texture images.
 
 ## Controls
 
-w - move cube forward
+W – Launch ball
 
-s - move cube backward
+A – Left Paddle
 
-a - move cube left
+D – Right Paddle
 
-d - move cube right
+Q – Switch to fragment lighting
 
-u - Increase ambient brightness
+Z – Switch to vertex lighting
 
-j - Decrease ambient brightness
+U – Decrease ambient brightness
 
-h - Increase specularity of objects
+J – Increase ambient brightness
 
-k - decrease specularity of objects
+H – Increase specular shininess of objects
 
-q - Switch to Gouraud lighting
+K – Decrease specular shininess of objects
 
-z - switch to phong lighting
+Up Arrow Key – Increase spotlight size
 
-Up Arrow - Increase spotlight size
+Down Arrow Key – Decrease spotlight size
 
-Down Arrow - Decrease spotlight size
+Left Arrow Key – Zoom camera out
 
-Left Arrow - Increase spotlight brightness
+Right Arrow Key – Zoom camera in
 
-Right Arrow - Decrease spotlight brightness
 
 ## CMake Instructions
-Navigate to the PA9 directory. Running the executable correctly involves specifying
+Navigate to the PA10 directory. Running the executable correctly involves specifying
 the type of lighting you want to load by default, choosing between "Gouraud" or
 "Phong" as command-line parameters. 
 
@@ -53,5 +52,5 @@ OR
 
 ## Ubuntu.cse.unr.edu
 ```bash
-/usr/NX/scripts/vgl/vglrun ./Tutorial Gouraud 
+/usr/NX/scripts/vgl/vglrun ./Tutorial Phong 
 ```
