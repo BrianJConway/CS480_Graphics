@@ -18,6 +18,7 @@ class Engine
     bool Initialize( std::string fileNames[] );
     void Run();
     void Keyboard();
+    void Mouse();
     unsigned int getDT();
     long long GetCurrentTimeMillis();
   

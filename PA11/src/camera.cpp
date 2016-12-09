@@ -50,8 +50,8 @@ glm::mat4 Camera::GetView()
    {
     // Update and return view matrix
     view = glm::lookAt( glm::vec3( pos.x, pos.y, pos.z), 
-                      glm::vec3(0.0, 0.0, 0.0), //Focus point
-                      glm::vec3(0.0, 1.0, 0.0)); //Positive Y is up
+                      glm::vec3( pos.x + front.x, pos.y + front.y, pos.z + front.z ),
+                      glm::vec3( up.x, up.y, up.z)); 
                       
     return view;
    }
@@ -62,14 +62,12 @@ void Camera::processKeyboard( string direction )
     // Move forward
     if( direction == "FORWARD" )
        {
-        if( pos.z < -2.0 )
-        pos += glm::vec3( 0.0, 0.0, 1.0 ) * moveSpeed;
+        pos += front * moveSpeed;
        }
     // Move backward
     else if( direction == "BACK" )
        {
-        if( pos.z > -150.0 )
-        pos -= glm::vec3( 0.0, 0.0, 1.0 ) * moveSpeed;
+        pos -= front * moveSpeed;
        }
     // Move left
     else if( direction == "LEFT" )
@@ -83,7 +81,54 @@ void Camera::processKeyboard( string direction )
        }
    }
 
+// Handle mouse inputs
+void Camera::processMouseMovement(GLfloat xoffset, GLfloat yoffset )
+   {
+    // Initialize function/variables
+    bool constrainPitch = true;
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
 
+    // Update yaw and pitch based on offsets
+    yaw += xoffset;
+    pitch -= yoffset;
+
+    // Don't let user make pitch go above or below 90
+    if ( constrainPitch )
+       {
+        if ( pitch > 89.0f )
+           {
+            pitch = 89.0f;
+           }
+        if ( pitch < -89.0f )
+           {
+            pitch = -89.0f;
+           }
+       }
+
+    // update where our front, right, and up are based on mouse movements
+     updateVectors();
+    }
+
+
+void Camera::updateVectors()
+   {
+    // New front vector
+    glm::vec3 front;
+    
+    // Calculate components of new front vector based on new yaw and pitch
+    front.x = cos( glm::radians( yaw ) ) * cos( glm::radians( pitch ) );
+    front.y = sin( glm::radians( pitch ) );
+    front.z = sin( glm::radians( yaw ) ) * cos( glm::radians( pitch ) );
+    
+    // Normalize front vector
+    this->front = glm::normalize( front );
+    
+    // Update right and up vectors
+    right = glm::normalize( glm::cross(this->front, worldUp ) );  
+    up = glm::normalize(glm::cross( right, this->front));
+   }
+   
    
    
    
