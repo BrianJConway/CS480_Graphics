@@ -11,18 +11,12 @@ using namespace std;
 #include "camera.h"
 #include "shader.h"
 #include "model.h"
+#include "room.h"
+#include "table1.h"
+#include "table2.h"
+#include "table3.h"
+#include "table4.h"
 #include "sphere.h"
-#include "ground.h"
-#include "cylinder.h"
-#include "cube.h"
-#include "walls.h"
-#include "rpaddle.h"
-#include "lpaddle.h"
-#include "back.h"
-#include "rbumper.h"
-#include "lbumper.h"
-#include "mbumper.h"
-
 
 struct Light
    {
@@ -64,18 +58,13 @@ class Graphics
     GLint m_modelMatrix;
 
     btDiscreteDynamicsWorld* dynamicsWorld;
-
-    Ground *m_ground;
-    Sphere *m_sphere;
-    Cylinder *m_cylinder;
-    Cube *m_cube;
-    Walls *m_walls;
-    RPaddle *m_rpaddle;
-    LPaddle *m_lpaddle;
-    Back *m_back;
-    RBumper *m_rbumper;
-    LBumper *m_lbumper;
-    MBumper *m_mbumper;
+    
+    Room* m_room;
+    Table1* m_table1;
+    Table2* m_table2;
+    Table3* m_table3;
+    Table4* m_table4;    
+    Sphere* m_sphere;
     
     vector<Light> lights;
     

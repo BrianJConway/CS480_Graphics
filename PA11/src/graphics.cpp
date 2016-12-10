@@ -64,32 +64,24 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   }
 
   // Load the models
-  string objFile = "PA10PinballMachineNoBumper.obj";
-  m_ground = new Ground( objFile, dynamicsWorld );
+  string objFile = "bedroom.obj";
+  m_room = new Room(objFile, dynamicsWorld);
 
+  objFile = "Table.obj";
+  m_table1 = new Table1(objFile, dynamicsWorld);
+
+  objFile = "Table2.obj";
+  m_table2 = new Table2(objFile, dynamicsWorld);
+  
+  objFile = "Table.obj";
+  m_table3 = new Table3(objFile, dynamicsWorld);
+
+  objFile = "Table.obj";
+  m_table4 = new Table4(objFile, dynamicsWorld);
+  
   objFile = "PA10Ball.obj";
-  m_sphere = new Sphere( objFile, dynamicsWorld );
+  m_sphere = new Sphere(objFile, dynamicsWorld);
 
-  objFile = "spring.obj";
-  m_cylinder = new Cylinder(objFile, dynamicsWorld);
-
-  objFile = "PA10RightPaddle.obj";
-  m_rpaddle = new RPaddle(objFile, dynamicsWorld);
-
-  objFile = "PA10LeftPaddle2.obj";
-  m_lpaddle = new LPaddle(objFile, dynamicsWorld);
-
-  objFile = "backboard.obj";
-  m_back = new Back(objFile, dynamicsWorld);
-
-  objFile = "mashroom_new.obj";
-  m_rbumper = new RBumper(objFile, dynamicsWorld);
-
-  objFile = "mashroom_new.obj";
-  m_lbumper = new LBumper(objFile, dynamicsWorld);
-
-  objFile = "mashroom_new.obj";
-  m_mbumper = new MBumper(objFile, dynamicsWorld);
 
   // Set up the shaders
   m_shaderGouraud = new Shader( gouraud );
@@ -215,6 +207,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
 
 void Graphics::Update(unsigned int dt, string motion[])
 {
+  
   // Check for shader swap
   if( motion[ 1 ] == "GOURAUD" || motion[ 1 ] == "PHONG" )
      {
@@ -226,61 +219,30 @@ void Graphics::Update(unsigned int dt, string motion[])
      }
   if( motion[0] == "UP")
      {
-        m_sphere->Start();
+
      }
   if( motion[0] == "RIGHT")
      {
-   //     m_rpaddle->Swing();
-        m_sphere->Right();
+
      }
   if( motion[0] == "LEFT")
      {
-   //     m_lpaddle->Swing();
-        m_sphere->Left();
+
+
      }
      
   double dTime = (double) dt / 500;
-  
-  // Check if ball needs to be reset
-  if(gutter.distance(getSphereCOM()) < 0.5)
-  {
-        delete m_sphere;
-        string objFile;
-        objFile = "PA10Ball.obj";
-        m_sphere = new Sphere( objFile, dynamicsWorld );
-        BallNum++;
-        if(BallNum != 3)
-        {
-        cout << "Ball: " << BallNum+1 << endl;
-        }
-  }
-
-  // Check if Score changed
-  if(lbumper.distance(getSphereCOM()) < 4.6)
-  {
-        Score += 25;
-        cout << "Score: " << Score << endl;
-  }
-
-  if(rbumper.distance(getSphereCOM()) < 4.6)
-  {
-        Score += 25;
-        cout << "Score: " << Score << endl;
-  }
 
   // Update the dynamics world
   dynamicsWorld->stepSimulation( dTime, 1 );
   
   // Update the objects
-  m_ground->Update( dynamicsWorld, dt );
-  m_sphere->Update( dynamicsWorld, dt );
-  m_cylinder->Update(dynamicsWorld, dt);
-  m_rpaddle->Update(dynamicsWorld, dt);
-  m_lpaddle->Update(dynamicsWorld, dt);
-  m_back->Update(dynamicsWorld, dt);
-  m_rbumper->Update(dynamicsWorld, dt);
-  m_lbumper->Update(dynamicsWorld, dt);
-  m_mbumper->Update(dynamicsWorld, dt);
+  m_room->Update(dynamicsWorld, dt);
+  m_table1->Update(dynamicsWorld, dt);
+  m_table2->Update(dynamicsWorld, dt);  
+  m_table3->Update(dynamicsWorld, dt);
+  m_table4->Update(dynamicsWorld, dt);
+  m_sphere->Update(dynamicsWorld, dt);
 }
 
 void Graphics::swapShaders( string shader )
@@ -315,41 +277,29 @@ void Graphics::Render()
   glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView())); 
 
   // Render the objects
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ground->getModel()));
-  setLightingUniforms( m_ground );
-  m_ground->Draw();
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_room->getModel()));
+  setLightingUniforms( m_room );
+  m_room->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_table1->getModel()));
+  setLightingUniforms( m_table1 );
+  m_table1->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_table2->getModel()));
+  setLightingUniforms( m_table2 );
+  m_table2->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_table3->getModel()));
+  setLightingUniforms( m_table3 );
+  m_table3->Draw();
+    
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_table4->getModel()));
+  setLightingUniforms( m_table4 );
+  m_table4->Draw();
 
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sphere->getModel()));
   setLightingUniforms( m_sphere );
   m_sphere->Draw();
-
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cylinder->getModel()));
-  setLightingUniforms( m_cylinder );
-  m_cylinder->Draw();
-
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_rpaddle->getModel()));
-  setLightingUniforms( m_rpaddle );
-  m_rpaddle->Draw();
-
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_lpaddle->getModel()));
-  setLightingUniforms( m_lpaddle );
-  m_lpaddle->Draw();
-
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_back->getModel()));
-  setLightingUniforms( m_back );
-  m_back->Draw();
-
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_rbumper->getModel()));
-  setLightingUniforms( m_rbumper );
-  m_rbumper->Draw();
-
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_lbumper->getModel()));
-  setLightingUniforms( m_lbumper );
-  m_lbumper->Draw();
-
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_mbumper->getModel()));
-  setLightingUniforms( m_mbumper );
-  m_mbumper->Draw();
 
   // Get any errors from OpenGL
   auto error = glGetError();
@@ -417,27 +367,11 @@ void Graphics::adjustLighting( string control )
        }
     else if( control == "I SPEC" )
        {
-        m_ground->adjustShininess( "UP" );
-        m_sphere->adjustShininess( "UP" );
-        m_cylinder->adjustShininess( "UP" );
-        m_rpaddle->adjustShininess( "UP" );
-        m_lpaddle->adjustShininess( "UP" );
-        m_back->adjustShininess( "UP" );
-        m_rbumper->adjustShininess( "UP" );
-        m_lbumper->adjustShininess( "UP" );
-        m_mbumper->adjustShininess( "UP" );
+        m_room->adjustShininess( "UP" );
        }
     else if( control == "D SPEC" )
        {
-        m_ground->adjustShininess( "DOWN" );
-        m_sphere->adjustShininess( "DOWN" );
-        m_cylinder->adjustShininess( "DOWN" );
-        m_rpaddle->adjustShininess( "DOWN" );
-        m_lpaddle->adjustShininess( "DOWN" );
-        m_back->adjustShininess( "DOWN" );
-        m_rbumper->adjustShininess( "DOWN" );
-        m_lbumper->adjustShininess( "UP" );
-        m_mbumper->adjustShininess( "UP" );
+        m_room->adjustShininess( "DOWN" );
        }
     else if( control == "I SPOT SIZE" )
        {
@@ -451,7 +385,7 @@ void Graphics::adjustLighting( string control )
     
 btVector3 Graphics::getSphereCOM()
 {
-    return m_sphere->getCOM();
+
 }
 
 int Graphics::getBallNum()

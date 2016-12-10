@@ -12,7 +12,7 @@ Cube::Cube( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( f
         
     // Create cube motion state, place 2 meters above ground
     btDefaultMotionState* cubeMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -3, 1.2, 1 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -10, 40, 1 ) ) );            
             
     // Create Cube rigid body
     btScalar mass = 10;
