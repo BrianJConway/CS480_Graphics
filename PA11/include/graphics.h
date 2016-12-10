@@ -18,6 +18,11 @@ using namespace std;
 #include "table4.h"
 #include "sphere.h"
 
+#include "ramp.h"
+#include "domino.h"
+
+const int NUM_DOMINOS = 100;
+
 struct Light
    {
     glm::vec4 AmbientProduct;
@@ -66,6 +71,11 @@ class Graphics
     Table4* m_table4;    
     Sphere* m_sphere;
     
+    // Table 1 objects
+    Ramp* m_ramp;
+    vector<Domino*> dominos;
+    Domino* m_domino1;
+  
     vector<Light> lights;
     
     unsigned long int counter = 0;

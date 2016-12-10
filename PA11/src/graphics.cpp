@@ -79,9 +79,36 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "Table.obj";
   m_table4 = new Table4(objFile, dynamicsWorld);
   
-  objFile = "PA10Ball.obj";
+  objFile = "baseball.obj";
   m_sphere = new Sphere(objFile, dynamicsWorld);
 
+  objFile = "ramp.obj";
+  m_ramp = new Ramp(objFile, dynamicsWorld);
+
+  objFile = "Domino90.obj";
+  
+  for( int index = 0; index < 40; index++ )
+     {
+       m_domino1 = new Domino(objFile, dynamicsWorld, 81, 61, 116 + ( 1.9 * (float) index ), 0 );
+       
+       dominos.push_back( m_domino1 );
+     }
+
+  for( int index = 0; index < 30; index++ )
+     {
+       objFile = "Domino270.obj";
+       m_domino1 = new Domino(objFile, dynamicsWorld, 81 - index, 61, 116 + ( 1.9 * (float) index ), 270  );
+       
+       dominos.push_back( m_domino1 );
+     }
+
+  for( int index = 0; index < 30; index++ )
+     {
+       objFile = "Domino45.obj";
+       m_domino1 = new Domino(objFile, dynamicsWorld, 81 + index, 61, 116 + ( 1.9 * (float) index ), 45 );
+       
+       dominos.push_back( m_domino1 );
+     }
 
   // Set up the shaders
   m_shaderGouraud = new Shader( gouraud );
@@ -242,7 +269,14 @@ void Graphics::Update(unsigned int dt, string motion[])
   m_table2->Update(dynamicsWorld, dt);  
   m_table3->Update(dynamicsWorld, dt);
   m_table4->Update(dynamicsWorld, dt);
+
   m_sphere->Update(dynamicsWorld, dt);
+  m_ramp->Update(dynamicsWorld, dt);
+
+  for( int index = 0; index < NUM_DOMINOS; index++ )
+     {
+      dominos[ index ]->Update( dynamicsWorld, dt );
+     }
 }
 
 void Graphics::swapShaders( string shader )
@@ -300,6 +334,23 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sphere->getModel()));
   setLightingUniforms( m_sphere );
   m_sphere->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ramp->getModel()));
+  setLightingUniforms( m_ramp );
+  m_ramp->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_domino1->getModel()));
+  setLightingUniforms( m_domino1 );
+  m_domino1->Draw();
+
+
+  for( int index = 0; index < NUM_DOMINOS; index++ )
+     {
+      glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(dominos[index]->getModel()));
+      setLightingUniforms( dominos[ index ] );
+      dominos[ index ]->Draw();
+     }
+
 
   // Get any errors from OpenGL
   auto error = glGetError();

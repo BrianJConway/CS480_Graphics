@@ -6,8 +6,8 @@ using namespace std;
 
 Camera::Camera()
    {
-    pos = glm::vec3( 200.0, 100.0, 100.0 );
-    front = glm::vec3( 0.0, 0.0, 0.0 );
+    pos = glm::vec3( 41.0, 67.0, 115.0 );
+    front = glm::vec3( 0.50, 0.0, 0.0 );
     worldUp = glm::vec3( 0.0, 1.0, 0.0 );
     
     // The right vector is the cross product of front and actual up
@@ -52,6 +52,9 @@ glm::mat4 Camera::GetView()
     view = glm::lookAt( glm::vec3( pos.x, pos.y, pos.z), 
                       glm::vec3( pos.x + front.x, pos.y + front.y, pos.z + front.z ),
                       glm::vec3( up.x, up.y, up.z)); 
+
+    cout << pos.x << " " << pos.y << " " << pos.z << endl;
+
                       
     return view;
    }

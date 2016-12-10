@@ -8,11 +8,11 @@ using namespace std;
 Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create sphere collision shape
-    btCollisionShape* fallShape = new btSphereShape( 1 );
+    btCollisionShape* fallShape = new btSphereShape( 2 );
         
     // Create sphere motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 80, 60, 150 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 81.2, 80, 92 ) ) );            
             
     // Create Sphere rigid body
     btScalar mass = 10;
