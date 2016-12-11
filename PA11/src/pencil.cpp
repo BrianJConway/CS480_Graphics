@@ -12,7 +12,7 @@ Pencil::Pencil( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
         
     // Create Pencil motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -57.4, 27.9, 211 ) ) );            
+    btTransform( btQuaternion( btVector3(0, 0, 1), btRadians(90)), btVector3( -57.4, 27.9, 211 ) ) );            
             
     // Create Pencil rigid body
     btScalar mass = 10;
