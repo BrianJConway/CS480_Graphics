@@ -45,6 +45,21 @@ void Sphere::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
     
     rigidBody->getMotionState()->getWorldTransform( trans );
     
+    if( cannon.distance(rigidBody->getCenterOfMassPosition()) < 2 )
+       {
+        count++;
+
+        if( count >= 1000 )
+        rigidBody->applyCentralImpulse( btVector3( 0, 100, 80 ) );
+        launched = true;
+       }
+    
+    if( spiralPoint.distance(rigidBody->getCenterOfMassPosition()) < 4 )
+       {
+        passed = true;
+       }
+    
+    
     trans.getOpenGLMatrix( m );
     
     model = glm::make_mat4( m );
@@ -58,21 +73,6 @@ void Sphere::Start()
     }
 }
 
-void Sphere::Left()
-{
-    if(left.distance(rigidBody->getCenterOfMassPosition()) < 3)
-    {
-        rigidBody->applyCentralImpulse( btVector3(-200,0,1000));
-    }
-}
-
-void Sphere::Right()
-{
-    if(right.distance(rigidBody->getCenterOfMassPosition()) < 3)
-    {
-        rigidBody->applyCentralImpulse( btVector3(200,0,1000));
-    }
-}
 
 btVector3 Sphere::getCOM()
 {

@@ -12,7 +12,7 @@ Spiral::Spiral( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
     
     // Create Spiral motion state, place 1 meter below Spiral
     btDefaultMotionState* SpiralMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 72, 120, 345 ) ) );
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 72, 95, 335 ) ) );
             
     // Create groud rigid body, set mass 0 (immovable)
     btRigidBody::btRigidBodyConstructionInfo SpiralRigidBodyCI( 

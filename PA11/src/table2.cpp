@@ -12,7 +12,7 @@ Table2::Table2( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
         
     // Create cube motion state, place 2 meters above ground
     btDefaultMotionState* cubeMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 80, 45, 340 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 80, 20, 340 ) ) );            
             
     // Create Table2 rigid body
     btScalar mass = 0;

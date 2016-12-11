@@ -17,9 +17,10 @@ using namespace std;
 #include "table3.h"
 #include "table4.h"
 #include "sphere.h"
-
+#include "ground.h"
 #include "ramp.h"
 #include "domino.h"
+#include "cannon.h"
 
 // #include "rampThing.h"
 #include "spiral.h"
@@ -68,6 +69,8 @@ class Graphics
     btDiscreteDynamicsWorld* dynamicsWorld;
     
     Room* m_room;
+    Ground* m_ground;
+    Ground* m_ceiling;
     Table1* m_table1;
     Table2* m_table2;
     Table3* m_table3;
@@ -80,12 +83,13 @@ class Graphics
     Ramp* m_ramp;
     vector<Domino*> dominos;
     Domino* m_domino1;
+    Cannon* m_cannon;
     
     // Table 2 objects
 //    RampThing* m_rampThing1;
 //    RampThing* m_rampThing2;
     Spiral* m_spiral;
-  
+    
     vector<Light> lights;
     
     unsigned long int counter = 0;

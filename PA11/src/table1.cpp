@@ -8,7 +8,7 @@ using namespace std;
 Table1::Table1( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create cube collision shape
-    btCollisionShape* cubeShape = new btBoxShape( btVector3( 45, 46, 65 ) );
+    btCollisionShape* cubeShape = new btBoxShape( btVector3( 45, 46, 69 ) );
         
     // Create cube motion state, place 2 meters above ground
     btDefaultMotionState* cubeMotionState = new btDefaultMotionState( 

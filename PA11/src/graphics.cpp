@@ -6,6 +6,10 @@
 
 using namespace std;
 
+bool Sphere::launched = false;
+bool Sphere::passed = false;
+int Sphere::launchCount = 0;
+
 Graphics::Graphics( btDiscreteDynamicsWorld* DynamicsWorld )
 {
  dynamicsWorld = DynamicsWorld;
@@ -64,6 +68,10 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   }
 
   // Load the models
+  
+  m_ground = new Ground( -1, dynamicsWorld );
+  m_ceiling = new Ground( 200, dynamicsWorld );
+  
   string objFile = "Bed.obj";
   m_room = new Room(objFile, dynamicsWorld);
 
@@ -82,19 +90,21 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "baseball.obj";  
   m_sphere = new Sphere(objFile, dynamicsWorld, 81.6, 80, 92 );
   spheres.push_back( m_sphere );
-  m_sphere = new Sphere(objFile, dynamicsWorld, 59, 146, 395 );
-  spheres.push_back( m_sphere );
+//  m_sphere = new Sphere(objFile, dynamicsWorld, 59, 146, 395 );
+//  spheres.push_back( m_sphere );
   m_sphere = new Sphere(objFile, dynamicsWorld, 68, 61, 160 );
   spheres.push_back( m_sphere );
-  m_sphere = new Sphere(objFile, dynamicsWorld, 80, 61, 190 );
+  m_sphere = new Sphere(objFile, dynamicsWorld, 81, 61, 215 );
   spheres.push_back( m_sphere );
-
+  
+  objFile = "cannon.obj";
+  m_cannon = new Cannon( objFile, dynamicsWorld );
 
   objFile = "ramp.obj";
   m_ramp = new Ramp(objFile, dynamicsWorld);
 
   objFile = "Domino90.obj";
-  for( int index = 0; index < 40; index++ )
+  for( int index = 0; index < 53; index++ )
      {
        m_domino1 = new Domino(objFile, dynamicsWorld, 81, 61, 113 + ( 1.9 * (float) index ), 0 );
        
@@ -280,12 +290,27 @@ void Graphics::Update(unsigned int dt, string motion[])
   m_table3->Update(dynamicsWorld, dt);
   m_table4->Update(dynamicsWorld, dt);
 
+  if( Sphere::launched && !(Sphere::passed) )
+     {
+      Sphere::launchCount++;
+      
+
+      if( Sphere::launchCount % 3000 == 0 )
+         {
+          string objFile = "baseball.obj";
+          m_sphere = new Sphere(objFile, dynamicsWorld, 81.5, 50.7, 223 );
+          spheres.push_back( m_sphere );
+         }
+
+     }
+
   for( int index = 0; index < spheres.size(); index++ )
      {
       spheres[ index ]->Update( dynamicsWorld, dt );
      }
      
   m_ramp->Update(dynamicsWorld, dt);
+  m_cannon->Update(dynamicsWorld, dt);
 
   for( int index = 0; index < dominos.size(); index++ )
      {
@@ -360,6 +385,10 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ramp->getModel()));
   setLightingUniforms( m_ramp );
   m_ramp->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cannon->getModel()));
+  setLightingUniforms( m_cannon );
+  m_cannon->Draw();
 
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_domino1->getModel()));
   setLightingUniforms( m_domino1 );

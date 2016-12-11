@@ -16,17 +16,19 @@ class Sphere: public Model
         Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld, float x, float y, float z );        
         void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
         void Start();
-        void Left();
-        void Right();
         btVector3 getCOM();
-
+        static bool launched;
+        static bool passed;
+        static int launchCount;
+        
         // Destructor
         ~Sphere();
 
     private:
-        btVector3 start = btVector3(-24.1019, 3, -25.0097);
-        btVector3 right = btVector3(-5, 3, -28.0);
-        btVector3 left = btVector3( 5, 3, -28);
+        int count = 0;
+        btVector3 cannon = btVector3(81.5, 50.7, 223);
+        btVector3 start = btVector3( 0, 0, 0 ); 
+        btVector3 spiralPoint = btVector3( 66.749, 79.0155, 353.526 );
 };
 
 #endif
