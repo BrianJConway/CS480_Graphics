@@ -25,6 +25,13 @@ using namespace std;
 // #include "rampThing.h"
 #include "spiral.h"
 
+#include "sugar.h"
+#include "cup.h"
+#include "pencil.h"
+#include "trapezoid.h"
+#include "board.h"
+#include "block.h"
+
 const int NUM_DOMINOS = 100;
 
 struct Light
@@ -90,6 +97,19 @@ class Graphics
 //    RampThing* m_rampThing2;
     Spiral* m_spiral;
     
+    // Table 3 objects
+    vector<Domino*> dominos3;
+    Domino* m_domino3;
+    Board* m_board;
+    Trapezoid* m_trapezoid;
+
+    // Table 4 objects
+    Sugar* m_sugar;
+    Cup* m_cup;
+    Pencil* m_pencil;
+    vector<Block*> blocks;
+    Block* m_block;
+
     vector<Light> lights;
     
     unsigned long int counter = 0;

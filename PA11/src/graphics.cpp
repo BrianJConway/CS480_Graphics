@@ -130,6 +130,79 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
      objFile = "spiral.obj";
      m_spiral = new Spiral(objFile, dynamicsWorld);
 
+    objFile = "Sugar.obj";
+  m_sugar = new Sugar(objFile, dynamicsWorld);
+
+  objFile = "Coffee.obj";
+  m_cup = new Cup(objFile, dynamicsWorld);
+  
+  objFile = "Pencil.obj";
+  m_pencil = new Pencil(objFile, dynamicsWorld);
+
+  objFile = "Cannon.obj";
+  m_trapezoid = new Trapezoid(objFile, dynamicsWorld);
+
+  objFile = "Board.obj";
+  m_board = new Board(objFile, dynamicsWorld);
+
+  objFile = "woodBlock.obj";
+  for(int index = 0; index < 2; index++)
+  {
+        objFile = "woodBlock.obj";
+        m_block = new Block(objFile, dynamicsWorld, -76, 29.2 + ( 3 * (float) index ), 172.5, 0 );
+       
+       blocks.push_back( m_block ); 
+  }
+
+  for(int index = 0; index < 2; index++)
+  {
+        objFile = "woodBlock.obj";
+        m_block = new Block(objFile, dynamicsWorld, -73, 29.2 + ( 3 * (float) index ), 172.5, 0 );
+       
+       blocks.push_back( m_block ); 
+  }
+
+  for(int index = 0; index < 1; index++)
+  {
+        objFile = "woodBlock.obj";
+        m_block = new Block(objFile, dynamicsWorld, -74.5, 29.2 + ( 3 * (float) index ), 173.7, 0 );
+       
+       blocks.push_back( m_block ); 
+  }
+
+  for(int index = 0; index < 1; index++)
+  {
+        objFile = "woodBlock.obj";
+        m_block = new Block(objFile, dynamicsWorld, -74.5, 29.2 + ( 3 * (float) index ), 171.3, 0 );
+       
+       blocks.push_back( m_block ); 
+  }
+
+  for(int index = 0; index < 25; index++)
+  {
+        objFile = "Domino90.obj";
+        m_domino3 = new Domino(objFile, dynamicsWorld, -68.6, 48.6, 283 + ( 1.9 * (float) index ), 0 );
+       
+       dominos3.push_back( m_domino3 ); 
+  }
+
+  for(int index = 0; index < 3; index++)
+  {
+        objFile = "Domino45.obj";
+        m_domino3 = new Domino(objFile, dynamicsWorld, -68.6 + index, 48.6, 330 + ( 1.9 * (float) index ), 45 );
+       
+       dominos3.push_back( m_domino3 ); 
+  }
+
+  for(int index = 0; index < 10; index++)
+  {
+        objFile = "Domino90.obj";
+        m_domino3 = new Domino(objFile, dynamicsWorld, -65 + (1.9 * (float) index), 48.4, 335, 90 );
+       
+       dominos3.push_back( m_domino3 ); 
+  }
+    
+
   // Set up the shaders
   m_shaderGouraud = new Shader( gouraud );
   if(!m_shaderGouraud->Initialize( ))
@@ -320,6 +393,22 @@ void Graphics::Update(unsigned int dt, string motion[])
 //  m_rampThing1->Update(dynamicsWorld, dt);     
 //  m_rampThing2->Update(dynamicsWorld, dt);     
   m_spiral->Update(dynamicsWorld, dt);
+
+  m_sugar->Update(dynamicsWorld, dt);
+  m_cup->Update(dynamicsWorld, dt);
+  m_pencil->Update(dynamicsWorld, dt);
+  m_trapezoid->Update(dynamicsWorld, dt);
+  m_board->Update(dynamicsWorld, dt);
+
+  for(unsigned int index = 0; index < dominos3.size(); index++ )
+     {
+      dominos3[ index ]->Update( dynamicsWorld, dt );
+     }
+  for(unsigned int index = 0; index < blocks.size(); index++ )
+     {
+      blocks[ index ]->Update( dynamicsWorld, dt );
+     }
+
 }
 
 void Graphics::swapShaders( string shader )
@@ -416,6 +505,48 @@ void Graphics::Render()
   setLightingUniforms( m_rampThing2 );
   m_rampThing2->Draw();
 */
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_domino3->getModel()));
+  setLightingUniforms( m_domino3 );
+  m_domino3->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_block->getModel()));
+  setLightingUniforms( m_block );
+  m_block->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sugar->getModel()));
+  setLightingUniforms( m_sugar );
+  m_sugar->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cup->getModel()));
+  setLightingUniforms( m_cup );
+  m_cup->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_pencil->getModel()));
+  setLightingUniforms( m_pencil );
+  m_pencil->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_trapezoid->getModel()));
+  setLightingUniforms( m_trapezoid );
+  m_trapezoid->Draw();
+ 
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_board->getModel()));
+  setLightingUniforms( m_board );
+  m_board->Draw();
+
+  for(unsigned int index = 0; index < dominos3.size(); index++ )
+     {
+      glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(dominos3[index]->getModel()));
+      setLightingUniforms( dominos3[ index ] );
+      dominos3[ index ]->Draw();
+     }
+
+  for(unsigned int index = 0; index < blocks.size(); index++ )
+     {
+      glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(dominos3[index]->getModel()));
+      setLightingUniforms( dominos3[ index ] );
+      dominos3[ index ]->Draw();
+     }
 
   // Get any errors from OpenGL
   auto error = glGetError();
