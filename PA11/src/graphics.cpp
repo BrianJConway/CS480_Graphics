@@ -146,37 +146,23 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   m_board = new Board(objFile, dynamicsWorld);
 
   objFile = "woodBlock.obj";
-  for(int index = 0; index < 2; index++)
-  {
-        objFile = "woodBlock.obj";
-        m_block = new Block(objFile, dynamicsWorld, -76, 29.2 + ( 5 * (float) index ), 172.5, 0 );
-       
-       blocks.push_back( m_block ); 
-  }
 
-  for(int index = 0; index < 2; index++)
-  {
-        objFile = "woodBlock.obj";
-        m_block = new Block(objFile, dynamicsWorld, -73, 29.2 + ( 5 * (float) index ), 172.5, 0 );
-       
+   m_block = new Block(objFile, dynamicsWorld, -76, 29.2, 172.5, 0 );
+   blocks.push_back( m_block ); 
+        m_block = new Block(objFile, dynamicsWorld, -73, 29.2, 172.5, 0 );
+       blocks.push_back( m_block );
+        m_block = new Block(objFile, dynamicsWorld, -74.5, 32, 173.7, 90 );
        blocks.push_back( m_block ); 
-  }
-
-  for(int index = 0; index < 1; index++)
-  {
-        objFile = "woodBlock.obj";
-        m_block = new Block(objFile, dynamicsWorld, -74.5, 29.2 + ( 3 * (float) index ), 173.7, 90 );
-       
+        m_block = new Block(objFile, dynamicsWorld, -74.5, 32, 171.3, 90 );
        blocks.push_back( m_block ); 
-  }
-
-  for(int index = 0; index < 1; index++)
-  {
-        objFile = "woodBlock.obj";
-        m_block = new Block(objFile, dynamicsWorld, -74.5, 29.2 + ( 3 * (float) index ), 171.3, 90 );
-       
+        m_block = new Block(objFile, dynamicsWorld, -75.5, 33, 172.5, 0 );
        blocks.push_back( m_block ); 
-  }
+		m_block = new Block(objFile, dynamicsWorld, -73.5, 33, 172.5, 0 );
+       blocks.push_back( m_block ); 
+		m_block = new Block(objFile, dynamicsWorld, -74.5, 34, 173.7, 90 );
+       blocks.push_back( m_block ); 
+		m_block = new Block(objFile, dynamicsWorld, -74.5, 34, 171.3, 90 );
+       blocks.push_back( m_block ); 
 
   for(int index = 0; index < 25; index++)
   {
