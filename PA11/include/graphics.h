@@ -80,6 +80,10 @@ class Graphics
     vector<Domino*> dominos;
     Domino* m_domino1;
   
+    // Table 3 objects
+    vector<Domino*> dominos3;
+    Domino* m_domino3;
+
     // Table 4 objects
     Sugar* m_sugar;
     Cup* m_cup;

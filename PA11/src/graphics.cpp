@@ -85,8 +85,6 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "ramp.obj";
   m_ramp = new Ramp(objFile, dynamicsWorld);
 
-  objFile = "Domino90.obj";
-
   objFile = "Sugar.obj";
   m_sugar = new Sugar(objFile, dynamicsWorld);
 
@@ -96,6 +94,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "Pencil.obj";
   m_pencil = new Pencil(objFile, dynamicsWorld);
 
+    objFile = "Domino90.obj";
   for( int index = 0; index < 40; index++ )
      {
        m_domino1 = new Domino(objFile, dynamicsWorld, 81, 61, 116 + ( 1.9 * (float) index ), 0 );
@@ -118,6 +117,14 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
        
        dominos.push_back( m_domino1 );
      }
+
+  for(int index = 0; index < 40; index++)
+  {
+        objFile = "Domino90.obj";
+        m_domino3 = new Domino(objFile, dynamicsWorld, 47.9, 46.6, 325 + ( 1.9 * (float) index ), 0 );
+       
+       dominos3.push_back( m_domino3 ); 
+  }
 
   // Set up the shaders
   m_shaderGouraud = new Shader( gouraud );
@@ -289,6 +296,10 @@ void Graphics::Update(unsigned int dt, string motion[])
      {
       dominos[ index ]->Update( dynamicsWorld, dt );
      }
+  for(unsigned int index = 0; index < dominos3.size(); index++ )
+     {
+      dominos3[ index ]->Update( dynamicsWorld, dt );
+     }
 }
 
 void Graphics::swapShaders( string shader )
@@ -372,6 +383,13 @@ void Graphics::Render()
       glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(dominos[index]->getModel()));
       setLightingUniforms( dominos[ index ] );
       dominos[ index ]->Draw();
+     }
+
+  for(unsigned int index = 0; index < dominos3.size(); index++ )
+     {
+      glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(dominos3[index]->getModel()));
+      setLightingUniforms( dominos3[ index ] );
+      dominos3[ index ]->Draw();
      }
 
 
