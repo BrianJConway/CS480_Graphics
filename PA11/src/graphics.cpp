@@ -139,7 +139,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "Pencil.obj";
   m_pencil = new Pencil(objFile, dynamicsWorld);
 
-  objFile = "Cannon.obj";
+  objFile = "Trepezoidal.obj";
   m_trapezoid = new Trapezoid(objFile, dynamicsWorld);
 
   objFile = "Board.obj";
