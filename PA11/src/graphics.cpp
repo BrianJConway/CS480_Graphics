@@ -165,7 +165,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   for(int index = 0; index < 1; index++)
   {
         objFile = "woodBlock.obj";
-        m_block = new Block(objFile, dynamicsWorld, -74.5, 29.2 + ( 3 * (float) index ), 173.7, 0 );
+        m_block = new Block(objFile, dynamicsWorld, -74.5, 29.2 + ( 3 * (float) index ), 173.7, 90 );
        
        blocks.push_back( m_block ); 
   }
@@ -173,7 +173,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   for(int index = 0; index < 1; index++)
   {
         objFile = "woodBlock.obj";
-        m_block = new Block(objFile, dynamicsWorld, -74.5, 29.2 + ( 3 * (float) index ), 171.3, 0 );
+        m_block = new Block(objFile, dynamicsWorld, -74.5, 29.2 + ( 3 * (float) index ), 171.3, 90 );
        
        blocks.push_back( m_block ); 
   }
@@ -543,9 +543,9 @@ void Graphics::Render()
 
   for(unsigned int index = 0; index < blocks.size(); index++ )
      {
-      glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(dominos3[index]->getModel()));
-      setLightingUniforms( dominos3[ index ] );
-      dominos3[ index ]->Draw();
+      glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(blocks[index]->getModel()));
+      setLightingUniforms( blocks[ index ] );
+      blocks[ index ]->Draw();
      }
 
   // Get any errors from OpenGL
