@@ -1,20 +1,20 @@
-#include "sugar.h"
+#include "cup.h"
 #include <vector>
 #include <cmath>
 #include <iostream>
 
 using namespace std;
 
-Sugar::Sugar( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
+Cup::Cup( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
-    // Create Sugar collision shape
+    // Create Cup collision shape
     btCollisionShape* fallShape = new btBoxShape( btVector3(1, 0.7, 1));
         
-    // Create Sugar motion state, place 50 meters above ground
+    // Create Cup motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -71.8, 32.6, 98.4 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -57.9, 6.3, 48.2 ) ) );            
             
-    // Create Sugar rigid body
+    // Create Cup rigid body
     btScalar mass = 10;
     btVector3 fallInertia = btVector3( 0, 0, 0 );
     fallShape->calculateLocalInertia( mass, fallInertia );
@@ -27,15 +27,15 @@ Sugar::Sugar( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model(
 
     rigidBody->setRestitution(0.9);
                         
-    // Add Sugar to world
+    // Add Cup to world
     dynamicsWorld->addRigidBody( rigidBody, COL_BALL, ballCollidesWith );    
    }
 
-Sugar::~Sugar()
+Cup::~Cup()
 {
 }
 
-void Sugar::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
+void Cup::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
 
     btTransform trans;
@@ -50,15 +50,12 @@ void Sugar::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
     model = glm::make_mat4( m );
    } 
 
-void Sugar::Start()
+void Cup::Start()
 {
-    if(start.distance(rigidBody->getCenterOfMassPosition()) < 1)
-    {
-        rigidBody->applyCentralImpulse( btVector3(0,0,1000));
-    }
+    
 }
 
-btVector3 Sugar::getCOM()
+btVector3 Cup::getCOM()
 {
     return rigidBody->getCenterOfMassPosition();
 }

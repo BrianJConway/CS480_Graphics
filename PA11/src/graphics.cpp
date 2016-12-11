@@ -89,7 +89,13 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
 
   objFile = "Sugar.obj";
   m_sugar = new Sugar(objFile, dynamicsWorld);
+
+  objFile = "Coffee.obj";
+  m_cup = new Cup(objFile, dynamicsWorld);
   
+  objFile = "Pencil.obj";
+  m_pencil = new Pencil(objFile, dynamicsWorld);
+
   for( int index = 0; index < 40; index++ )
      {
        m_domino1 = new Domino(objFile, dynamicsWorld, 81, 61, 116 + ( 1.9 * (float) index ), 0 );
@@ -276,6 +282,8 @@ void Graphics::Update(unsigned int dt, string motion[])
   m_sphere->Update(dynamicsWorld, dt);
   m_ramp->Update(dynamicsWorld, dt);
   m_sugar->Update(dynamicsWorld, dt);
+  m_cup->Update(dynamicsWorld, dt);
+  m_pencil->Update(dynamicsWorld, dt);
 
   for( int index = 0; index < NUM_DOMINOS; index++ )
      {
@@ -348,9 +356,16 @@ void Graphics::Render()
   m_domino1->Draw();
 
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sugar->getModel()));
-  setLightingUniforms( sugar );
-  sugar->Draw();
+  setLightingUniforms( m_sugar );
+  m_sugar->Draw();
 
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cup->getModel()));
+  setLightingUniforms( m_cup );
+  m_cup->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_pencil->getModel()));
+  setLightingUniforms( m_pencil );
+  m_pencil->Draw();
 
   for( int index = 0; index < NUM_DOMINOS; index++ )
      {
