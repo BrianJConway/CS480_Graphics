@@ -118,10 +118,26 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
        dominos.push_back( m_domino1 );
      }
 
-  for(int index = 0; index < 40; index++)
+  for(int index = 0; index < 25; index++)
   {
         objFile = "Domino90.obj";
-        m_domino3 = new Domino(objFile, dynamicsWorld, 47.9, 46.6, 325 + ( 1.9 * (float) index ), 0 );
+        m_domino3 = new Domino(objFile, dynamicsWorld, -68.6, 48.6, 283 + ( 1.9 * (float) index ), 0 );
+       
+       dominos3.push_back( m_domino3 ); 
+  }
+
+  for(int index = 0; index < 3; index++)
+  {
+        objFile = "Domino45.obj";
+        m_domino3 = new Domino(objFile, dynamicsWorld, -68.6 + index, 48.6, 330 + ( 1.9 * (float) index ), 45 );
+       
+       dominos3.push_back( m_domino3 ); 
+  }
+
+  for(int index = 0; index < 10; index++)
+  {
+        objFile = "Domino90.obj";
+        m_domino3 = new Domino(objFile, dynamicsWorld, -65 + (1.9 * (float) index), 48.4, 335, 90 );
        
        dominos3.push_back( m_domino3 ); 
   }
@@ -365,6 +381,10 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_domino1->getModel()));
   setLightingUniforms( m_domino1 );
   m_domino1->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_domino3->getModel()));
+  setLightingUniforms( m_domino3 );
+  m_domino3->Draw();
 
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sugar->getModel()));
   setLightingUniforms( m_sugar );
