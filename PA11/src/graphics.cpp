@@ -100,6 +100,15 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "Board.obj";
   m_board = new Board(objFile, dynamicsWorld);
 
+  objFile = "woodBlock.obj";
+  for(int index = 0; index < 3; index++)
+  {
+        objFile = "woodBlock.obj";
+        m_block = new Block(objFile, dynamicsWorld, -68.6 + index, 48.6, 330 + ( 1.9 * (float) index ), 45 );
+       
+       blocks.push_back( m_block ); 
+  }
+
     objFile = "Domino90.obj";
   for( int index = 0; index < 40; index++ )
      {
@@ -324,6 +333,10 @@ void Graphics::Update(unsigned int dt, string motion[])
      {
       dominos3[ index ]->Update( dynamicsWorld, dt );
      }
+  for(unsigned int index = 0; index < blocks.size(); index++ )
+     {
+      blocks[ index ]->Update( dynamicsWorld, dt );
+     }
 }
 
 void Graphics::swapShaders( string shader )
@@ -393,6 +406,10 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_domino3->getModel()));
   setLightingUniforms( m_domino3 );
   m_domino3->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_block->getModel()));
+  setLightingUniforms( m_block );
+  m_block->Draw();
 
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sugar->getModel()));
   setLightingUniforms( m_sugar );

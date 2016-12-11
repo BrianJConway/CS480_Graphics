@@ -26,6 +26,7 @@ using namespace std;
 #include "pencil.h"
 #include "trapezoid.h"
 #include "board.h"
+#include "block.h"
 
 const int NUM_DOMINOS = 100;
 
@@ -92,6 +93,8 @@ class Graphics
     Sugar* m_sugar;
     Cup* m_cup;
     Pencil* m_pencil;
+    vector<Block*> blocks;
+    Block* m_block;
 
     vector<Light> lights;
     
