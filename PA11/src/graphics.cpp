@@ -188,7 +188,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
 
   for(int index = 0; index < 3; index++)
   {
-        objFile = "Domino45.obj";
+        objFile = "Domino90.obj";
         m_domino3 = new Domino(objFile, dynamicsWorld, -68.6 + index, 48.6, 330 + ( 1.9 * (float) index ), 45 );
        
        dominos3.push_back( m_domino3 ); 

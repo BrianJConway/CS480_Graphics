@@ -8,11 +8,11 @@ using namespace std;
 Trapezoid::Trapezoid( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create Trapezoid collision shape
-    btCollisionShape* fallShape = new btBoxShape( btVector3(1, 0.7, 1));
+    btCollisionShape* fallShape = new btBoxShape( btVector3(1, 6.4, 1));
         
     // Create Trapezoid motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -40, 48.4, 335 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -35, 44, 330 ) ) );            
             
     // Create Trapezoid rigid body
     btScalar mass = 10;

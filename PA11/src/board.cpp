@@ -8,11 +8,11 @@ using namespace std;
 Board::Board( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create Board collision shape
-    btCollisionShape* fallShape = new btBoxShape( btVector3(1, 0.7, 1));
+    btCollisionShape* fallShape = new btBoxShape( btVector3(5, 0.7, 1));
         
     // Create Board motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -40, 53, 335 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -35, 70, 330 ) ) );            
             
     // Create Board rigid body
     btScalar mass = 10;
