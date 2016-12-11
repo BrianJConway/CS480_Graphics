@@ -1,5 +1,5 @@
-#ifndef SUGAR_H
-#define SUGAR_H
+#ifndef TRAPEZOID_H
+#define TRAPEZOID_H
 
 #include <vector>
 #include "graphics_headers.h"
@@ -9,17 +9,17 @@
 using namespace std;
 
 // Derived from Model Class
-class Sugar: public Model
+class Trapezoid: public Model
 {
     public:
         // Constructor
-        Sugar( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
+        Trapezoid( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
         
         void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
         btVector3 getCOM();
 
         // Destructor
-        ~Sugar();
+        ~Trapezoid();
 
     private:
         

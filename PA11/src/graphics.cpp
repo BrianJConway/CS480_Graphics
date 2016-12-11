@@ -94,6 +94,12 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "Pencil.obj";
   m_pencil = new Pencil(objFile, dynamicsWorld);
 
+  objFile = "Trepezoidal.obj";
+  m_trapezoid = new Trapezoid(objFile, dynamicsWorld);
+
+  objFile = "Board.obj";
+  m_board = new Board(objFile, dynamicsWorld);
+
     objFile = "Domino90.obj";
   for( int index = 0; index < 40; index++ )
      {
@@ -307,6 +313,8 @@ void Graphics::Update(unsigned int dt, string motion[])
   m_sugar->Update(dynamicsWorld, dt);
   m_cup->Update(dynamicsWorld, dt);
   m_pencil->Update(dynamicsWorld, dt);
+  m_trapezoid->Update(dynamicsWorld, dt);
+  m_board->Update(dynamicsWorld, dt);
 
   for( int index = 0; index < NUM_DOMINOS; index++ )
      {
@@ -397,6 +405,14 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_pencil->getModel()));
   setLightingUniforms( m_pencil );
   m_pencil->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_trapezoid->getModel()));
+  setLightingUniforms( m_trapezoid );
+  m_trapezoid->Draw();
+ 
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_board->getModel()));
+  setLightingUniforms( m_board );
+  m_board->Draw();
 
   for( int index = 0; index < NUM_DOMINOS; index++ )
      {

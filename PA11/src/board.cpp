@@ -1,20 +1,20 @@
-#include "sugar.h"
+#include "board.h"
 #include <vector>
 #include <cmath>
 #include <iostream>
 
 using namespace std;
 
-Sugar::Sugar( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
+Board::Board( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
-    // Create Sugar collision shape
+    // Create Board collision shape
     btCollisionShape* fallShape = new btBoxShape( btVector3(1, 0.7, 1));
         
-    // Create Sugar motion state, place 50 meters above ground
+    // Create Board motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -71.8, 32.6, 98.4 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -40, 53, 335 ) ) );            
             
-    // Create Sugar rigid body
+    // Create Board rigid body
     btScalar mass = 10;
     btVector3 fallInertia = btVector3( 0, 0, 0 );
     fallShape->calculateLocalInertia( mass, fallInertia );
@@ -27,15 +27,15 @@ Sugar::Sugar( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model(
 
     rigidBody->setRestitution(0.9);
                         
-    // Add Sugar to world
-    dynamicsWorld->addRigidBody( rigidBody, COL_BALL, ballCollidesWith );    
+    // Add Board to world
+    dynamicsWorld->addRigidBody( rigidBody );    
    }
 
-Sugar::~Sugar()
+Board::~Board()
 {
 }
 
-void Sugar::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
+void Board::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
 
     btTransform trans;
@@ -50,7 +50,7 @@ void Sugar::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
     model = glm::make_mat4( m );
    } 
 
-btVector3 Sugar::getCOM()
+btVector3 Board::getCOM()
 {
     return rigidBody->getCenterOfMassPosition();
 }

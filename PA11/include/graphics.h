@@ -24,6 +24,8 @@ using namespace std;
 #include "sugar.h"
 #include "cup.h"
 #include "pencil.h"
+#include "trapezoid.h"
+#include "board.h"
 
 const int NUM_DOMINOS = 100;
 
@@ -83,6 +85,8 @@ class Graphics
     // Table 3 objects
     vector<Domino*> dominos3;
     Domino* m_domino3;
+    Board* m_board;
+    Trapezoid* m_trapezoid;
 
     // Table 4 objects
     Sugar* m_sugar;

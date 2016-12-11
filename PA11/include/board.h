@@ -1,5 +1,5 @@
-#ifndef SUGAR_H
-#define SUGAR_H
+#ifndef BOARD_H
+#define BOARD_H
 
 #include <vector>
 #include "graphics_headers.h"
@@ -9,20 +9,20 @@
 using namespace std;
 
 // Derived from Model Class
-class Sugar: public Model
+class Board: public Model
 {
     public:
         // Constructor
-        Sugar( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
+        Board( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
         
         void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
         btVector3 getCOM();
 
         // Destructor
-        ~Sugar();
+        ~Board();
 
     private:
-        
+       
 };
 
 #endif

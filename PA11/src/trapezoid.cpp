@@ -1,20 +1,20 @@
-#include "sugar.h"
+#include "trapezoid.h"
 #include <vector>
 #include <cmath>
 #include <iostream>
 
 using namespace std;
 
-Sugar::Sugar( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
+Trapezoid::Trapezoid( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
-    // Create Sugar collision shape
+    // Create Trapezoid collision shape
     btCollisionShape* fallShape = new btBoxShape( btVector3(1, 0.7, 1));
         
-    // Create Sugar motion state, place 50 meters above ground
+    // Create Trapezoid motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -71.8, 32.6, 98.4 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -40, 48.4, 335 ) ) );            
             
-    // Create Sugar rigid body
+    // Create Trapezoid rigid body
     btScalar mass = 10;
     btVector3 fallInertia = btVector3( 0, 0, 0 );
     fallShape->calculateLocalInertia( mass, fallInertia );
@@ -27,15 +27,15 @@ Sugar::Sugar( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model(
 
     rigidBody->setRestitution(0.9);
                         
-    // Add Sugar to world
-    dynamicsWorld->addRigidBody( rigidBody, COL_BALL, ballCollidesWith );    
+    // Add Trapezoid to world
+    dynamicsWorld->addRigidBody( rigidBody );    
    }
 
-Sugar::~Sugar()
+Trapezoid::~Trapezoid()
 {
 }
 
-void Sugar::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
+void Trapezoid::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
 
     btTransform trans;
@@ -50,7 +50,7 @@ void Sugar::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
     model = glm::make_mat4( m );
    } 
 
-btVector3 Sugar::getCOM()
+btVector3 Trapezoid::getCOM()
 {
     return rigidBody->getCenterOfMassPosition();
 }
