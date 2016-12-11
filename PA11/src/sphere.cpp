@@ -5,14 +5,14 @@
 
 using namespace std;
 
-Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
+Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld, float x, float y, float z ) : Model( fileName )
    {
     // Create sphere collision shape
     btCollisionShape* fallShape = new btSphereShape( 2 );
         
     // Create sphere motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 81.2, 80, 92 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( x, y, z ) ) );            
             
     // Create Sphere rigid body
     btScalar mass = 10;
@@ -23,12 +23,12 @@ Sphere::Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
     rigidBody = new btRigidBody( fallRigidBodyCI );
 
     rigidBody->setLinearFactor(btVector3( 1, 1, 1 ) );
-    rigidBody->setAngularFactor(btVector3( 0, 1, 0 ) );
+    rigidBody->setAngularFactor(btVector3( 1, 1, 1 ) );
 
     rigidBody->setRestitution(0.9);
                         
     // Add sphere to world
-    dynamicsWorld->addRigidBody( rigidBody, COL_BALL, ballCollidesWith );    
+    dynamicsWorld->addRigidBody( rigidBody );    
    }
 
 Sphere::~Sphere()

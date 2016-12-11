@@ -16,7 +16,7 @@ void Room::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
     glm::mat4 rotate;
     glm::mat4 trans;
     
-    trans = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, 0.0));
+    trans = glm::translate(glm::mat4(1.0f), glm::vec3(0.0, 0.0, 170.0));
     
     glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(10.0f));
 

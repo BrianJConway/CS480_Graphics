@@ -13,8 +13,7 @@ class Sphere: public Model
 {
     public:
         // Constructor
-        Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
-        
+        Sphere( string fileName, btDiscreteDynamicsWorld* dynamicsWorld, float x, float y, float z );        
         void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
         void Start();
         void Left();

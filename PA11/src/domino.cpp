@@ -8,11 +8,11 @@ using namespace std;
 Domino::Domino( string fileName, btDiscreteDynamicsWorld* dynamicsWorld, float x, float y, float z, float angle ) : Model( fileName )
    {
     // Create domino collision shape
-    btCollisionShape* dominoShape = new btBoxShape( btVector3( 0.5, 1.5, .2 ) );
+    btCollisionShape* dominoShape = new btBoxShape( btVector3( 1, 1.5, 0.25 ) );
         
     // Create domino motion state, place 2 meters above ground
     btDefaultMotionState* dominoMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, -angle, 0, 1 ), btVector3( x, y, z ) ) );            
+    btTransform( btQuaternion( 0, angle, 0, 1 ), btVector3( x, y, z ) ) );            
             
     // Create Domino rigid body
     btScalar mass = 1;

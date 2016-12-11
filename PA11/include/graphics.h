@@ -21,6 +21,9 @@ using namespace std;
 #include "ramp.h"
 #include "domino.h"
 
+// #include "rampThing.h"
+#include "spiral.h"
+
 const int NUM_DOMINOS = 100;
 
 struct Light
@@ -69,12 +72,19 @@ class Graphics
     Table2* m_table2;
     Table3* m_table3;
     Table4* m_table4;    
+    
     Sphere* m_sphere;
+    vector<Sphere*> spheres;
     
     // Table 1 objects
     Ramp* m_ramp;
     vector<Domino*> dominos;
     Domino* m_domino1;
+    
+    // Table 2 objects
+//    RampThing* m_rampThing1;
+//    RampThing* m_rampThing2;
+    Spiral* m_spiral;
   
     vector<Light> lights;
     

@@ -64,7 +64,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   }
 
   // Load the models
-  string objFile = "bedroom.obj";
+  string objFile = "Bed.obj";
   m_room = new Room(objFile, dynamicsWorld);
 
   objFile = "Table.obj";
@@ -79,36 +79,46 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "Table.obj";
   m_table4 = new Table4(objFile, dynamicsWorld);
   
-  objFile = "baseball.obj";
-  m_sphere = new Sphere(objFile, dynamicsWorld);
+  objFile = "baseball.obj";  
+  m_sphere = new Sphere(objFile, dynamicsWorld, 81.6, 80, 92 );
+  spheres.push_back( m_sphere );
+  m_sphere = new Sphere(objFile, dynamicsWorld, 59, 146, 395 );
+  spheres.push_back( m_sphere );
+  m_sphere = new Sphere(objFile, dynamicsWorld, 68, 61, 160 );
+  spheres.push_back( m_sphere );
+  m_sphere = new Sphere(objFile, dynamicsWorld, 80, 61, 190 );
+  spheres.push_back( m_sphere );
+
 
   objFile = "ramp.obj";
   m_ramp = new Ramp(objFile, dynamicsWorld);
 
   objFile = "Domino90.obj";
-  
   for( int index = 0; index < 40; index++ )
      {
-       m_domino1 = new Domino(objFile, dynamicsWorld, 81, 61, 116 + ( 1.9 * (float) index ), 0 );
+       m_domino1 = new Domino(objFile, dynamicsWorld, 81, 61, 113 + ( 1.9 * (float) index ), 0 );
        
        dominos.push_back( m_domino1 );
      }
 
-  for( int index = 0; index < 30; index++ )
+/*
+  for( int index = 0; index < 15; index++ )
      {
-       objFile = "Domino270.obj";
-       m_domino1 = new Domino(objFile, dynamicsWorld, 81 - index, 61, 116 + ( 1.9 * (float) index ), 270  );
+       objFile = "Domino.obj";
+       m_domino1 = new Domino(objFile, dynamicsWorld, 69.5 - ( 1.9 * (float) index ), 60, 160, -90 );
        
        dominos.push_back( m_domino1 );
      }
+*/
+     
+     objFile = "rampLeft.obj";
+//     m_rampThing1 = new RampThing(objFile, dynamicsWorld, "left" );
 
-  for( int index = 0; index < 30; index++ )
-     {
-       objFile = "Domino45.obj";
-       m_domino1 = new Domino(objFile, dynamicsWorld, 81 + index, 61, 116 + ( 1.9 * (float) index ), 45 );
-       
-       dominos.push_back( m_domino1 );
-     }
+     objFile = "rampRight.obj";
+//     m_rampThing2 = new RampThing(objFile, dynamicsWorld, "right" );
+
+     objFile = "spiral.obj";
+     m_spiral = new Spiral(objFile, dynamicsWorld);
 
   // Set up the shaders
   m_shaderGouraud = new Shader( gouraud );
@@ -270,13 +280,21 @@ void Graphics::Update(unsigned int dt, string motion[])
   m_table3->Update(dynamicsWorld, dt);
   m_table4->Update(dynamicsWorld, dt);
 
-  m_sphere->Update(dynamicsWorld, dt);
+  for( int index = 0; index < spheres.size(); index++ )
+     {
+      spheres[ index ]->Update( dynamicsWorld, dt );
+     }
+     
   m_ramp->Update(dynamicsWorld, dt);
 
-  for( int index = 0; index < NUM_DOMINOS; index++ )
+  for( int index = 0; index < dominos.size(); index++ )
      {
       dominos[ index ]->Update( dynamicsWorld, dt );
      }
+
+//  m_rampThing1->Update(dynamicsWorld, dt);     
+//  m_rampThing2->Update(dynamicsWorld, dt);     
+  m_spiral->Update(dynamicsWorld, dt);
 }
 
 void Graphics::swapShaders( string shader )
@@ -331,9 +349,13 @@ void Graphics::Render()
   setLightingUniforms( m_table4 );
   m_table4->Draw();
 
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sphere->getModel()));
-  setLightingUniforms( m_sphere );
-  m_sphere->Draw();
+  for( int index = 0; index < spheres.size(); index++ )
+     {
+      glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(spheres[index]->getModel()));
+      setLightingUniforms( spheres[index] );
+      spheres[index]->Draw();
+     }
+
 
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_ramp->getModel()));
   setLightingUniforms( m_ramp );
@@ -342,15 +364,29 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_domino1->getModel()));
   setLightingUniforms( m_domino1 );
   m_domino1->Draw();
+  
 
-
-  for( int index = 0; index < NUM_DOMINOS; index++ )
+  for( int index = 0; index < dominos.size(); index++ )
      {
       glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(dominos[index]->getModel()));
       setLightingUniforms( dominos[ index ] );
       dominos[ index ]->Draw();
      }
 
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_spiral->getModel()));
+  setLightingUniforms( m_spiral );
+  m_spiral->Draw();
+
+/*
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_rampThing1->getModel()));
+  setLightingUniforms( m_rampThing1 );
+  m_rampThing1->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_rampThing2->getModel()));
+  setLightingUniforms( m_rampThing2 );
+  m_rampThing2->Draw();
+*/
 
   // Get any errors from OpenGL
   auto error = glGetError();
