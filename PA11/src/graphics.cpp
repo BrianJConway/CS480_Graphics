@@ -149,7 +149,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   for(int index = 0; index < 2; index++)
   {
         objFile = "woodBlock.obj";
-        m_block = new Block(objFile, dynamicsWorld, -76, 29.2 + ( 3 * (float) index ), 172.5, 0 );
+        m_block = new Block(objFile, dynamicsWorld, -76, 29.2 + ( 5 * (float) index ), 172.5, 0 );
        
        blocks.push_back( m_block ); 
   }
@@ -157,7 +157,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   for(int index = 0; index < 2; index++)
   {
         objFile = "woodBlock.obj";
-        m_block = new Block(objFile, dynamicsWorld, -73, 29.2 + ( 3 * (float) index ), 172.5, 0 );
+        m_block = new Block(objFile, dynamicsWorld, -73, 29.2 + ( 5 * (float) index ), 172.5, 0 );
        
        blocks.push_back( m_block ); 
   }
