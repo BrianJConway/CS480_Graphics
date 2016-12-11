@@ -86,6 +86,9 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   m_ramp = new Ramp(objFile, dynamicsWorld);
 
   objFile = "Domino90.obj";
+
+  objFile = "Sugar.obj";
+  m_sugar = new Sugar(objFile, dynamicsWorld);
   
   for( int index = 0; index < 40; index++ )
      {
@@ -272,6 +275,7 @@ void Graphics::Update(unsigned int dt, string motion[])
 
   m_sphere->Update(dynamicsWorld, dt);
   m_ramp->Update(dynamicsWorld, dt);
+  m_sugar->Update(dynamicsWorld, dt);
 
   for( int index = 0; index < NUM_DOMINOS; index++ )
      {
@@ -342,6 +346,10 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_domino1->getModel()));
   setLightingUniforms( m_domino1 );
   m_domino1->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_sugar->getModel()));
+  setLightingUniforms( sugar );
+  sugar->Draw();
 
 
   for( int index = 0; index < NUM_DOMINOS; index++ )
