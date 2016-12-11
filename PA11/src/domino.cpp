@@ -12,7 +12,7 @@ Domino::Domino( string fileName, btDiscreteDynamicsWorld* dynamicsWorld, float x
         
     // Create domino motion state, place 2 meters above ground
     btDefaultMotionState* dominoMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion(btVector3(0, 1, 0), btRadians(angle)), btVector3( x, y, z ) ) );            
+    btTransform( btQuaternion( 0, angle, 0, 1 ), btVector3( x, y, z ) ) );            
             
     // Create Domino rigid body
     btScalar mass = 1;
