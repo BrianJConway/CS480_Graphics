@@ -8,11 +8,11 @@ using namespace std;
 Fan::Fan( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create Fan collision shape
-    btCollisionShape* fallShape = new btBoxShape( btVector3(1, 0.7, 1));
+    btCollisionShape* fallShape = new btBoxShape( btVector3(1, 10, 1));
         
     // Create Fan motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -71.8, 32.6, 110 ) ) );            
+    btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(270)), btVector3( -71.8, 50, 110 ) ) );            
             
     // Create Fan rigid body
     btScalar mass = 10;

@@ -12,10 +12,11 @@ Tube2::Tube2( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model(
         
     // Create Tube2 motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -71.8, 32.6, 98.4 ) ) );            
+    btTransform( btQuaternion( btVector3(0, 1, 0), btRadians(90) ), btVector3( -63, 41, 240.7 ) ) ); 
+    btTransform( btQuaternion( btVector3(0, 0, 1), btRadians(30)), btVector3( 0, 0, 0 ) );           
             
     // Create Tube2 rigid body
-    btScalar mass = 10;
+    btScalar mass = 0;
     btVector3 fallInertia = btVector3( 0, 0, 0 );
     fallShape->calculateLocalInertia( mass, fallInertia );
     btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI( 
