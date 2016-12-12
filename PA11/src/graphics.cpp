@@ -296,21 +296,21 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
     
   // Initialize lights
   Light light;
-  light.LightPosition = glm::vec4( 0.1,10.0,-0.1,0.0);
+  light.LightPosition = glm::vec4( 400,170,-123,0.0);
   light.AmbientProduct = glm::vec4(0.2,0.2,0.2,1.0); 
-  light.DiffuseProduct = glm::vec4(0.1,0.1,0.9,1.0); 
-  light.SpecularProduct = glm::vec4(0.9,0.1,0.1,1.0); 
+  light.DiffuseProduct = glm::vec4(0.3,0.3,0.3,1.0); 
+  light.SpecularProduct = glm::vec4(0.1,0.1,0.1,1.0); 
   light.coneAngle = 180.0;
   light.coneDirection = glm::vec3( 0.0, -1.0, 0.0 );
   light.brightness = 1.0;
 
   Light light2;
-  light2.LightPosition = glm::vec4( 0.5,10.0,-1.5,1.0);
-  light2.AmbientProduct = glm::vec4(0.1,0.1,0.1,1.0); 
+  light2.LightPosition = glm::vec4( 80, 120, 100, 1.0);
+  light2.AmbientProduct = glm::vec4(0.0,0.0,0.0,1.0); 
   light2.DiffuseProduct = glm::vec4(0.4,0.4,0.4,1.0); 
   light2.SpecularProduct = glm::vec4(0.6,0.6,0.6,1.0); 
   light2.coneAngle = 10.0;
-  light2.coneDirection = glm::vec3( 0.0, -1.0, -1.5 );
+  light2.coneDirection = glm::vec3( 0.0, -1.0, 0 );
   light2.brightness = 1.0;
   
   
