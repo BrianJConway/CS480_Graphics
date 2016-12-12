@@ -5,10 +5,11 @@
 
 using namespace std;
 
-Tube2::Tube2( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
+Tube2::Tube2( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName, m_objTriMesh )
    {
     // Create Tube2 collision shape
-    btCollisionShape* fallShape = new btBoxShape( btVector3(1, 0.7, 1));
+    btCollisionShape* fallShape = 
+                                new btBvhTriangleMeshShape( m_objTriMesh, true);
         
     // Create Tube2 motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 

@@ -22,7 +22,7 @@ class Tube2: public Model
         ~Tube2();
 
     private:
-        
+        btTriangleMesh* m_objTriMesh; 
 };
 
 #endif

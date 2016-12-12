@@ -5,14 +5,15 @@
 
 using namespace std;
 
-Tube::Tube( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
+Tube::Tube( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName, m_objTriMesh )
    {
     // Create Tube collision shape
-    btCollisionShape* fallShape = new btBoxShape( btVector3(1, 0.7, 1));
+    btCollisionShape* fallShape = 
+                                new btBvhTriangleMeshShape( m_objTriMesh, true);
         
     // Create Tube motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( btVector3(0, 0, 1), btRadians(30)), btVector3( 7.8, 64, 341 ) ) );            
+    btTransform( btQuaternion( btVector3(0, 0, 1), btRadians(10)), btVector3( 6, 75, 330 ) ) );            
             
     // Create Tube rigid body
     btScalar mass = 0;
