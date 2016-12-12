@@ -21,6 +21,7 @@ using namespace std;
 #include "ramp.h"
 #include "domino.h"
 #include "cannon.h"
+#include "top.h"
 
 // #include "rampThing.h"
 #include "spiral.h"
@@ -110,6 +111,7 @@ class Graphics
     // Table 4 objects
     Sugar* m_sugar;
     Cup* m_cup;
+    Top* m_top;
     Pencil* m_pencil;
     vector<Block*> blocks;
     Block* m_block;

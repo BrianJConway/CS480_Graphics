@@ -26,7 +26,7 @@ class Sphere: public Model
 
     private:
         int count = 0;
-        btVector3 cannon = btVector3(81.5, 50.7, 223);
+        btVector3 cannon = btVector3(80.5, 52.7, 223);
         btVector3 start = btVector3( 0, 0, 0 ); 
         btVector3 spiralPoint = btVector3( 66.749, 79.0155, 353.526 );
 };

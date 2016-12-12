@@ -12,7 +12,7 @@ Cannon::Cannon( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
     
     // Create Cannon motion state, place 1 meter below Cannon
     btDefaultMotionState* CannonMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 81, 60, 228 ) ) );
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 80.5, 63, 228 ) ) );
             
     // Create groud rigid body, set mass 0 (immovable)
     btRigidBody::btRigidBodyConstructionInfo CannonRigidBodyCI( 

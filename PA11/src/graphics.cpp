@@ -143,6 +143,9 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
 
   objFile = "Coffee.obj";
   m_cup = new Cup(objFile, dynamicsWorld);
+
+  objFile = "coffeeTop.obj";
+  m_top = new Top(objFile, dynamicsWorld);
   
   objFile = "Pencil.obj";
   m_pencil = new Pencil(objFile, dynamicsWorld);
@@ -418,6 +421,7 @@ void Graphics::Update(unsigned int dt, string motion[])
 
   m_sugar->Update(dynamicsWorld, dt);
   m_cup->Update(dynamicsWorld, dt);
+  m_top->Update(dynamicsWorld, dt);
   m_pencil->Update(dynamicsWorld, dt);
   m_trapezoid->Update(dynamicsWorld, dt);
   m_board->Update(dynamicsWorld, dt);
@@ -548,6 +552,10 @@ void Graphics::Render()
   setLightingUniforms( m_cup );
   m_cup->Draw();
 
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_top->getModel()));
+  setLightingUniforms( m_top );
+  m_top->Draw();
+
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_pencil->getModel()));
   setLightingUniforms( m_pencil );
   m_pencil->Draw();
@@ -657,10 +665,42 @@ void Graphics::adjustLighting( string control )
     else if( control == "I SPEC" )
        {
         m_room->adjustShininess( "UP" );
+        m_table1->adjustShininess( "UP" );
+        m_table2->adjustShininess( "UP" );
+        m_table3->adjustShininess( "UP" );
+        m_table4->adjustShininess( "UP" );
+        m_sugar->adjustShininess( "UP" );
+        m_cup->adjustShininess( "UP" );
+        m_top->adjustShininess( "UP" );
+        m_pencil->adjustShininess( "UP" );
+        m_block->adjustShininess( "UP" );
+    	m_fan->adjustShininess( "UP" );
+    	m_tube->adjustShininess( "UP" );
+    	m_tube->adjustShininess( "UP" );
+    	m_button->adjustShininess( "UP" );
+        m_ramp->adjustShininess( "UP" );
+        m_cannon->adjustShininess( "UP" );
+        m_spiral->adjustShininess( "UP" );
        }
     else if( control == "D SPEC" )
        {
         m_room->adjustShininess( "DOWN" );
+        m_table1->adjustShininess( "DOWN" );
+        m_table2->adjustShininess( "DOWN" );
+        m_table3->adjustShininess( "DOWN" );
+        m_table4->adjustShininess( "DOWN" );
+        m_sugar->adjustShininess( "DOWN" );
+        m_cup->adjustShininess( "DOWN" );
+        m_top->adjustShininess( "DOWN" );
+        m_pencil->adjustShininess( "DOWN" );
+        m_block->adjustShininess( "DOWN" );
+    	m_fan->adjustShininess( "DOWN" );
+    	m_tube->adjustShininess( "DOWN" );
+    	m_tube->adjustShininess( "DOWN" );
+    	m_button->adjustShininess( "DOWN" );
+        m_ramp->adjustShininess( "DOWN" );
+        m_cannon->adjustShininess( "DOWN" );
+        m_spiral->adjustShininess( "DOWN" );
        }
     else if( control == "I SPOT SIZE" )
        {
