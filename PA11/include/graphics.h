@@ -31,6 +31,9 @@ using namespace std;
 #include "trapezoid.h"
 #include "board.h"
 #include "block.h"
+#include "fan.h"
+#include "tube.h"
+#include "tube2.h"
 
 const int NUM_DOMINOS = 100;
 
@@ -109,6 +112,9 @@ class Graphics
     Pencil* m_pencil;
     vector<Block*> blocks;
     Block* m_block;
+	Fan* m_fan;
+	Tube* m_tube;
+	Tube2* m_tube2;
 
     vector<Light> lights;
     

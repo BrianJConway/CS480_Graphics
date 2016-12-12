@@ -145,6 +145,15 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "Board.obj";
   m_board = new Board(objFile, dynamicsWorld);
 
+  objFile = "Fan.obj";
+  m_fan = new Fan(objFile, dynamicsWorld);
+
+  objFile = "Tube.obj";
+  m_tube = new Tube(objFile, dynamicsWorld);
+
+  objFile = "Tube.obj";
+  m_tube2 = new Tube2(objFile, dynamicsWorld);
+
   objFile = "woodBlock.obj";
 
    m_block = new Block(objFile, dynamicsWorld, -76, 29.2, 172.5, 0 );
@@ -385,6 +394,9 @@ void Graphics::Update(unsigned int dt, string motion[])
   m_pencil->Update(dynamicsWorld, dt);
   m_trapezoid->Update(dynamicsWorld, dt);
   m_board->Update(dynamicsWorld, dt);
+  m_fan->Update(dynamicsWorld, dt);
+  m_tube->Update(dynamicsWorld, dt);
+  m_tube2->Update(dynamicsWorld, dt);
 
   for(unsigned int index = 0; index < dominos3.size(); index++ )
      {
@@ -519,6 +531,18 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_board->getModel()));
   setLightingUniforms( m_board );
   m_board->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_fan->getModel()));
+  setLightingUniforms( m_fan );
+  m_fan->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_tube->getModel()));
+  setLightingUniforms( m_tube );
+  m_tube->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_tube2->getModel()));
+  setLightingUniforms( m_tube2 );
+  m_tube2->Draw();
 
   for(unsigned int index = 0; index < dominos3.size(); index++ )
      {
