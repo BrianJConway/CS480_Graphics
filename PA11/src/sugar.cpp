@@ -15,7 +15,7 @@ Sugar::Sugar( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model(
     btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -71.8, 32.6, 98.4 ) ) );            
             
     // Create Sugar rigid body
-    btScalar mass = 10;
+    btScalar mass = 100;
     btVector3 fallInertia = btVector3( 0, 0, 0 );
     fallShape->calculateLocalInertia( mass, fallInertia );
     btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI( 
@@ -28,7 +28,7 @@ Sugar::Sugar( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model(
     rigidBody->setRestitution(0.9);
                         
     // Add Sugar to world
-    dynamicsWorld->addRigidBody( rigidBody, COL_BALL, ballCollidesWith );    
+    dynamicsWorld->addRigidBody( rigidBody );    
    }
 
 Sugar::~Sugar()

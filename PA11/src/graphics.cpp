@@ -98,11 +98,11 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   spheres.push_back( m_sphere );
   
   // table 3  testing sphere
-  m_sphere = new Sphere(objFile, dynamicsWorld, 28, 85, 328);
-  spheres.push_back( m_sphere);
+  //m_sphere = new Sphere(objFile, dynamicsWorld, 28, 85, 328);
+  //spheres.push_back( m_sphere);
 
   // table 3/4 connection sphere
-  m_sphere = new Sphere(objFile, dynamicsWorld, -70, 47, 274);
+  m_sphere = new Sphere(objFile, dynamicsWorld, -68, 46, 280);
   spheres.push_back( m_sphere);
 
   objFile = "cannon.obj";
@@ -162,6 +162,9 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   objFile = "Tube.obj";
   m_tube2 = new Tube2(objFile, dynamicsWorld);
 
+  objFile = "switchbutton.obj";
+  m_button = new Button(objFile, dynamicsWorld);
+
   objFile = "woodBlock.obj";
 
    m_block = new Block(objFile, dynamicsWorld, -76, 29.2, 172.5, 0 );
@@ -180,6 +183,14 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
        blocks.push_back( m_block ); 
 		m_block = new Block(objFile, dynamicsWorld, -74.5, 34, 171.3, 90 );
        blocks.push_back( m_block ); 
+		m_block = new Block(objFile, dynamicsWorld, -75, 35, 172.5, 0 );
+       blocks.push_back( m_block ); 
+		m_block = new Block(objFile, dynamicsWorld, -74, 35, 172.5, 0 );
+       blocks.push_back( m_block );
+		m_block = new Block(objFile, dynamicsWorld, -74.5, 36, 173.7, 90 );
+       blocks.push_back( m_block ); 
+		m_block = new Block(objFile, dynamicsWorld, -74.5, 36, 171.3, 90 );
+       blocks.push_back( m_block );
 
   for(int index = 0; index < 25; index++)
   {
@@ -366,6 +377,14 @@ void Graphics::Update(unsigned int dt, string motion[])
   m_table3->Update(dynamicsWorld, dt);
   m_table4->Update(dynamicsWorld, dt);
 
+  for(unsigned int index = 0; index < spheres.size(); index++)
+  {
+		if(m_pencil->getCOM().distance(spheres[index]->getCOM()) < 10)
+		{
+			m_pencil->setVelocity(btVector3(0, 0, -500));
+		}
+  }
+
   if( Sphere::launched && !(Sphere::passed) )
      {
       Sphere::launchCount++;
@@ -405,6 +424,7 @@ void Graphics::Update(unsigned int dt, string motion[])
   m_fan->Update(dynamicsWorld, dt);
   m_tube->Update(dynamicsWorld, dt);
   m_tube2->Update(dynamicsWorld, dt);
+  m_button->Update(dynamicsWorld, dt);
 
   for(unsigned int index = 0; index < dominos3.size(); index++ )
      {
@@ -551,6 +571,10 @@ void Graphics::Render()
   glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_tube2->getModel()));
   setLightingUniforms( m_tube2 );
   m_tube2->Draw();
+
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_button->getModel()));
+  setLightingUniforms( m_button );
+  m_button->Draw();
 
   for(unsigned int index = 0; index < dominos3.size(); index++ )
      {

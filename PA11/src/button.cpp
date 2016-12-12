@@ -1,20 +1,20 @@
-#include "pencil.h"
+#include "button.h"
 #include <vector>
 #include <cmath>
 #include <iostream>
 
 using namespace std;
 
-Pencil::Pencil( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
+Button::Button( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
-    // Create Pencil collision shape
-    btCollisionShape* fallShape = new btBoxShape( btVector3(1, 10, 1));
+    // Create Button collision shape
+    btCollisionShape* fallShape = new btBoxShape( btVector3(1, 1, 1));
         
-    // Create Pencil motion state, place 50 meters above ground
+    // Create Button motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( btVector3(0, 0, 1), btRadians(90)), btVector3( -67.4, 30, 210 ) ) );            
+    btTransform( btQuaternion( btVector3(0, 0, 0), 1), btVector3( -67.4, 40, 120 ) ) );            
             
-    // Create Pencil rigid body
+    // Create Button rigid body
     btScalar mass = 1;
     btVector3 fallInertia = btVector3( 0, 0, 0 );
     fallShape->calculateLocalInertia( mass, fallInertia );
@@ -27,15 +27,15 @@ Pencil::Pencil( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Mode
 
     rigidBody->setRestitution(0.9);
                         
-    // Add Pencil to world
+    // Add Button to world
     dynamicsWorld->addRigidBody( rigidBody );    
    }
 
-Pencil::~Pencil()
+Button::~Button()
 {
 }
 
-void Pencil::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
+void Button::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
    {
 
     btTransform trans;
@@ -50,17 +50,12 @@ void Pencil::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
     model = glm::make_mat4( m );
    } 
 
-void Pencil::Start()
+void Button::Start()
 {
     
 }
 
-btVector3 Pencil::getCOM()
+btVector3 Button::getCOM()
 {
     return rigidBody->getCenterOfMassPosition();
-}
-
-void Pencil::setVelocity(btVector3 velocity)
-{
-	rigidBody->setLinearVelocity(velocity);
 }

@@ -25,7 +25,7 @@ Block::Block( string fileName, btDiscreteDynamicsWorld* dynamicsWorld, float x, 
     rigidBody->setLinearFactor(btVector3( 1, 1, 1 ) );
     rigidBody->setAngularFactor(btVector3( 1, 1, 1 ) );
     
-    rigidBody->setRestitution( 0.1 );
+    //rigidBody->setRestitution( 0.1 );
                         
     // Add Block to world
     dynamicsWorld->addRigidBody( rigidBody );    

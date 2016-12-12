@@ -1,5 +1,5 @@
-#ifndef PENCIL_H
-#define PENCIL_H
+#ifndef BUTTON_H
+#define BUTTON_H
 
 #include <vector>
 #include "graphics_headers.h"
@@ -9,19 +9,18 @@
 using namespace std;
 
 // Derived from Model Class
-class Pencil: public Model
+class Button: public Model
 {
     public:
         // Constructor
-        Pencil( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
+        Button( string fileName, btDiscreteDynamicsWorld* dynamicsWorld );
         
         void Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt );
         void Start();
-		void setVelocity(btVector3 velocity);
         btVector3 getCOM();
 
         // Destructor
-        ~Pencil();
+        ~Button();
 
     private:
 };

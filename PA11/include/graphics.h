@@ -34,6 +34,7 @@ using namespace std;
 #include "fan.h"
 #include "tube.h"
 #include "tube2.h"
+#include "button.h"
 
 const int NUM_DOMINOS = 100;
 
@@ -115,6 +116,7 @@ class Graphics
 	Fan* m_fan;
 	Tube* m_tube;
 	Tube2* m_tube2;
+	Button* m_button;
 
     vector<Light> lights;
     
