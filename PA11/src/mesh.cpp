@@ -158,7 +158,7 @@ void Mesh::initMesh( unsigned int Index, const aiMesh* mesh )
     vector<unsigned int> Indices;
 
     glm::vec2 vec;
-    glm::vec4 vector; 
+    glm::vec3 vector; 
     glm::vec3 normal; 
     Vertex vertex;
     
@@ -169,7 +169,6 @@ void Mesh::initMesh( unsigned int Index, const aiMesh* mesh )
         vector.x = mesh->mVertices[ index ].x;
         vector.y = mesh->mVertices[ index ].y;
         vector.z = mesh->mVertices[ index ].z;
-        vector.w = 1.0f;
         
         vertex.vertex = vector;
         
@@ -228,7 +227,7 @@ void Mesh::initTriMesh( unsigned int Index, const aiMesh* mesh )
     vector<unsigned int> Indices;
 
     glm::vec2 vec;
-    glm::vec4 vector; 
+    glm::vec3 vector; 
     glm::vec3 normal; 
     Vertex vertex;
     
@@ -239,7 +238,6 @@ void Mesh::initTriMesh( unsigned int Index, const aiMesh* mesh )
         vector.x = mesh->mVertices[ index ].x;
         vector.y = mesh->mVertices[ index ].y;
         vector.z = mesh->mVertices[ index ].z;
-        vector.w = 1.0f;
         
         vertex.vertex = vector;
         
