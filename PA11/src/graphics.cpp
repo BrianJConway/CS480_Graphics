@@ -88,7 +88,7 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   m_table4 = new Table4(objFile, dynamicsWorld);
   
   objFile = "baseball.obj";  
-  m_sphere = new Sphere(objFile, dynamicsWorld, 81.6, 80, 92 );
+  m_sphere = new Sphere(objFile, dynamicsWorld, 81.3, 75, 86 );
   spheres.push_back( m_sphere );
 //  m_sphere = new Sphere(objFile, dynamicsWorld, 59, 146, 395 );
 //  spheres.push_back( m_sphere );
@@ -354,18 +354,9 @@ void Graphics::Update(unsigned int dt, string motion[])
      {
       adjustLighting( motion[ 1 ] );
      }
-  if( motion[0] == "UP")
+  if( motion[0] == "START")
      {
-
-     }
-  if( motion[0] == "RIGHT")
-     {
-
-     }
-  if( motion[0] == "LEFT")
-     {
-
-
+      m_sphere->Start();
      }
      
   double dTime = (double) dt / 500;

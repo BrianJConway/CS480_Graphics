@@ -12,7 +12,7 @@ Ramp::Ramp( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( f
     
     // Create Ramp motion state, place 1 meter below Ramp
     btDefaultMotionState* RampMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 80, 65, 100 ) ) );
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( 81.3, 65, 95 ) ) );
             
     // Create groud rigid body, set mass 0 (immovable)
     btRigidBody::btRigidBodyConstructionInfo RampRigidBodyCI( 

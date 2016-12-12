@@ -58,8 +58,7 @@ void Sphere::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
        {
         passed = true;
        }
-    
-    
+        
     trans.getOpenGLMatrix( m );
     
     model = glm::make_mat4( m );
@@ -67,9 +66,11 @@ void Sphere::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
 
 void Sphere::Start()
 {
-    if(start.distance(rigidBody->getCenterOfMassPosition()) < 1)
+    started = true;
+    
+    if(start.distance(rigidBody->getCenterOfMassPosition()) < 2)
     {
-        rigidBody->applyCentralImpulse( btVector3(0,0,1000));
+        rigidBody->applyCentralImpulse( btVector3(0,0,10));
     }
 }
 
