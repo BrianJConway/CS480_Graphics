@@ -8,7 +8,7 @@ using namespace std;
 Board::Board( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fileName )
    {
     // Create Board collision shape
-    btCollisionShape* fallShape = new btBoxShape( btVector3(5, 0.7, 1));
+    btCollisionShape* fallShape = new btBoxShape( btVector3(5, 1, 3));
         
     // Create Board motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 

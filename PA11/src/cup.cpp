@@ -12,7 +12,7 @@ Cup::Cup( string fileName, btDiscreteDynamicsWorld* dynamicsWorld ) : Model( fil
         
     // Create Cup motion state, place 50 meters above ground
     btDefaultMotionState* fallMotionState = new btDefaultMotionState( 
-    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -57.9, 6.3, 48.2 ) ) );            
+    btTransform( btQuaternion( 0, 0, 0, 1 ), btVector3( -75, 6.3, 70 ) ) );            
             
     // Create Cup rigid body
     btScalar mass = 10;

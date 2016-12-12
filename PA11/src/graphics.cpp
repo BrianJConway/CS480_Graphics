@@ -97,6 +97,14 @@ bool Graphics::Initialize(int width, int height, std::string fNames[] )
   m_sphere = new Sphere(objFile, dynamicsWorld, 81, 61, 215 );
   spheres.push_back( m_sphere );
   
+  // table 3  testing sphere
+  m_sphere = new Sphere(objFile, dynamicsWorld, 28, 85, 328);
+  spheres.push_back( m_sphere);
+
+  // table 3/4 connection sphere
+  m_sphere = new Sphere(objFile, dynamicsWorld, -70, 47, 274);
+  spheres.push_back( m_sphere);
+
   objFile = "cannon.obj";
   m_cannon = new Cannon( objFile, dynamicsWorld );
 
