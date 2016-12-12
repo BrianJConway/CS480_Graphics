@@ -356,7 +356,7 @@ void Graphics::Update(unsigned int dt, string motion[])
      }
   if( motion[0] == "START")
      {
-      m_sphere->Start();
+      spheres[0]->Start();
      }
      
   double dTime = (double) dt / 500;

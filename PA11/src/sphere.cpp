@@ -66,9 +66,8 @@ void Sphere::Update( btDiscreteDynamicsWorld* dynamicsWorld, unsigned int dt )
 
 void Sphere::Start()
 {
-    started = true;
     
-    if(start.distance(rigidBody->getCenterOfMassPosition()) < 2)
+    if(start.distance(rigidBody->getCenterOfMassPosition()) < 1)
     {
         rigidBody->applyCentralImpulse( btVector3(0,0,10));
     }

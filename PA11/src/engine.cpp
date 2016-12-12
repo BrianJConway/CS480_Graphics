@@ -155,7 +155,7 @@ void Engine::Keyboard()
         // Toggle rotation direction key
         else if(m_event.key.keysym.sym == SDLK_SPACE)
            {
-            motion[ 0 ] = "UP";
+            motion[ 0 ] = "START";
            }
         // Toggle rotation direction key
         else if(m_event.key.keysym.sym == SDLK_w)
