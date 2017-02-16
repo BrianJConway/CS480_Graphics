@@ -33,7 +33,7 @@ This is a simulation of various objects interacting with bullet physics. It feat
 ## PA9: Lighting
 This is a modification of the last demo with basic lighting, allowing you to switch betweeen per-vertex and per-fragment lighting.
 
-## PA11: Pinball
+## PA10: Pinball
 This is a simulation of a pinball machine, showcasing interaction, physics, and lighting.
 
 
