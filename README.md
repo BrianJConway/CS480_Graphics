@@ -1,8 +1,5 @@
-# Example OpenGL Graphics Programs
-## This is for use at the University of Nevada, Reno CS 480/680 Graphics Class
-Any students in that class follow the instructions at [**Github Setup**](https://github.com/HPC-Vis/computer-graphics/wiki/Github-Setup) to begin. This is part of the first assignment in the class and necessary for turning in assignments throughout the semester.
-
-Read through the Wiki on this repository to understand how each class works. This Wiki focuses on the code in PA1.
+# CS480 - Computer Graphics
+## University of Nevada, Reno CS 480 Graphics Class
 
 # Projects
 
@@ -32,6 +29,12 @@ This is a simulation of the solar system that uses Assimp to load in .obj files 
 
 ## PA8: Bullet Physics Demo
 This is a simulation of various objects interacting with bullet physics. It features a controllable cube, a sphere, and a static cylinder. To run this project ```cd PA8``` then follow the instructions in the README.md.
+
+## PA9: Lighting
+This is a modification of the last demo with basic lighting, allowing you to switch betweeen per-vertex and per-fragment lighting.
+
+## PA11: Pinball
+This is a simulation of a pinball machine, showcasing interaction, physics, and lighting.
 
 
 

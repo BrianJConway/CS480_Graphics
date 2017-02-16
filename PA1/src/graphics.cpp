@@ -2,7 +2,7 @@
 
 Graphics::Graphics()
 {
-
+  int a = ;
 }
 
 Graphics::~Graphics()
